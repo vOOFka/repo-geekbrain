@@ -1,30 +1,30 @@
 import Foundation
 
-enum EngineActions {
-    case on, off
+enum EngineActions: String {
+    case on = "работает", off = "выключен"
 }
 
-enum WindowsActions {
-    case open, close
+enum WindowsActions: String {
+    case open = "открыты", close = "закрыты"
 }
 
 enum TrunkVolumeActions {
     case load, unload
 }
 
-enum Baggage: Int {
-    case bag = 1
-    case dog = 5
-    case box = 10
-    
+enum Baggage: String {
+    case bag = "сумка"
+    case dog = "собака"
+    case box = "коробка"
+
     var volume: Int {
-        return rawValue
+     switch self {
+        case .bag: return 1
+        case .dog: return 5
+        case .box: return 10
+        }
     }
 }
-
-//let a = TrunkVolumeActions.load
-//let b = Baggage.bag.rawValue
-//let bb = Baggage.bag.volume
 
 struct SportCar {
     let brand: String
@@ -46,70 +46,94 @@ struct SportCar {
     
     mutating func startEngine (engine: EngineActions) {
         self.engineCondition = engine
+        print("Двигатель \(engine.rawValue)")
     }
     
     mutating func openWindows (condition: WindowsActions) {
         self.windowsCondition = condition
+        print("Окна \(condition.rawValue)")
     }
     
-    mutating func trunkOperations (operation: TrunkVolumeActions, volume: Baggage) -> Int {
+    mutating func trunkOperations (operation: TrunkVolumeActions, baggage: Baggage) -> Int {
         if (operation == .load) {
-            filledTrunkVolume += volume.rawValue
+            filledTrunkVolume += baggage.volume
+            print("Попытка загрузить груз: \(baggage.rawValue), объемом \(baggage.volume)")
             if (filledTrunkVolume > trunkVolume) {
                 let remainder = trunkVolume - filledTrunkVolume
                 print("Груз не помещается, остаток объема багажника \(remainder)")
-                return (filledTrunkVolume - volume.rawValue)
+                return (filledTrunkVolume - baggage.volume)
+            } else {
+                print("Груз успешно загружен.")
             }
             return filledTrunkVolume
         } else {
-            filledTrunkVolume -= volume.rawValue
+            filledTrunkVolume -= baggage.volume
+            print("Попытка выгрузить груз: \(baggage.rawValue), объемом \(baggage.volume)")
             if (filledTrunkVolume < 0) {
-                filledTrunkVolume = filledTrunkVolume + volume.rawValue
+                filledTrunkVolume = filledTrunkVolume + baggage.volume
                 print("Такого объема груза нет в багажнике, остаток объема багажника \(filledTrunkVolume)")
                 return filledTrunkVolume
             } else {
+                print("Груз успешно выгружен.")
                 return filledTrunkVolume
             }
         }
     }
+
+    func description () {
+        print("Автомобиль '\(brand)', \(yearOfManufacture) года выпуска, двигатель \(engineCondition.rawValue), окна \(windowsCondition.rawValue). Загрузка багажника: \(filledTrunkVolume) из \(trunkVolume).")
+    
+    }
 }
 
 struct TrunkCar {
- let brand: String
- let yearOfManufacture: Int
- var engineCondition: EngineActions
- var windowsCondition: WindowsActions
- var trunkVolume:Int
- var filledTrunkVolume: Int
- 
- mutating func startEngine (engine: EngineActions) {
-     self.engineCondition = engine
- }
- 
- mutating func openWindows (condition: WindowsActions) {
-     self.windowsCondition = condition
- }
- 
- mutating func trunkOperations (operation: TrunkVolumeActions, volume: Baggage) -> Int {
-     if (operation == .load) {
-         filledTrunkVolume += volume.rawValue
-         if (filledTrunkVolume > trunkVolume) {
-             let remainder = trunkVolume - filledTrunkVolume
-             print("Груз не помещается, остаток объема багажника \(remainder)")
-             return (filledTrunkVolume - volume.rawValue)
-         }
-         return filledTrunkVolume
-     } else {
-         filledTrunkVolume -= volume.rawValue
-         if (filledTrunkVolume < 0) {
-             filledTrunkVolume = filledTrunkVolume + volume.rawValue
-             print("Такого объема груза нет в багажнике, остаток объема багажника \(filledTrunkVolume)")
-             return filledTrunkVolume
-         } else {
-             return filledTrunkVolume
-         }
-     }
- }
+    let brand: String
+    let yearOfManufacture: Int
+    var engineCondition: EngineActions
+    var windowsCondition: WindowsActions
+    var trunkVolume:Int
+    var filledTrunkVolume: Int
+    
+    mutating func startEngine (engine: EngineActions) {
+        self.engineCondition = engine
+        print("Двигатель \(engine.rawValue)")
+    }
+    
+    mutating func openWindows (condition: WindowsActions) {
+        self.windowsCondition = condition
+        print("Окна \(condition.rawValue)")
+    }
+    
+    mutating func trunkOperations (operation: TrunkVolumeActions, baggage: Baggage) -> Int {
+        if (operation == .load) {
+            filledTrunkVolume += baggage.volume
+            print("Попытка загрузить груз: \(baggage.rawValue), объемом \(baggage.volume)")
+            if (filledTrunkVolume > trunkVolume) {
+                let remainder = trunkVolume - filledTrunkVolume
+                print("Груз не помещается, остаток объема багажника \(remainder)")
+                return (filledTrunkVolume - baggage.volume)
+            } else {
+                print("Груз успешно загружен.")
+            }
+            return filledTrunkVolume
+        } else {
+            filledTrunkVolume -= baggage.volume
+            print("Попытка выгрузить груз: \(baggage.rawValue), объемом \(baggage.volume)")
+            if (filledTrunkVolume < 0) {
+                filledTrunkVolume = filledTrunkVolume + baggage.volume
+                print("Такого объема груза нет в багажнике, остаток объема багажника \(filledTrunkVolume)")
+                return filledTrunkVolume
+            } else {
+                print("Груз успешно выгружен.")
+                return filledTrunkVolume
+            }
+        }
+    }
+
+    func description () {
+        print("Автомобиль '\(brand)', \(yearOfManufacture) года выпуска, двигатель \(engineCondition.rawValue), окна \(windowsCondition.rawValue). Загрузка багажника: \(filledTrunkVolume) из \(trunkVolume).")
+    
+    }
 }
 
 var sportCar1 = SportCar(brand: "Ferrary",
@@ -126,14 +150,15 @@ var sportCar2 = SportCar(brand: "Bugatti",
                     trunkVolume: 5,
                     filledTrunkVolume: 0)
 
-sportCar1.trunkOperations(operation: .load, volume: .bag)
-print(sportCar1)
-sportCar1.trunkOperations(operation: .unload, volume: .bag)
-print(sportCar1)
+sportCar1.trunkOperations(operation: .load, baggage: .bag)
+sportCar1.description()
+sportCar1.trunkOperations(operation: .unload, baggage: .bag)
+sportCar1.description()
 sportCar1.openWindows(condition: .open)
-print(sportCar1)
-sportCar2.trunkOperations(operation: .unload, volume: .box)
-print(sportCar2)
+sportCar1.description()
+sportCar2.trunkOperations(operation: .unload, baggage: .box)
+sportCar2.description()
+
 
 var trunkCar1 = TrunkCar(brand: "Tatra",
                          yearOfManufacture: 1995,
@@ -148,12 +173,14 @@ var trunkCar2 = TrunkCar(brand: "BigFoot",
                          windowsCondition: .open,
                          trunkVolume: 150,
                          filledTrunkVolume: 100)
+
+print("------------------------------------------------")
 print("Грузовики:")
-print(trunkCar1)
+trunkCar1.description()
 trunkCar1.startEngine(engine: .off)
-print(trunkCar2)
+trunkCar2.description()
 print("Погрузка...")
-trunkCar2.trunkOperations(operation: .load, volume: .dog)
-trunkCar2.trunkOperations(operation: .load, volume: .bag)
-trunkCar2.trunkOperations(operation: .load, volume: .box)
-print(trunkCar2)
+trunkCar2.trunkOperations(operation: .load, baggage: .dog)
+trunkCar2.trunkOperations(operation: .load, baggage: .bag)
+trunkCar2.trunkOperations(operation: .load, baggage: .box)
+trunkCar2.description()
