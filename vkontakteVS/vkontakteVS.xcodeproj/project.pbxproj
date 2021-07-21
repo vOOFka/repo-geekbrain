@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */; };
 		F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85626A5DBBB00B1853C /* SceneDelegate.swift */; };
-		F4B0C85926A5DBBB00B1853C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85826A5DBBB00B1853C /* ViewController.swift */; };
+		F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85826A5DBBB00B1853C /* LoginFormViewController.swift */; };
 		F4B0C85C26A5DBBB00B1853C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B0C85A26A5DBBB00B1853C /* Main.storyboard */; };
 		F4B0C85E26A5DBBE00B1853C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B0C85D26A5DBBE00B1853C /* Assets.xcassets */; };
 		F4B0C86126A5DBBE00B1853C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B0C85F26A5DBBE00B1853C /* LaunchScreen.storyboard */; };
 		F4B0C86C26A5DBBE00B1853C /* vkontakteVSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C86B26A5DBBE00B1853C /* vkontakteVSTests.swift */; };
 		F4B0C87726A5DBBE00B1853C /* vkontakteVSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C87626A5DBBE00B1853C /* vkontakteVSUITests.swift */; };
+		F4DDA0E126A86436002DEAE8 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0E026A86436002DEAE8 /* FriendsTableViewController.swift */; };
+		F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */; };
+		F4DDA0EB26A890A7002DEAE8 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0EA26A890A7002DEAE8 /* GroupTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,7 @@
 		F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkontakteVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B0C85626A5DBBB00B1853C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F4B0C85826A5DBBB00B1853C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F4B0C85826A5DBBB00B1853C /* LoginFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormViewController.swift; sourceTree = "<group>"; };
 		F4B0C85B26A5DBBB00B1853C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4B0C85D26A5DBBE00B1853C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4B0C86026A5DBBE00B1853C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,9 @@
 		F4B0C87226A5DBBE00B1853C /* vkontakteVSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vkontakteVSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B0C87626A5DBBE00B1853C /* vkontakteVSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vkontakteVSUITests.swift; sourceTree = "<group>"; };
 		F4B0C87826A5DBBE00B1853C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4DDA0E026A86436002DEAE8 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		F4DDA0EA26A890A7002DEAE8 /* GroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +107,11 @@
 			children = (
 				F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */,
 				F4B0C85626A5DBBB00B1853C /* SceneDelegate.swift */,
-				F4B0C85826A5DBBB00B1853C /* ViewController.swift */,
+				F4B0C85826A5DBBB00B1853C /* LoginFormViewController.swift */,
 				F4B0C85A26A5DBBB00B1853C /* Main.storyboard */,
+				F4DDA0EA26A890A7002DEAE8 /* GroupTableViewController.swift */,
+				F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */,
+				F4DDA0E026A86436002DEAE8 /* FriendsTableViewController.swift */,
 				F4B0C85D26A5DBBE00B1853C /* Assets.xcassets */,
 				F4B0C85F26A5DBBE00B1853C /* LaunchScreen.storyboard */,
 				F4B0C86226A5DBBE00B1853C /* Info.plist */,
@@ -258,9 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4B0C85926A5DBBB00B1853C /* ViewController.swift in Sources */,
+				F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */,
 				F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */,
+				F4DDA0E126A86436002DEAE8 /* FriendsTableViewController.swift in Sources */,
 				F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */,
+				F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */,
+				F4DDA0EB26A890A7002DEAE8 /* GroupTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
