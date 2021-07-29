@@ -11,17 +11,17 @@ struct Friend {
     let name: String
     let image: UIImage?
     let photos: [UIImage]
+    private static let friendsNameArray = ["Иванов Иван","Петров Петр","Ледова Катя","Медведева Мария","Илья Муромец","Алеша Попович","Борисов Борис"]
+}
+
+extension Friend {
     
-    static var friendsNameArray = ["Иванов Иван","Петров Петр","Ледова Катя","Медведева Мария","Илья Муромец","Алеша Попович","Борисов Борис"]
-    
-    static func getFriends() -> [Friend] {
-        
+    static let allFriends: [Friend] = {
         var friends = [Friend]()
-        
         for friend in friendsNameArray {
-            let photos = Photos.getPhotos()
+            let photos = Photos.getRandomPhotos()
             friends.append(Friend(name: friend, image: UIImage(named: friend), photos: photos ))
         }
         return friends
-    }
+    }()
 }

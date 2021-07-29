@@ -10,36 +10,29 @@ import UIKit
 class FriendPhotosCollectionViewController: UICollectionViewController {
         
     //MARK: Outlets
-    @IBOutlet var friendPhotosCollectionView: UICollectionView!
+    @IBOutlet private var friendPhotosCollectionView: UICollectionView!
     
     //MARK: Var
     let reuseIdentifier = "PhotosCollectionViewCell"
-    var currentFriend: Friend!
+    var currentFriend: Friend?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // Do any additional setup after loading the view.
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentFriend.photos.count
+        return currentFriend?.photos.count ?? 0
     }
-
+        
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PhotosCollectionViewCell else {
-            fatalError("Все плохо!")
+            fatalError("Message: Error in dequeue PhotosCollectionViewCell")
         }
         
-        //cell.photoImageView.image = currentFriend.photos[indexPath.row]
-        cell.setup(currentFriend: currentFriend, index: indexPath)
+        cell.photoImageView.image = currentFriend?.photos[indexPath.row]
 
         return cell
     }

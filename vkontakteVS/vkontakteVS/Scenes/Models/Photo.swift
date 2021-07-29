@@ -10,10 +10,11 @@ import UIKit
 struct Photos {
     let photo: UIImage?
     
-    static let photoArray = ["001","002","003","004","005","006","007","008","009","010"]
-    
-    static func getPhotos() -> [UIImage] {
-        
+    private static let photoArray = ["001","002","003","004","005","006","007","008","009","010"]
+}
+
+extension Photos {
+    static func getRandomPhotos() -> [UIImage] {
         var photos = [UIImage]()
         for _ in (0...3) {
             let randomPhoto = photoArray.randomElement()!

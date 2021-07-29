@@ -10,11 +10,11 @@ import UIKit
 class UserGroupsTableViewController: UITableViewController {
    
     //MARK: - Outlets
-    @IBOutlet var groupsTableView: UITableView!
+    @IBOutlet private var groupsTableView: UITableView!
     
     //MARK: - Var
-    var userGroupsNames = ["Автолюбители","Гринпис"]
-    lazy var userGroups = Group.getGroups(userGroupsNames)
+    //var userGroupsNames = ["Автолюбители","Гринпис"]
+    var userGroups = Group.userGroups
     private let cellID = "GroupTableViewCell"
     
     //MARK: - Navigation
@@ -28,7 +28,6 @@ class UserGroupsTableViewController: UITableViewController {
             group.name == newUserGroupe.name
         }) else { return }
         
-        //userGroupsNames.append(newUserGroupe.name)
         userGroups.append(newUserGroupe)
         groupsTableView.reloadData()
     }
@@ -40,7 +39,7 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? GroupTableViewCell else {
-            fatalError("Все плохо!")
+            fatalError(" Message: Error in dequeue GroupTableViewCell")
         }
         cell.groupImage.image = userGroups[indexPath.row].image
         cell.groupName.text = userGroups[indexPath.row].name
@@ -53,7 +52,8 @@ class UserGroupsTableViewController: UITableViewController {
         switch editingStyle {
         case .delete:
             userGroups.remove(at: indexPath.row)
-            tableView.reloadData()
+            //tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             return
         }
