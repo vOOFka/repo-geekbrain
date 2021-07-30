@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */; };
+		84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE42EB26B3F16400D80DE2 /* LikesControl.swift */; };
 		F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F431C0C826B1FDAE0028827E /* AvatarView.swift */; };
 		F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */; };
 		F4A4D65526AE12A1001BE376 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photo.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveliableGroupsTableViewController.swift; sourceTree = "<group>"; };
+		84CE42EB26B3F16400D80DE2 /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
 		F431C0C826B1FDAE0028827E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		F4A4D65426AE12A1001BE376 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -98,6 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84CE42ED26B3F18500D80DE2 /* PhotosFriends */ = {
+			isa = PBXGroup;
+			children = (
+				F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */,
+				84CE42EB26B3F16400D80DE2 /* LikesControl.swift */,
+				F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */,
+			);
+			path = PhotosFriends;
+			sourceTree = "<group>";
+		};
 		F431C0C426B1F8010028827E /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +183,7 @@
 		F4DDA0F326AAC926002DEAE8 /* UserGroups */ = {
 			isa = PBXGroup;
 			children = (
-				F4DDA0F626AAC9BF002DEAE8 /* Cells */,
+				F4DDA0F626AAC9BF002DEAE8 /* Cell */,
 				F4DDA0EA26A890A7002DEAE8 /* UserGroupsTableViewController.swift */,
 				84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */,
 			);
@@ -197,32 +209,31 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		F4DDA0F626AAC9BF002DEAE8 /* Cells */ = {
+		F4DDA0F626AAC9BF002DEAE8 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				F4DDA0F726AACA04002DEAE8 /* GroupTableViewCell.swift */,
 			);
-			path = Cells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F4F5B10F26AAE43400BD17EF /* UserFriends */ = {
 			isa = PBXGroup;
 			children = (
-				F4F5B11326AAE47C00BD17EF /* Cells */,
-				F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */,
+				84CE42ED26B3F18500D80DE2 /* PhotosFriends */,
+				F4F5B11326AAE47C00BD17EF /* Cell */,
 				F4DDA0E026A86436002DEAE8 /* FriendsTableViewController.swift */,
 			);
 			path = UserFriends;
 			sourceTree = "<group>";
 		};
-		F4F5B11326AAE47C00BD17EF /* Cells */ = {
+		F4F5B11326AAE47C00BD17EF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				F431C0C426B1F8010028827E /* Custom */,
 				F4F5B11426AAE4B500BD17EF /* FriendTableViewCell.swift */,
-				F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */,
 			);
-			path = Cells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */,
 				F4A4D65526AE12A1001BE376 /* Photo.swift in Sources */,
 				F4DDA0F826AACA04002DEAE8 /* GroupTableViewCell.swift in Sources */,
 				84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */,

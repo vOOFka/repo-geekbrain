@@ -7,7 +7,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class AvatarView: UIView {
     
     private var size = CGSize()
