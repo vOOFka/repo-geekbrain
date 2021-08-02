@@ -11,7 +11,4 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
  
-    func setup(currentFriend: Friend, index: IndexPath) {
-        photoImageView.image = currentFriend.photos[index.row]
-    }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */; };
+		F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F431C0C826B1FDAE0028827E /* AvatarView.swift */; };
 		F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */; };
 		F4A4D65526AE12A1001BE376 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photo.swift */; };
 		F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveliableGroupsTableViewController.swift; sourceTree = "<group>"; };
+		F431C0C826B1FDAE0028827E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		F4A4D65426AE12A1001BE376 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkontakteVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F431C0C426B1F8010028827E /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				F431C0C826B1FDAE0028827E /* AvatarView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		F4B0C84826A5DBBB00B1853C = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 		F4F5B11326AAE47C00BD17EF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				F431C0C426B1F8010028827E /* Custom */,
 				F4F5B11426AAE4B500BD17EF /* FriendTableViewCell.swift */,
 				F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */,
 			);
@@ -353,6 +364,7 @@
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,
 				F4F5B10626AAE06900BD17EF /* Group.swift in Sources */,
 				F4DDA0E126A86436002DEAE8 /* FriendsTableViewController.swift in Sources */,
+				F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */,
 				F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */,
 				F4F5B10B26AAE3D200BD17EF /* Friend.swift in Sources */,
 				F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */,

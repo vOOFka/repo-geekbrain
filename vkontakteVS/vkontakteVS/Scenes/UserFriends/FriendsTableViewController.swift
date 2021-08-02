@@ -10,11 +10,10 @@ import UIKit
 class FriendsTableViewController: UITableViewController {
     
     //MARK: - Outlets
-    @IBOutlet var friendsTableView: UITableView!
+    @IBOutlet private var friendsTableView: UITableView!
   
     //MARK: - Var
-    let friendsNameArray = Friend.getFriends()
-    
+    private let friendsArray = Friend.allFriends
     private let cellID = "FriendTableViewCell"
     
     //MARK: - Navigation
@@ -22,7 +21,7 @@ class FriendsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let friendClick = friendsNameArray[indexPath.row]
+            let friendClick = friendsArray[indexPath.row]
             let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
             currentFriendPhotosVC.currentFriend = friendClick            
         }
@@ -30,15 +29,16 @@ class FriendsTableViewController: UITableViewController {
     
     //MARK: - Functions
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsNameArray.count
+        return friendsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FriendTableViewCell else {
-            fatalError("Все плохо!")
+            fatalError("Message: Error in dequeue FriendTableViewCell")
         }
-        cell.friendImage.image = friendsNameArray[indexPath.row].image
-        cell.friendName.text = friendsNameArray[indexPath.row].name
+        
+        cell.friendImage.image = friendsArray[indexPath.row].image
+        cell.friendName.text = friendsArray[indexPath.row].name
         
         return cell
         

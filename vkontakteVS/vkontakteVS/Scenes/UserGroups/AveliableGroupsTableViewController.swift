@@ -10,11 +10,10 @@ import UIKit
 class AveliableGroupsTableViewController: UITableViewController {
 
     //MARK: - Outlets
-    @IBOutlet var aveliableGroupsTableView: UITableView!
+    @IBOutlet private var aveliableGroupsTableView: UITableView!
     
     //MARK: - Var
-    var aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!"]
-    lazy var aveliableGroups = Group.getGroups(aveliableGroupsNames)
+    let aveliableGroups = Group.aveliableGroups
     private let cellID = "AveliableGroupTableViewCell"
     
     override func viewDidLoad() {
@@ -30,7 +29,7 @@ class AveliableGroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? GroupTableViewCell else {
-            fatalError("Все плохо!")
+            fatalError("Message: Error in dequeue GroupTableViewCell")
         }
         cell.groupImage.image = aveliableGroups[indexPath.row].image
         cell.groupName.text = aveliableGroups[indexPath.row].name

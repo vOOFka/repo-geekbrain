@@ -11,16 +11,24 @@ struct Group {
     let name: String
     let image: UIImage?
     
-//    static var userGroupsNames = ["Автолюбители","Гринпис"]
-//    static var aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!"]
+    private static let userGroupsNames = ["Автолюбители","Гринпис"]
+    private static let aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!"]
     
-    static func getGroups (_ arrayGroupsNames: [String]) -> [Group] {
-        
+    static let userGroups: [Group] = {
         var groups = [Group]()
         
-        for group in arrayGroupsNames {
+        for group in userGroupsNames {
             groups.append(Group(name: group, image: UIImage(named: group)))
         }
         return groups
-    }
+    }()
+    
+    static let aveliableGroups: [Group] = {
+        var groups = [Group]()
+        
+        for group in aveliableGroupsNames {
+            groups.append(Group(name: group, image: UIImage(named: group)))
+        }
+        return groups
+    }()
 }
