@@ -7,11 +7,12 @@
 
 import UIKit
 
+@IBDesignable
 class LikesControl: UIControl {
     
     // MARK: Vars
-    private var stackView: UIStackView!
-    private var likeButton = UIButton()
+    private var stackView = UIStackView()
+    private var likeButton = LikeButton()
     private var likesLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -30,28 +31,34 @@ class LikesControl: UIControl {
         stackView.frame = bounds
     }
     
-    override func draw(_ rect: CGRect) {
-//        super.draw(rect)
-//
-//        guard let context = UIGraphicsGetCurrentContext() else { return }
-//        context.setFillColor(UIColor.red.cgColor)
-//        context.fill(CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height))
-        
-    }
-    
     private func setupLikesUI() {
-        likeButton.backgroundColor = UIColor.black
-        likeButton.sizeThatFits(CGSize(width: 20, height: 20))
+        likeButton.addTarget(self, action: #selector(clickLikes(_:)), for: .touchUpInside)
+        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
         
         likesLabel.text = "0"
         likesLabel.textColor = UIColor.black
         likesLabel.textAlignment = .center
-        
+
         stackView = UIStackView(arrangedSubviews: [likesLabel, likeButton])
-        //stackView.spacing = 10 //error in console
+
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
+        
         self.addSubview(stackView)
     }
+    
+    @objc private func clickLikes(_ sender: UIButton) {
+        var likes = Int(likesLabel.text ?? "0")
+        
+        if likeButton.likeState == false {
+            likes! = likes! + 1
+        } else {
+            likes! = likes! - 1
+        }
+        likeButton.likeState = !likeButton.likeState
+        likesLabel.text = String(likes!)
+    }
+
 }

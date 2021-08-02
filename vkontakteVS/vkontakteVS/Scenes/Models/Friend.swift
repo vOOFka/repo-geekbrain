@@ -15,7 +15,7 @@ struct Friend {
 }
 
 extension Friend {
-    
+  
     static let allFriends: [Friend] = {
         var friends = [Friend]()
         for friend in friendsNameArray {
@@ -24,4 +24,10 @@ extension Friend {
         }
         return friends
     }()
+   
+    static func lettersFriends() -> [String] {
+        var array = friendsNameArray.map({ String($0.first!) })
+        array = Array(Set(array))
+        return array.sorted()
+    }
 }

@@ -14,6 +14,8 @@ class FriendsTableViewController: UITableViewController {
   
     //MARK: - Var
     private let friendsArray = Friend.allFriends
+    private let friendsLetters = Friend.lettersFriends()
+    private let friendsCategory = FriendsCategory.allCategorys
     private let cellID = "FriendTableViewCell"
     
     //MARK: - Navigation
@@ -28,8 +30,13 @@ class FriendsTableViewController: UITableViewController {
     }
     
     //MARK: - Functions
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return friendsCategory.count
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsArray.count
+        return friendsCategory.first!.friends.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -14,17 +14,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LoginFormViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zke-SM-lzS">
-                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ezc-Ta-Awh">
-                                        <rect key="frame" x="0.0" y="0.0" width="428" height="848"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-AN-oYE">
-                                                <rect key="frame" x="164" y="334" width="100" height="39"/>
+                                                <rect key="frame" x="157" y="306" width="100" height="39"/>
                                                 <color key="backgroundColor" red="0.99991279840000002" green="1" blue="0.99988144639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="ICz-oK-fkU"/>
@@ -40,7 +40,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eKM-pt-yyU" userLabel="Stack View Horizontal">
-                                                <rect key="frame" x="74" y="228" width="280" height="78"/>
+                                                <rect key="frame" x="67" y="200" width="280" height="78"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fc4-GL-oKy">
                                                         <rect key="frame" x="0.0" y="0.0" width="65" height="78"/>
@@ -93,7 +93,7 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vk" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-tL-yDO">
-                                        <rect key="frame" x="160.66666666666666" y="0.0" width="106.99999999999997" height="212"/>
+                                        <rect key="frame" x="155.33333333333334" y="0.0" width="103.33333333333334" height="184"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -156,15 +156,15 @@
             <objects>
                 <tableViewController id="5UX-zM-DRy" customClass="UserGroupsTableViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BhD-qR-cPN">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="126.33333587646484"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ex1-M7-Xja">
@@ -176,7 +176,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wvm-B5-kaJ">
-                                            <rect key="frame" x="135.33333333333334" y="15.999999999999998" width="262.66666666666663" height="28.333333333333329"/>
+                                            <rect key="frame" x="135.33333333333337" y="15.999999999999998" width="248.66666666666663" height="28.333333333333329"/>
                                             <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -203,6 +203,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="iyF-tt-JfH">
+                        <barButtonItem key="backBarButtonItem" title="Мои группы" id="tEu-pT-xgV"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Rv-u8-umf">
                             <connections>
                                 <segue destination="UUu-QB-DwQ" kind="show" id="Vh9-qB-lh7"/>
@@ -222,19 +223,19 @@
             <objects>
                 <tableViewController id="tEh-fx-ZDc" customClass="FriendsTableViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PXN-Ea-n3R">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="FriendTableViewCell" id="6XC-Ol-mjb" customClass="FriendTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="140.33332824707031"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="140.33332824707031"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6XC-Ol-mjb" id="fzU-Fo-5cD">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="140.33332824707031"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="140.33332824707031"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRa-uK-6Fu">
-                                            <rect key="frame" x="140" y="15.999999999999998" width="258" height="20.333333333333329"/>
+                                            <rect key="frame" x="140" y="15.999999999999998" width="244" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -288,7 +289,9 @@
                             <outlet property="delegate" destination="tEh-fx-ZDc" id="t7l-3A-kwa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rSz-pP-P98"/>
+                    <navigationItem key="navigationItem" id="rSz-pP-P98">
+                        <barButtonItem key="backBarButtonItem" title="К списку друзей" id="kgL-hT-voy"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="friendsTableView" destination="PXN-Ea-n3R" id="q5j-nh-Wc0"/>
                     </connections>
@@ -302,7 +305,7 @@
             <objects>
                 <collectionViewController id="7Ow-cE-bHL" customClass="FriendPhotosCollectionViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="xFA-Yk-6fv">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4kt-uo-vyf">
@@ -325,21 +328,21 @@
                                                 <constraint firstAttribute="width" secondItem="px0-Ge-px4" secondAttribute="height" multiplier="1:1" priority="999" id="6FB-4e-JbK"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" id="8PT-8n-A7S" customClass="LikesControl" customModule="vkontakteVS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="128" width="128" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <view contentMode="center" id="8PT-8n-A7S" customClass="LikesControl" customModule="vkontakteVS" customModuleProvider="target">
+                                            <rect key="frame" x="32" y="128" width="64" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="px0-Ge-px4" firstAttribute="top" secondItem="q2N-AR-aem" secondAttribute="top" id="8G9-bo-fGz"/>
                                         <constraint firstAttribute="trailing" secondItem="px0-Ge-px4" secondAttribute="trailing" id="95k-Re-iv7"/>
                                         <constraint firstAttribute="bottom" secondItem="px0-Ge-px4" secondAttribute="bottom" constant="50" id="GQf-d6-4ti"/>
-                                        <constraint firstItem="8PT-8n-A7S" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="px0-Ge-px4" secondAttribute="bottom" constant="50" id="VTB-bU-vuV"/>
                                         <constraint firstItem="px0-Ge-px4" firstAttribute="leading" secondItem="q2N-AR-aem" secondAttribute="leading" id="yqj-7K-0wa"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="128" height="178"/>
                                 <connections>
+                                    <outlet property="likesControl" destination="8PT-8n-A7S" id="S7e-VE-fEn"/>
                                     <outlet property="photoImageView" destination="px0-Ge-px4" id="F5N-jF-lqE"/>
                                 </connections>
                             </collectionViewCell>
@@ -351,15 +354,41 @@
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Item" id="7SY-sr-Ap6"/>
                     <navigationItem key="navigationItem" id="LuS-Ou-ilV">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="TTr-Wg-2Km"/>
+                        <barButtonItem key="backBarButtonItem" title="Галлерея" id="TTr-Wg-2Km"/>
                     </navigationItem>
                     <connections>
                         <outlet property="friendPhotosCollectionView" destination="xFA-Yk-6fv" id="Oy4-Fa-3pM"/>
+                        <segue destination="dp7-rc-geE" kind="show" identifier="FriendPhotoFullScreen" id="q1x-nD-E1B"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynr-gh-96j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3556.5420560747662" y="-515.11879049676031"/>
+        </scene>
+        <!--Friend Photo Full Screen-->
+        <scene sceneID="yjl-ia-OCW">
+            <objects>
+                <viewController id="dp7-rc-geE" customClass="FriendPhotoFullScreen" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KCp-VW-sgS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dEc-OH-0UL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zkI-Kf-gE7"/>
+                    <connections>
+                        <outlet property="photoFullScreenImage" destination="orh-fm-OQa" id="4J6-fM-zwd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J9i-Z6-LBk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4392.753623188406" y="-515.21739130434787"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="7js-hc-Q8n">
@@ -368,7 +397,7 @@
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2.fill" catalog="system" id="Z1E-WC-oC9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SYc-ZK-fBs">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -385,15 +414,15 @@
             <objects>
                 <tableViewController id="UUu-QB-DwQ" customClass="AveliableGroupsTableViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uU5-2M-xoM">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUh-1C-5gY" id="JzU-KC-SFe">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="126.33333587646484"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-jX-gNZ">
@@ -405,7 +434,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLh-A5-gyt">
-                                            <rect key="frame" x="135.33333333333334" y="15.999999999999998" width="262.66666666666663" height="28.333333333333329"/>
+                                            <rect key="frame" x="135.33333333333337" y="15.999999999999998" width="248.66666666666663" height="28.333333333333329"/>
                                             <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -433,7 +462,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="2b0-yQ-jN6">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="lnZ-So-B8K"/>
                         <barButtonItem key="rightBarButtonItem" title="SearchGroup" image="magnifyingglass" catalog="system" id="Q8O-gf-Cwc"/>
                     </navigationItem>
                     <connections>
@@ -452,7 +480,7 @@
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" id="GD9-Uc-dOB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zXJ-xV-btu">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
