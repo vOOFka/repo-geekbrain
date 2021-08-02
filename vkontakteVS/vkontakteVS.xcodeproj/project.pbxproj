@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */; };
+		84CE038226B82CF1008F6E98 /* FriendsTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CE038126B82CF1008F6E98 /* FriendsTableViewHeader.xib */; };
 		84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE42EB26B3F16400D80DE2 /* LikesControl.swift */; };
+		84DB71CD26B82B4200056C2D /* FriendsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB71CC26B82B4200056C2D /* FriendsTableViewHeader.swift */; };
 		F408AFC926B75088004DBF67 /* FriendPhotoFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F408AFC826B75088004DBF67 /* FriendPhotoFullScreen.swift */; };
 		F408AFCE26B76E51004DBF67 /* FriendsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F408AFCD26B76E51004DBF67 /* FriendsCategory.swift */; };
 		F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F431C0C826B1FDAE0028827E /* AvatarView.swift */; };
@@ -52,7 +54,9 @@
 
 /* Begin PBXFileReference section */
 		84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveliableGroupsTableViewController.swift; sourceTree = "<group>"; };
+		84CE038126B82CF1008F6E98 /* FriendsTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsTableViewHeader.xib; sourceTree = "<group>"; };
 		84CE42EB26B3F16400D80DE2 /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
+		84DB71CC26B82B4200056C2D /* FriendsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewHeader.swift; sourceTree = "<group>"; };
 		F408AFC826B75088004DBF67 /* FriendPhotoFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoFullScreen.swift; sourceTree = "<group>"; };
 		F408AFCD26B76E51004DBF67 /* FriendsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCategory.swift; sourceTree = "<group>"; };
 		F431C0C826B1FDAE0028827E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -119,9 +123,19 @@
 			path = PhotosFriends;
 			sourceTree = "<group>";
 		};
+		84DB71CE26B82B4C00056C2D /* SectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				84DB71CC26B82B4200056C2D /* FriendsTableViewHeader.swift */,
+				84CE038126B82CF1008F6E98 /* FriendsTableViewHeader.xib */,
+			);
+			path = SectionHeader;
+			sourceTree = "<group>";
+		};
 		F431C0C426B1F8010028827E /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				84DB71CE26B82B4C00056C2D /* SectionHeader */,
 				F431C0C826B1FDAE0028827E /* AvatarView.swift */,
 			);
 			path = Custom;
@@ -353,6 +367,7 @@
 			files = (
 				F4B0C86126A5DBBE00B1853C /* LaunchScreen.storyboard in Resources */,
 				F4B0C85E26A5DBBE00B1853C /* Assets.xcassets in Resources */,
+				84CE038226B82CF1008F6E98 /* FriendsTableViewHeader.xib in Resources */,
 				F4B0C85C26A5DBBB00B1853C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +407,7 @@
 				F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */,
 				F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */,
 				F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */,
+				84DB71CD26B82B4200056C2D /* FriendsTableViewHeader.swift in Sources */,
 				F408AFC926B75088004DBF67 /* FriendPhotoFullScreen.swift in Sources */,
 				F4F5B10B26AAE3D200BD17EF /* Friend.swift in Sources */,
 				F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */,

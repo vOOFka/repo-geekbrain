@@ -7,7 +7,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class LikesControl: UIControl {
     
     // MARK: Vars

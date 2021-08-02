@@ -15,7 +15,7 @@ struct FriendsCategory {
 extension FriendsCategory {
     static let allCategorys: [FriendsCategory] = {
         let categorys = Friend.lettersFriends()
-        var friendsCategory = [FriendsCategory]()
+        var friendsCategorys = [FriendsCategory]()
         let allFriends = Friend.allFriends
         
         for category in categorys {
@@ -25,8 +25,8 @@ extension FriendsCategory {
                     newCategory.friends.append(friend)
                 }
             }
-            friendsCategory.append(newCategory)
+            friendsCategorys.append(newCategory)
         }
-        return friendsCategory
+        return friendsCategorys
     }()
 }
