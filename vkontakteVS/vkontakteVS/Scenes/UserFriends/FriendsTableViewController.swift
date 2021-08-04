@@ -11,12 +11,15 @@ class FriendsTableViewController: UITableViewController {
     
     //MARK: - Outlets
     @IBOutlet weak private var friendsTableView: UITableView!
+    //@IBOutlet weak private var lettersControl: LettersControl!
     
     //MARK: - Var
     private let friendsLetters = Friend.lettersFriends()
     private let friendsCategory = FriendsCategory.allCategorys
     private let cellID = "FriendTableViewCell"
-    private let cellHeaderID = "FriendsTableViewHeader"
+    private let sectionHeaderID = "FriendsSectionTableViewHeader"
+    
+    let lettersControl = LettersControl()
     
     //MARK: - Navigation
     
@@ -33,15 +36,54 @@ class FriendsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: cellHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: cellHeaderID)
+        //register Header of cell
+        tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
+        //watch press LettersControl
+        //lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
+        
+
+        lettersControl.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 100)
+        tableView.addSubview(lettersControl)
+        
+//        lettersControl.topAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.topAnchor).isActive = true
+//        lettersControl.leadingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.leadingAnchor).isActive = true
+//        lettersControl.trailingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.trailingAnchor).isActive = true
+//        lettersControl.heightAnchor.constraint(equalToConstant: 200).isActive = true
+     }
+    
+    @objc private func letterWasChange(_ control: LettersControl) {
+        let letter = control.selectedLetter
+        let indexPath = IndexPath(item: 0, section: letter.0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        if(offset > 50){
+        lettersControl.frame = CGRect(x: 0, y: offset - 50, width: self.view.bounds.size.width, height: 100)
+        } else {
+            self.lettersControl.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 100)
+        }
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
+//    }
+//
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        navigationController?.setNavigationBarHidden(false, animated: animated)
+//    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return friendsCategory.count
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellHeaderID) as! FriendsTableViewHeader
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderID) as? FriendsSectionTableViewHeader else {
+            fatalError("Message: Error in dequeue FriendsSectionTableViewHeader")
+        }
         header.tintColor = UIColor.systemTeal
         header.letterLabel.text = friendsCategory[section].categoryFriendName
         return header

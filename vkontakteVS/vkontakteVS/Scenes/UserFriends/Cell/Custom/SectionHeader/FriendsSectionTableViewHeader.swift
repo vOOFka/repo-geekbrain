@@ -1,5 +1,5 @@
 //
-//  FriendsTableViewHeader.swift
+//  FriendsSectionTableViewHeader.swift
 //  vkontakteVS
 //
 //  Created by Admin on 02.08.2021.
@@ -7,6 +7,6 @@
 
 import UIKit
 
-class FriendsTableViewHeader: UITableViewHeaderFooterView {
+class FriendsSectionTableViewHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var letterLabel: UILabel!
 }
