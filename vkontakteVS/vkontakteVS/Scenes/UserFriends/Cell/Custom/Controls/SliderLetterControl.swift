@@ -1,18 +1,17 @@
 //
-//  LettersControl.swift
+//  SliderLetterControl.swift
 //  vkontakteVS
 //
-//  Created by Admin on 03.08.2021.
+//  Created by Home on 05.08.2021.
 //
 
 import UIKit
 
-//@IBDesignable
-class LettersControl: UIControl {
-    
+class SliderLetterControl: UIControl {
+
     // MARK: Vars
     private var stackView = UIStackView()
-    private var letterButtons = [UIButton]()
+    private var letterSlider = UISlider()
     private var letterArray = Friend.lettersFriends()
     var selectedLetter = (0, "") {
         didSet {
@@ -36,15 +35,8 @@ class LettersControl: UIControl {
     }
     
     private func setupControl() {
-        for letter in letterArray {
-            let button = UIButton()
-            button.setTitle(letter, for: .normal)
-            button.setTitleColor(.blue, for: .normal)
-            button.addTarget(self, action: #selector(clickLetterButton(_:)), for: .touchUpInside)
-            letterButtons.append(button)
-        }
         
-        stackView = UIStackView(arrangedSubviews: letterButtons)
+        stackView.addArrangedSubview(letterSlider)
 
         stackView.axis = .horizontal
         //stackView.spacing = 2 //error constrain
@@ -54,10 +46,10 @@ class LettersControl: UIControl {
         self.addSubview(stackView)
     }
     
-    @objc private func clickLetterButton(_ sender: UIButton) {
-        guard let index = letterButtons.firstIndex(of: sender),
-              let letter = letterButtons[index].titleLabel?.text else { return }
-        print(index, letter)
-        return selectedLetter = (index,letter)
-    }
+//    @objc private func clickLetterButton(_ sender: UIButton) {
+//        guard let index = letterButtons.firstIndex(of: sender),
+//              let letter = letterButtons[index].titleLabel?.text else { return }
+//        print(index, letter)
+//        return selectedLetter = (index,letter)
+//    }
 }

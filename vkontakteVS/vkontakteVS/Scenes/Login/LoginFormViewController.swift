@@ -12,9 +12,7 @@ class LoginFormViewController: UIViewController {
     //MARK: Outlets
     @IBOutlet weak private var loginTextField: UITextField!
     @IBOutlet weak private var passwordTextField: UITextField!
-    
     @IBOutlet weak private var enterButton: UIButton!
-    
     @IBOutlet weak private var authScrollView: UIScrollView!
     
     //MARK: Live cycle
@@ -23,7 +21,6 @@ class LoginFormViewController: UIViewController {
         //registerKeyboardNotifications()
         hideKeyboardGestre()
     }
-    
     deinit {
         //removeNotifications()
     }
@@ -78,7 +75,6 @@ class LoginFormViewController: UIViewController {
 //        var authResult: String { (login == "" && pass == "") ? "Пользователь авторизовался": "Ошибка авторизации"}
 //        print(authResult)
         return (login == "" && pass == "") ? true : false
-
     }
     
     func showAuthError() {
@@ -96,14 +92,11 @@ class LoginFormViewController: UIViewController {
             showAuthError()
             loginTextField.text = ""
             passwordTextField.text = ""
-            
             return false
         }
     }
     
     //MARK: Actions
     @IBAction func enterButton(_ sender: Any) {
-
     }
 }
-
