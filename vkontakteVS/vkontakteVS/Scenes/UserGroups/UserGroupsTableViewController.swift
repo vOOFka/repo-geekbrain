@@ -13,9 +13,15 @@ class UserGroupsTableViewController: UITableViewController {
     @IBOutlet private var groupsTableView: UITableView!
     
     //MARK: - Var
-    //var userGroupsNames = ["Автолюбители","Гринпис"]
-    var userGroups = Group.userGroups
+    private var userGroups = Group.userGroups
     private let cellID = "GroupTableViewCell"
+    private let searchView = GroupSearchBar()
+    //private var filteredUserGroups = [Group]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchView.delegate = self
+    }
     
     //MARK: - Navigation
     @IBAction func goBackFromAveliableGroups (with segue: UIStoryboardSegue) {
@@ -33,6 +39,15 @@ class UserGroupsTableViewController: UITableViewController {
     }
     
     //MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return searchView
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userGroups.count
     }
@@ -58,5 +73,17 @@ class UserGroupsTableViewController: UITableViewController {
             return
         }
     }
-    
+}
+
+extension UserGroupsTableViewController:  UISearchBarDelegate  {
+    //Config searchbar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //filteredUserGroups.removeAll()
+        if searchText == "" {
+            userGroups = Group.userGroups
+        } else {
+            userGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
+        }
+        tableView.reloadData()
+    }
 }

@@ -10,7 +10,6 @@ import UIKit
 class FriendsViewController: UIViewController, UITableViewDelegate {
     
     //MARK: - Outlets
-    @IBOutlet weak private var friendsTableView: UITableView!
     @IBOutlet weak private var lettersControl: LettersControl!
     @IBOutlet weak private var tableView: UITableView!
     
@@ -46,15 +45,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
+//    }
+//
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        navigationController?.setNavigationBarHidden(false, animated: animated)
+//    }
 }
 
 extension FriendsViewController: UITableViewDataSource {

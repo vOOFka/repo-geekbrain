@@ -11,7 +11,7 @@ struct Group {
     let name: String
     let image: UIImage?
     
-    private static let userGroupsNames = ["Автолюбители","Гринпис"]
+    private static let userGroupsNames = ["Автолюбители", "Гринпис", "Greenpeace", "Wow videos"]
     private static let aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!"]
     
     static let userGroups: [Group] = {

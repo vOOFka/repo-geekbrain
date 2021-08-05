@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GroupSearchBar" customModule="vkontakteVS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="x0t-gC-eNz" customClass="GroupSearchBar" customModule="vkontakteVS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="x0t-gC-eNz" secondAttribute="bottom" id="996-NQ-XH5"/>
+                <constraint firstItem="x0t-gC-eNz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Akk-yz-1FQ"/>
+                <constraint firstItem="x0t-gC-eNz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WD9-mM-LeL"/>
+                <constraint firstItem="x0t-gC-eNz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l5E-T1-xfG"/>
+                <constraint firstItem="x0t-gC-eNz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mDW-vs-DCr"/>
+                <constraint firstItem="x0t-gC-eNz" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="to3-Xp-Qw5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="132" y="50"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//For free time ^_^
 class SliderLetterControl: UIControl {
 
     // MARK: Vars
