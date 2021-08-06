@@ -14,6 +14,7 @@
 		84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */; };
 		84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */; };
 		84A0613826BC1E1B00BC0937 /* UserNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */; };
+		84A0613A26BD181000BC0937 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613926BD181000BC0937 /* News.swift */; };
 		84CE038226B82CF1008F6E98 /* FriendsSectionTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CE038126B82CF1008F6E98 /* FriendsSectionTableViewHeader.xib */; };
 		84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE42EB26B3F16400D80DE2 /* LikesControl.swift */; };
 		84DB71CD26B82B4200056C2D /* FriendsSectionTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB71CC26B82B4200056C2D /* FriendsSectionTableViewHeader.swift */; };
@@ -67,6 +68,7 @@
 		84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsViewController.swift; sourceTree = "<group>"; };
 		84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsTableViewCell.swift; sourceTree = "<group>"; };
 		84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserNewsTableViewCell.xib; sourceTree = "<group>"; };
+		84A0613926BD181000BC0937 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		84CE038126B82CF1008F6E98 /* FriendsSectionTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsSectionTableViewHeader.xib; sourceTree = "<group>"; };
 		84CE42EB26B3F16400D80DE2 /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
 		84DB71CC26B82B4200056C2D /* FriendsSectionTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSectionTableViewHeader.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				F4A4D65426AE12A1001BE376 /* Photo.swift */,
 				F46D1DA926B6B38300822B6A /* LikeShape.swift */,
 				F46D1DAE26B6D32A00822B6A /* LikeButton.swift */,
+				84A0613926BD181000BC0937 /* News.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */,
 				84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */,
 				F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */,
+				84A0613A26BD181000BC0937 /* News.swift in Sources */,
 				F4DDA0EB26A890A7002DEAE8 /* UserGroupsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

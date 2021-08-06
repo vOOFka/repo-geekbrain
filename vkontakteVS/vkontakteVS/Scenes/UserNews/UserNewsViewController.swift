@@ -12,16 +12,13 @@ class UserNewsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Var
-    //private let
-    //private let
     private let cellID = "UserNewsTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //register Header of cell
         tableView.register(UINib(nibName: cellID, bundle: nil), forCellReuseIdentifier: cellID)
-//        tableView.estimatedRowHeight = 250.0
-//        tableView.rowHeight = UITableView.automaticDimension
+        //private news = getNewsFromUserGroups()
     }
 }
 
@@ -40,6 +37,27 @@ extension UserNewsViewController: UITableViewDataSource {
 
 extension UserNewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 305
+        return 250
     }
+    
+    private func getNewsFromUserGroups () -> [NewsTableViewCellModel] {
+        var actualNewsArray = [NewsTableViewCellModel]()
+        let userGroups = Group.userGroups
+        let someNews = News.someNews
+        
+        for news in someNews {
+            for group in userGroups {
+                if group.groupId == news.groupId {
+//                    actualNewsArray.append(ActualNews(group: group, date: news.date, text: news.text, image: news.image, likes: news.likes, comments: comm, repost: <#T##String#>, views: <#T##String#>))
+                }
+                
+            }
+            
+        }
+                        
+        
+        
+        return actualNewsArray
+    }
+    
 }
