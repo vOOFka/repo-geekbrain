@@ -26,6 +26,7 @@
 		F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DAE26B6D32A00822B6A /* LikeButton.swift */; };
 		F4A4D65526AE12A1001BE376 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photo.swift */; };
 		F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */; };
+		F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */; };
 		F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */; };
 		F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85626A5DBBB00B1853C /* SceneDelegate.swift */; };
 		F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C85826A5DBBB00B1853C /* LoginFormViewController.swift */; };
@@ -80,6 +81,7 @@
 		F46D1DAE26B6D32A00822B6A /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		F4A4D65426AE12A1001BE376 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderLetterControl.swift; sourceTree = "<group>"; };
+		F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellSizeCalculator.swift; sourceTree = "<group>"; };
 		F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkontakteVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B0C85426A5DBBB00B1853C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B0C85626A5DBBB00B1853C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */,
 				84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */,
+				F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				840A643426BBBA6C00C9E03F /* GroupSearchBar.swift in Sources */,
+				F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */,
 				F408AFCE26B76E51004DBF67 /* FriendsCategory.swift in Sources */,
 				84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */,
 				84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */,

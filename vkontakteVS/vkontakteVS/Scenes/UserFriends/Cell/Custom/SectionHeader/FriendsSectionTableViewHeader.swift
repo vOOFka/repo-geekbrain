@@ -9,4 +9,9 @@ import UIKit
 
 class FriendsSectionTableViewHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var letterLabel: UILabel!
+//    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        letterLabel.tintColor = .green
+//    }
 }

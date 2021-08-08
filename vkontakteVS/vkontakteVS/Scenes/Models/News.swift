@@ -29,17 +29,17 @@ extension News {
                                 likes: 12,
                                 repost: 16,
                                 views: 123),
-                           
                            News(groupId: 2,
                                 date: Date(),
-                                text:"""
-Компания AMD начала розничные продажи Ryzen 5000G — 7-нм гибридных настольных процессоров (APU) нового поколения. Они сочетают в себе процессорные ядра с архитектурой Zen 3 и встроенный графический процессор Vega. На данный момент было выпущено две модели. Старший чип Ryzen 7 5700G обладает восемью ядрами и шестнадцатью потоками, работает с базовой частотой 3,8 ГГц, а максимальная частота при динамическом разгоне достигает 4,6 ГГц. Имеется 16 Мбайт кеша третьего уровня, а графический процессор насчитывает 512 потоковых процессор и работает с частотой до 2000 МГц. Рекомендованная цена данного процессора составляет $359.
-""",
+                                text: nil,
+//                                text:"""
+//Компания AMD начала розничные продажи Ryzen 5000G — 7-нм гибридных настольных процессоров (APU) нового поколения. Они сочетают в себе процессорные ядра с архитектурой Zen 3 и встроенный графический процессор Vega. На данный момент было выпущено две модели. Старший чип Ryzen 7 5700G обладает восемью ядрами и шестнадцатью потоками, работает с базовой частотой 3,8 ГГц, а максимальная частота при динамическом разгоне достигает 4,6 ГГц. Имеется 16 Мбайт кеша третьего уровня, а графический процессор насчитывает 512 потоковых процессор и работает с частотой до 2000 МГц. Рекомендованная цена данного процессора составляет $359.
+//""",
                                 image: UIImage(named: "news_002"),
                                 comments: 3,
-                                                       likes: nil,
-                                                       repost: 1,
-                                                       views: 876),
+                                likes: nil,
+                                repost: 1,
+                                views: 876),
                            News(groupId: 3,
                                 date: Date(),
                                 text:"""
@@ -73,7 +73,7 @@ extension News {
     ]
 }
 
-struct ActualNews: NewsTableViewCellModel {
+struct UserActualNews: NewsTableViewCellModel {
     var group: Group
     var date: String
     var text: String?
@@ -82,4 +82,31 @@ struct ActualNews: NewsTableViewCellModel {
     var comments: String
     var repost: String
     var views: String
+    var size: NewsCellSizes
+    
+    static func getNewsFromUserGroups() -> [NewsTableViewCellModel] {
+        var actualUserNewsArray = [NewsTableViewCellModel]()
+        let userGroups = Group.userGroups
+        let someNews = News.someNews
+        
+        for news in someNews {
+            for group in userGroups {
+                if group.groupId == news.groupId {
+                    let sizes = NewsCellSizeCalculator().sizes(newsText: news.text, newsImage: news.image)
+                    let actualUserNews = UserActualNews(
+                        group:  group,
+                        date:   "11 августа 2021",
+                        text:   news.text ?? nil,
+                        image:  news.image ?? nil,
+                        likes:  String(news.likes ?? 0),
+                        comments: String(news.comments ?? 0),
+                        repost: String(news.repost ?? 0),
+                        views:  String(news.views ?? 0),
+                        size:   sizes)
+                    actualUserNewsArray.append(actualUserNews)
+                }
+            }
+        }
+        return actualUserNewsArray
+    }
 }
