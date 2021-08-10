@@ -10,35 +10,42 @@ import UIKit
 class UserGroupsTableViewController: UITableViewController {
    
     //MARK: - Outlets
-    @IBOutlet private weak var groupsTableView: UITableView!
+    @IBOutlet private weak var groupsTableView: UITableView! {
+        didSet {
+            heightHeader = groupsTableView.frame.height * 0.3
+        }
+    }
     @IBOutlet private weak var groupsHeaderView: UIView!
+    @IBOutlet private weak var bottom: NSLayoutConstraint!
     
     //MARK: - Var
     private var userGroups = Group.userGroups
     private let cellID = "GroupTableViewCell"
     private let searchView = GroupSearchBar()
     //private var filteredUserGroups = [Group]()
+    private var heightHeader: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchView.delegate = self
+        //searchView.frame = CGRect(x: 0, y: 70, width: tableView.bounds.width, height: 50)
+        
         tableView.tableHeaderView = nil
         tableView.addSubview(groupsHeaderView)
+        groupsHeaderView.clipsToBounds = true
+        //groupsHeaderView.addSubview(searchView)
         
         groupsTableView.separatorStyle = .none
         groupsTableView.allowsSelection = false
         
-        tableView.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
-        tableView.contentOffset = CGPoint(x: 0, y: -100)
-        groupsHeaderView.frame.origin.y = tableView.contentOffset.y + 64
-        groupsHeaderView.frame.size.height = -tableView.contentOffset.y
+        tableView.contentInset = UIEdgeInsets(top: heightHeader, left: 0, bottom: 0, right: 0)
+        tableView.contentOffset = CGPoint(x: 0, y: -heightHeader)
+        calculateHeightHeader()
+
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if tableView.contentOffset.y < -100 {
-            groupsHeaderView.frame.origin.y = tableView.contentOffset.y + 64
-            groupsHeaderView.frame.size.height = -tableView.contentOffset.y
-        }
+        calculateHeightHeader()
     }
     
     //MARK: - Navigation
@@ -58,11 +65,11 @@ class UserGroupsTableViewController: UITableViewController {
     
     //MARK: - Table view data source
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        50
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return searchView
     }
     
@@ -103,5 +110,20 @@ extension UserGroupsTableViewController:  UISearchBarDelegate  {
             userGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
         }
         tableView.reloadData()
+    }
+}
+
+extension UserGroupsTableViewController {
+    //for Paralax Effect
+    func calculateHeightHeader() {
+        var headerRect = CGRect(x: 0, y: -heightHeader, width: tableView.bounds.width, height: heightHeader)
+        let bottom = groupsHeaderView.constraints.filter{ $0.identifier == "bottom"}.first
+        let offsetY = tableView.contentOffset.y
+        if tableView.contentOffset.y < -heightHeader {
+            headerRect.origin.y = offsetY
+            headerRect.size.height = -offsetY
+        }
+        bottom?.constant = offsetY <= 0 ? offsetY / 2 : 0
+        groupsHeaderView.frame = headerRect
     }
 }
