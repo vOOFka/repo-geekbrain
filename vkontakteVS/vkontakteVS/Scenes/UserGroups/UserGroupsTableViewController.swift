@@ -10,7 +10,8 @@ import UIKit
 class UserGroupsTableViewController: UITableViewController {
    
     //MARK: - Outlets
-    @IBOutlet private var groupsTableView: UITableView!
+    @IBOutlet private weak var groupsTableView: UITableView!
+    @IBOutlet private weak var groupsHeaderView: UIView!
     
     //MARK: - Var
     private var userGroups = Group.userGroups
@@ -21,6 +22,23 @@ class UserGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchView.delegate = self
+        tableView.tableHeaderView = nil
+        tableView.addSubview(groupsHeaderView)
+        
+        groupsTableView.separatorStyle = .none
+        groupsTableView.allowsSelection = false
+        
+        tableView.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        tableView.contentOffset = CGPoint(x: 0, y: -100)
+        groupsHeaderView.frame.origin.y = tableView.contentOffset.y + 64
+        groupsHeaderView.frame.size.height = -tableView.contentOffset.y
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if tableView.contentOffset.y < -100 {
+            groupsHeaderView.frame.origin.y = tableView.contentOffset.y + 64
+            groupsHeaderView.frame.size.height = -tableView.contentOffset.y
+        }
     }
     
     //MARK: - Navigation
