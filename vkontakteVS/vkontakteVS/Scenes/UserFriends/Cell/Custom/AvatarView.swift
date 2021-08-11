@@ -26,15 +26,22 @@ class AvatarView: UIView {
         layer.shadowOffset = size
         layer.shadowOpacity = shadowOpacity / 10
         layer.shadowRadius = 8
-        
-      //  layer.mask = drawMask()
     }
     
-//    func drawMask () -> CAShapeLayer {
-//        let shapeLayer = CAShapeLayer()
-//
-//        shapeLayer.path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 50, height: 50)).cgPath
-//        return shapeLayer
-//    }
+    let avatarTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(avatarTap))
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addGestureRecognizer(avatarTapRecognizer)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        //fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func avatarTap(sender: UITapGestureRecognizer) {
+        print("avatarTap")
+    }
 
 }
