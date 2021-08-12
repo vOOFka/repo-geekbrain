@@ -94,17 +94,17 @@ extension FriendsViewController: UITableViewDataSource {
     }
 }
 
-extension FriendsViewController {
-    @objc private func tapOnAvatar(tap: UITapGestureRecognizer){
+extension UIViewController {
+    @objc func tapOnAvatar(tap: UITapGestureRecognizer){
         let tapImageView = tap.view as! UIImageView
-        
+        tapImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         UIView.animate(withDuration: 1.0,
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.3,
-                       initialSpringVelocity: 1,
+                       delay: 0.5,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 10,
                        options: UIView.AnimationOptions.curveEaseInOut,
                        animations: {
-                        tapImageView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+                        tapImageView.transform = CGAffineTransform.identity
                        },
                        completion: nil)
     }

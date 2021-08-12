@@ -33,9 +33,17 @@ class LikeButton: UIButton {
         } else {
             color = UIColor.white
         }
+        //Animation for tap like
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
+        animation.fillMode = .forwards
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 1
+        animation.fromValue = layer.transform
+        animation.toValue = CATransform3DMakeRotation(.pi, 0, 1, 0)
+        layer.add(animation, forKey: nil)
+        
         shapeLayer.path = path.cgPath
         layer.addSublayer(shapeLayer)
-        
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

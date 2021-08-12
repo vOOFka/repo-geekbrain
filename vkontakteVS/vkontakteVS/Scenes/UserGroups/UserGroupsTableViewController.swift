@@ -81,8 +81,11 @@ class UserGroupsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? GroupTableViewCell else {
             fatalError(" Message: Error in dequeue GroupTableViewCell")
         }
+        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         cell.groupImage.image = userGroups[indexPath.row].image
         cell.groupName.text = userGroups[indexPath.row].name
+        cell.groupImage.isUserInteractionEnabled = true
+        cell.groupImage.addGestureRecognizer(tapRecognazer)
         
         return cell
         
