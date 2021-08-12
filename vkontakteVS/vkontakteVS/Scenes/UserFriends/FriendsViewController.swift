@@ -99,7 +99,7 @@ extension UIViewController {
         let tapImageView = tap.view as! UIImageView
         tapImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         UIView.animate(withDuration: 1.0,
-                       delay: 0.5,
+                       delay: 0.1,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 10,
                        options: UIView.AnimationOptions.curveEaseInOut,

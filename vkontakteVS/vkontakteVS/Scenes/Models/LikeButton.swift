@@ -22,7 +22,7 @@ class LikeButton: UIButton {
     
     override func draw(_ rect: CGRect) {
         let shapeLayer = CAShapeLayer()
-        let scale = CGSize(width: (bounds.size.width - 5) / path.bounds.size.width, height: (bounds.size.height - 5) / path.bounds.size.height)
+        let scale = CGSize(width: (bounds.size.width) / path.bounds.size.width, height: (bounds.size.height) / path.bounds.size.height)
         
         path.apply(CGAffineTransform(scaleX: scale.width, y: scale.height))
         shapeLayer.lineWidth = 2
