@@ -37,6 +37,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
         //watch press LettersControl
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
+        
      }
     
     @objc private func letterWasChange(_ control: LettersControl) {
@@ -82,10 +83,29 @@ extension FriendsViewController: UITableViewDataSource {
         let category = friendsCategory[indexPath.section]
         let friendImage = category.friends[indexPath.item].image
         let friendName = category.friends[indexPath.item].name
+        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         
         cell.friendImage.image = friendImage
         cell.friendName.text = friendName
+        cell.friendImage.isUserInteractionEnabled = true
+        cell.friendImage.addGestureRecognizer(tapRecognazer)
        
         return cell
+    }
+}
+
+extension FriendsViewController {
+    @objc private func tapOnAvatar(tap: UITapGestureRecognizer){
+        let tapImageView = tap.view as! UIImageView
+        
+        UIView.animate(withDuration: 1.0,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 1,
+                       options: UIView.AnimationOptions.curveEaseInOut,
+                       animations: {
+                        tapImageView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+                       },
+                       completion: nil)
     }
 }

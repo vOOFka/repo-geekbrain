@@ -17,6 +17,7 @@ class LoginFormViewController: UIViewController {
     
     //MARK: Vars
     private let transparancyCircleView = TransparancyCircleView()
+    private var loadingState = false
     
     //MARK: Live cycle
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class LoginFormViewController: UIViewController {
         //registerKeyboardNotifications()
         hideKeyboardGestre()
         setupTransparancyCircleView()
+        transparancyCircleView.animate()
     }
     deinit {
         //removeNotifications()
@@ -37,20 +39,24 @@ class LoginFormViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         removeNotifications()
-//        DispatchQueue.main.asyncAfter(deadline:.now() + 5.0, execute: {
-//            print("Whaiting...")
-//        })
     }
     
     //MARK: Functions
+//    private func someNetworkDelay(delay: Double) {
+//        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
+//            self.transparancyCircleView.animate()
+//            self.loadingState = true
+//        })
+//    }
+    
     private func setupTransparancyCircleView() {
         authScrollView.addSubview(transparancyCircleView)
         
         NSLayoutConstraint.activate([
-            transparancyCircleView.centerYAnchor.constraint(equalTo: authScrollView.centerYAnchor, constant: 150),
+            transparancyCircleView.centerYAnchor.constraint(equalTo: enterButton.centerYAnchor, constant: 100),
             transparancyCircleView.centerXAnchor.constraint(equalTo: authScrollView.centerXAnchor),
             transparancyCircleView.heightAnchor.constraint(equalToConstant: 40),
-            transparancyCircleView.widthAnchor.constraint(equalToConstant: 140)
+            transparancyCircleView.widthAnchor.constraint(equalToConstant: 90)
             ])
     }
     
@@ -105,13 +111,12 @@ class LoginFormViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (identifier == "showMainScreenID" && checkAuth()) {
-            //transparancyCircleView.animate()
-            // Thread.sleep(forTimeInterval: 15)
-           return true
+            return true
         } else {
             showAuthError()
             loginTextField.text = ""
             passwordTextField.text = ""
+            enterButton.isEnabled = true
             return false
         }
     }

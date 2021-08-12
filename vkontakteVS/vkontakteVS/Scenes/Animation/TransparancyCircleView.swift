@@ -26,8 +26,8 @@ class TransparancyCircleView: UIView {
         circleArray = [UIView(), UIView(), UIView()]
         
         for circle in circleArray {
-            circle.frame = CGRect(x: -35, y: 5, width: 30, height: 30)
-            circle.layer.cornerRadius = 15
+            circle.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            circle.layer.cornerRadius = 10
             circle.backgroundColor = .white
             circle.alpha = 0
             addSubview(circle)
@@ -35,30 +35,29 @@ class TransparancyCircleView: UIView {
     }
     
     func animate() {
-        for _ in (0...5) {
             var delay: Double = 0
             for circle in circleArray {
                 animateCircle(circle, delay: delay)
-                delay += 0.95
+                delay += 1.0
             }
-            sleep(1)
-        }
     }
     
     func animateCircle(_ circle: UIView, delay: Double) {
-        UIView.animate(withDuration: 0.8, delay: delay, options: .curveLinear, animations: {
+        UIView.animate(withDuration: 1.0, delay: delay, options: .curveEaseInOut, animations: {
             circle.alpha = 1
-            circle.frame = CGRect(x: 0, y: 5, width: 30, height: 30)
+            circle.layer.cornerRadius = 15
+            circle.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         }) { (completed) in
-            UIView.animate(withDuration: 0.8, delay: 0, options: .curveLinear, animations: {
-                circle.frame = CGRect(x: 45, y: 5, width: 30, height: 30)
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                circle.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
             }) { (completed) in
-                UIView.animate(withDuration: 0.8, delay: 0, options: .curveLinear, animations: {
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
                     circle.alpha = 0
-                    circle.frame = CGRect(x: 90, y: 5, width: 30, height: 30)
+                    circle.layer.cornerRadius = 10
+                    circle.frame = CGRect(x: 80, y: 0, width: 20, height: 20)
                 }) { (completed) in
-                    UIView.animate(withDuration: 0.8, delay: 0, options: .curveLinear, animations: {
-                        circle.frame = CGRect(x: -30, y: 5, width: 30, height: 30)
+                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                        circle.frame = CGRect(x: -30, y: 0, width: 20, height: 20)
                         self.animateCircle(circle, delay: 0)
                     })
                 }

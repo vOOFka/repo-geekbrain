@@ -28,20 +28,12 @@ class AvatarView: UIView {
         layer.shadowRadius = 8
     }
     
-    let avatarTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(avatarTap))
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addGestureRecognizer(avatarTapRecognizer)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         //fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc func avatarTap(sender: UITapGestureRecognizer) {
-        print("avatarTap")
-    }
-
 }
