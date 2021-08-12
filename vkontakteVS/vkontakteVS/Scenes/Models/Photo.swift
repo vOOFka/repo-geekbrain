@@ -17,7 +17,7 @@ struct Photos {
 extension Photos {
     static func getRandomPhotos() -> [Photos] {
         var photos = [Photos]()
-        for _ in (0...3) {
+        for _ in (0...8) {
             let randomPhotoName = photoArray.randomElement()!
             guard let randomPhoto = UIImage(named: randomPhotoName) else { continue }
             photos.append(Photos(photo: randomPhoto, likes: 0))

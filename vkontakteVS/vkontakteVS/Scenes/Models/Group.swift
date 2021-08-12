@@ -8,17 +8,18 @@
 import UIKit
 
 struct Group {
+    let groupId: Int
     let name: String
     let image: UIImage?
     
-    private static let userGroupsNames = ["Автолюбители","Гринпис"]
-    private static let aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!"]
+    private static let userGroupsNames = ["Автолюбители", "Гринпис", "Greenpeace", "Wow videos"]
+    private static let aveliableGroupsNames = ["Библиофилы", "Программисты IOS", "Готовим вкусно!", "Автолюбители", "Гринпис", "Greenpeace", "Wow videos"]
     
     static let userGroups: [Group] = {
         var groups = [Group]()
         
-        for group in userGroupsNames {
-            groups.append(Group(name: group, image: UIImage(named: group)))
+        for (index, group) in userGroupsNames.enumerated() {
+            groups.append(Group(groupId: index, name: group, image: UIImage(named: group)))
         }
         return groups
     }()
@@ -26,8 +27,8 @@ struct Group {
     static let aveliableGroups: [Group] = {
         var groups = [Group]()
         
-        for group in aveliableGroupsNames {
-            groups.append(Group(name: group, image: UIImage(named: group)))
+        for (index, group) in aveliableGroupsNames.enumerated() {
+            groups.append(Group(groupId: index, name: group, image: UIImage(named: group)))
         }
         return groups
     }()
