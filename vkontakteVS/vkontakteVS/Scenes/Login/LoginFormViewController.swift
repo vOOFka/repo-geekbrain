@@ -14,18 +14,24 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak private var passwordTextField: UITextField!
     @IBOutlet weak private var enterButton: UIButton!
     @IBOutlet weak private var authScrollView: UIScrollView!
+    @IBOutlet weak var logoImageView: UIImageView!
     
-    //MARK: Vars
+    //MARK: Properties
     private let transparancyCircleView = TransparancyCircleView()
-    private var loadingState = false
+    private var isLoading = false
+    private let cloudView = Cloud()
     
     //MARK: Live cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //registerKeyboardNotifications()
-        hideKeyboardGestre()
-        setupTransparancyCircleView()
-        transparancyCircleView.animate()
+        //Tree circle activity indicator
+        //setupTransparancyCircleView()
+        //transparancyCircleView.animate()
+            
+        //Cloud activity indicator
+        setupCloudView()
+        cloudView.animation()
     }
     deinit {
         //removeNotifications()
@@ -45,7 +51,7 @@ class LoginFormViewController: UIViewController {
 //    private func someNetworkDelay(delay: Double) {
 //        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
 //            self.transparancyCircleView.animate()
-//            self.loadingState = true
+//            self.isLoading = true
 //        })
 //    }
     
@@ -58,6 +64,16 @@ class LoginFormViewController: UIViewController {
             transparancyCircleView.heightAnchor.constraint(equalToConstant: 40),
             transparancyCircleView.widthAnchor.constraint(equalToConstant: 90)
             ])
+    }
+    private func setupCloudView() {
+        authScrollView.addSubview(cloudView)
+        
+        NSLayoutConstraint.activate([
+            cloudView.centerYAnchor.constraint(equalTo: enterButton.centerYAnchor, constant: 100),
+            cloudView.centerXAnchor.constraint(equalTo: authScrollView.centerXAnchor),
+            cloudView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),//(equalToConstant: 100),
+            cloudView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor)//(equalToConstant: 150)
+        ])
     }
     
     private func registerKeyboardNotifications() {

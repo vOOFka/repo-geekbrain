@@ -37,7 +37,7 @@ class LikeButton: UIButton {
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
-        animation.duration = 1
+        animation.duration = 0.5
         animation.fromValue = layer.transform
         animation.toValue = CATransform3DMakeRotation(.pi, 0, 1, 0)
         layer.add(animation, forKey: nil)
@@ -54,6 +54,4 @@ class LikeButton: UIButton {
         return false
     }
     
-    
-
 }

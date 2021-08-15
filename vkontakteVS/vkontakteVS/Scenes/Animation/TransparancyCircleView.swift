@@ -9,7 +9,7 @@ import UIKit
 
 class TransparancyCircleView: UIView {
 
-    var circleArray = [UIView(), UIView(), UIView()]
+    private var circleArray = [UIView(), UIView(), UIView()]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class TransparancyCircleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
+    private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         circleArray = [UIView(), UIView(), UIView()]
         
@@ -42,7 +42,7 @@ class TransparancyCircleView: UIView {
             }
     }
     
-    func animateCircle(_ circle: UIView, delay: Double) {
+    private func animateCircle(_ circle: UIView, delay: Double) {
         UIView.animate(withDuration: 1.0, delay: delay, options: .curveEaseInOut, animations: {
             circle.alpha = 1
             circle.layer.cornerRadius = 15

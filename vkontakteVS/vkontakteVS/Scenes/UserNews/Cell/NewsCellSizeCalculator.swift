@@ -63,6 +63,7 @@ final class NewsCellSizeCalculator {
 }
 
 extension String {
+    //Calculate hight String from Font size
     func height(width: CGFloat, font: UIFont) -> CGFloat {
         let textSize = CGSize (width: width, height: .greatestFiniteMagnitude)
         
