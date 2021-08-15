@@ -125,6 +125,7 @@
                         <outlet property="authScrollView" destination="Zke-SM-lzS" id="KBq-x7-ftZ"/>
                         <outlet property="enterButton" destination="9fb-AN-oYE" id="YSz-7o-E69"/>
                         <outlet property="loginTextField" destination="FhI-ew-RDJ" id="mKS-AS-jrl"/>
+                        <outlet property="logoImageView" destination="aDu-tL-yDO" id="JtN-Fz-0HI"/>
                         <outlet property="passwordTextField" destination="YFE-is-rTs" id="Nh9-U6-vGe"/>
                     </connections>
                 </viewController>
@@ -421,17 +422,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="643"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="leading" secondItem="p0m-Rd-WTb" secondAttribute="leading" id="Dcb-eZ-dGb"/>
+                                    <constraint firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="Qd5-ie-tZZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="orh-fm-OQa" secondAttribute="trailing" id="Tmb-3U-9LJ"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerX" secondItem="p0m-Rd-WTb" secondAttribute="centerX" id="Ukb-9m-keh"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerY" secondItem="p0m-Rd-WTb" secondAttribute="centerY" id="Xs1-Jx-My6"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="top" secondItem="p0m-Rd-WTb" secondAttribute="top" id="sm2-CY-JjA"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dEc-OH-0UL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="leading" secondItem="dEc-OH-0UL" secondAttribute="leading" id="6P2-l5-ZM2"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="centerX" secondItem="KCp-VW-sgS" secondAttribute="centerX" id="7ja-ds-4a4"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="bottom" secondItem="dEc-OH-0UL" secondAttribute="bottom" id="F5W-n4-USv"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="trailing" secondItem="dEc-OH-0UL" secondAttribute="trailing" id="kCi-JH-RjH"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="top" secondItem="dEc-OH-0UL" secondAttribute="top" id="oQA-LF-Duh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zkI-Kf-gE7"/>
                     <connections>
                         <outlet property="photoFullScreenImage" destination="orh-fm-OQa" id="4J6-fM-zwd"/>
+                        <outlet property="photoFullScreenScrollView" destination="p0m-Rd-WTb" id="MgF-tK-7sD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J9i-Z6-LBk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
