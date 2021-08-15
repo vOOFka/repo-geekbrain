@@ -15,9 +15,9 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak private var enterButton: UIButton!
     @IBOutlet weak private var authScrollView: UIScrollView!
     
-    //MARK: Vars
+    //MARK: Properties
     private let transparancyCircleView = TransparancyCircleView()
-    private var loadingState = false
+    private var isLoading = false
     
     //MARK: Live cycle
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class LoginFormViewController: UIViewController {
 //    private func someNetworkDelay(delay: Double) {
 //        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
 //            self.transparancyCircleView.animate()
-//            self.loadingState = true
+//            self.isLoading = true
 //        })
 //    }
     
