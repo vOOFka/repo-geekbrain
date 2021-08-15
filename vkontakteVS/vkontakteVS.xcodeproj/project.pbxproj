@@ -10,6 +10,7 @@
 		840A643426BBBA6C00C9E03F /* GroupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A643326BBBA6C00C9E03F /* GroupSearchBar.swift */; };
 		840A643626BBBA8800C9E03F /* GroupSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840A643526BBBA8800C9E03F /* GroupSearchBar.xib */; };
 		843025FE26B920D60085307C /* LettersControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843025FD26B920D60085307C /* LettersControl.swift */; };
+		843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BC42B26C3A82D00303CE7 /* TransparancyCircleView.swift */; };
 		84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */; };
 		84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */; };
 		84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */; };
@@ -65,6 +66,7 @@
 		840A643326BBBA6C00C9E03F /* GroupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchBar.swift; sourceTree = "<group>"; };
 		840A643526BBBA8800C9E03F /* GroupSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupSearchBar.xib; sourceTree = "<group>"; };
 		843025FD26B920D60085307C /* LettersControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LettersControl.swift; sourceTree = "<group>"; };
+		843BC42B26C3A82D00303CE7 /* TransparancyCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparancyCircleView.swift; sourceTree = "<group>"; };
 		84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveliableGroupsTableViewController.swift; sourceTree = "<group>"; };
 		84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsViewController.swift; sourceTree = "<group>"; };
 		84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +148,14 @@
 				F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		843BC42A26C3A7C000303CE7 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				843BC42B26C3A82D00303CE7 /* TransparancyCircleView.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		84A0613126BC1AA700BC0937 /* UserNews */ = {
@@ -277,6 +287,7 @@
 		F4DDA0F426AAC95D002DEAE8 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				843BC42A26C3A7C000303CE7 /* Animation */,
 				F4DDA0F226AAC8D3002DEAE8 /* Models */,
 				F4DDA0F526AAC99E002DEAE8 /* Login */,
 				F4F5B10F26AAE43400BD17EF /* UserFriends */,
@@ -464,6 +475,7 @@
 				84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */,
 				F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */,
 				F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */,
+				843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */,
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
 				F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */,
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,

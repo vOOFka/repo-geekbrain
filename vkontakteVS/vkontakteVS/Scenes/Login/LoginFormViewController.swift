@@ -15,11 +15,17 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak private var enterButton: UIButton!
     @IBOutlet weak private var authScrollView: UIScrollView!
     
+    //MARK: Vars
+    private let transparancyCircleView = TransparancyCircleView()
+    private var loadingState = false
+    
     //MARK: Live cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //registerKeyboardNotifications()
         hideKeyboardGestre()
+        setupTransparancyCircleView()
+        transparancyCircleView.animate()
     }
     deinit {
         //removeNotifications()
@@ -36,17 +42,35 @@ class LoginFormViewController: UIViewController {
     }
     
     //MARK: Functions
-    func registerKeyboardNotifications() {
+//    private func someNetworkDelay(delay: Double) {
+//        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
+//            self.transparancyCircleView.animate()
+//            self.loadingState = true
+//        })
+//    }
+    
+    private func setupTransparancyCircleView() {
+        authScrollView.addSubview(transparancyCircleView)
+        
+        NSLayoutConstraint.activate([
+            transparancyCircleView.centerYAnchor.constraint(equalTo: enterButton.centerYAnchor, constant: 100),
+            transparancyCircleView.centerXAnchor.constraint(equalTo: authScrollView.centerXAnchor),
+            transparancyCircleView.heightAnchor.constraint(equalToConstant: 40),
+            transparancyCircleView.widthAnchor.constraint(equalToConstant: 90)
+            ])
+    }
+    
+    private func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     }
     
-    func removeNotifications() {
+    private func removeNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func hideKeyboardGestre () {
+    private func hideKeyboardGestre () {
         let hideKeyboardGestre = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         authScrollView?.addGestureRecognizer(hideKeyboardGestre)
     }
@@ -69,7 +93,7 @@ class LoginFormViewController: UIViewController {
         self.authScrollView?.endEditing(true)
     }
     
-    func checkAuth() -> Bool {
+    private func checkAuth() -> Bool {
         let login = loginTextField.text!
         let pass  = passwordTextField.text!
 //        var authResult: String { (login == "" && pass == "") ? "Пользователь авторизовался": "Ошибка авторизации"}
@@ -77,7 +101,7 @@ class LoginFormViewController: UIViewController {
         return (login == "" && pass == "") ? true : false
     }
     
-    func showAuthError() {
+    private func showAuthError() {
         let alertMsg = UIAlertController(title: "Ошибка авторизации", message: "Неверный логин или пароль", preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         
@@ -87,16 +111,17 @@ class LoginFormViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (identifier == "showMainScreenID" && checkAuth()) {
-           return true
+            return true
         } else {
             showAuthError()
             loginTextField.text = ""
             passwordTextField.text = ""
+            enterButton.isEnabled = true
             return false
         }
     }
     
     //MARK: Actions
-    @IBAction func enterButton(_ sender: Any) {
+    @IBAction private func enterButton(_ sender: Any) {
     }
 }

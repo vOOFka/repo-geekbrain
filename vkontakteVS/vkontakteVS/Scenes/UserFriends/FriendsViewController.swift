@@ -37,6 +37,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
         //watch press LettersControl
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
+        
      }
     
     @objc private func letterWasChange(_ control: LettersControl) {
@@ -45,15 +46,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: animated)
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 }
 
 extension FriendsViewController: UITableViewDataSource {
@@ -82,10 +83,29 @@ extension FriendsViewController: UITableViewDataSource {
         let category = friendsCategory[indexPath.section]
         let friendImage = category.friends[indexPath.item].image
         let friendName = category.friends[indexPath.item].name
+        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         
         cell.friendImage.image = friendImage
         cell.friendName.text = friendName
+        cell.friendImage.isUserInteractionEnabled = true
+        cell.friendImage.addGestureRecognizer(tapRecognazer)
        
         return cell
+    }
+}
+
+extension UIViewController {
+    @objc func tapOnAvatar(tap: UITapGestureRecognizer){
+        let tapImageView = tap.view as! UIImageView
+        tapImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        UIView.animate(withDuration: 1.0,
+                       delay: 0.1,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 10,
+                       options: UIView.AnimationOptions.curveEaseInOut,
+                       animations: {
+                        tapImageView.transform = CGAffineTransform.identity
+                       },
+                       completion: nil)
     }
 }

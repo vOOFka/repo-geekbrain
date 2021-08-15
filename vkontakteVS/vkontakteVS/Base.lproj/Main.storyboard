@@ -160,9 +160,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleAspectFill" id="R9D-s6-nzy">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="userGroupsHeader-1" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-OY-HRN">
+                                    <rect key="frame" x="-273" y="0.0" width="960" height="100"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemYellowColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" image="YES" allowsDirectInteraction="YES" header="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint firstItem="EHc-OY-HRN" firstAttribute="leading" secondItem="R9D-s6-nzy" secondAttribute="leading" constant="-273" id="3cq-MH-2uQ" userLabel="userGroupsHeader-1.leading = leading"/>
+                                <constraint firstAttribute="trailing" secondItem="EHc-OY-HRN" secondAttribute="trailing" constant="-273" id="fxJ-rs-AEn" userLabel="trailing = userGroupsHeader-1.trailing"/>
+                                <constraint firstItem="EHc-OY-HRN" firstAttribute="top" secondItem="R9D-s6-nzy" secondAttribute="top" id="hYc-F2-w7Q"/>
+                                <constraint firstAttribute="bottom" secondItem="EHc-OY-HRN" secondAttribute="bottom" identifier="bottom" id="jyL-12-pOs"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
@@ -212,12 +231,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottom" destination="jyL-12-pOs" id="cs9-Kd-1Wg"/>
+                        <outlet property="groupsHeaderView" destination="R9D-s6-nzy" id="WVB-oR-rMM"/>
                         <outlet property="groupsTableView" destination="BhD-qR-cPN" id="8ge-q5-dcT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyf-SC-fFc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649.5327102803735" y="207.99136069114473"/>
+            <point key="canvasLocation" x="2649.275362318841" y="207.88043478260872"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="Pro-YB-d4c">
@@ -255,7 +276,7 @@
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvX-es-jQa" customClass="AvatarView" customModule="vkontakteVS" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="10" width="70" height="70.333333333333329"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d32-q1-tqn">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d32-q1-tqn">
                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                         </imageView>
                                                     </subviews>
@@ -315,7 +336,9 @@
                             <constraint firstItem="nDi-pB-iwF" firstAttribute="bottom" secondItem="Lc3-sH-R9D" secondAttribute="bottom" id="vln-gF-esd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JOi-Lf-nOa"/>
+                    <navigationItem key="navigationItem" id="JOi-Lf-nOa">
+                        <barButtonItem key="backBarButtonItem" title="К списку друзей" id="enJ-b6-uOh"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="lettersControl" destination="mrn-oz-gsD" id="cKo-lk-ZCV"/>
                         <outlet property="tableView" destination="Lc3-sH-R9D" id="pH5-dh-ueh"/>
@@ -563,8 +586,12 @@
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="userGroupsHeader-1" width="960" height="640"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
