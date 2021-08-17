@@ -31,7 +31,7 @@ class LoginFormViewController: UIViewController {
             
         //Cloud activity indicator
         setupCloudView()
-        cloudView.animation()
+        //cloudView.animationStart()
     }
     deinit {
         //removeNotifications()
@@ -71,8 +71,8 @@ class LoginFormViewController: UIViewController {
         NSLayoutConstraint.activate([
             cloudView.centerYAnchor.constraint(equalTo: enterButton.centerYAnchor, constant: 100),
             cloudView.centerXAnchor.constraint(equalTo: authScrollView.centerXAnchor),
-            cloudView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),//(equalToConstant: 100),
-            cloudView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor)//(equalToConstant: 150)
+            cloudView.heightAnchor.constraint(equalToConstant: 80),
+            cloudView.widthAnchor.constraint(equalToConstant: 130)
         ])
     }
     
@@ -132,12 +132,22 @@ class LoginFormViewController: UIViewController {
             showAuthError()
             loginTextField.text = ""
             passwordTextField.text = ""
-            enterButton.isEnabled = true
+            isLoading = false
+            cloudView.animationStop()
             return false
         }
     }
     
     //MARK: Actions
     @IBAction private func enterButton(_ sender: Any) {
+        if isLoading != true {
+            isLoading = true
+            cloudView.animationStart()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+              //  if self.shouldPerformSegue(withIdentifier: "showMainScreenID", sender: nil) {
+                    self.performSegue(withIdentifier: "showMainScreenID", sender: nil)
+              //  }
+            }
+        }
     }
 }
