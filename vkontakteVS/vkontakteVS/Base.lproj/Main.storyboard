@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -182,7 +182,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="124.33333396911621" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
@@ -262,7 +262,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendTableViewCell" id="6XC-Ol-mjb" customClass="FriendTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="85.333335876464844"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="85.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6XC-Ol-mjb" id="fzU-Fo-5cD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85.333335876464844"/>
@@ -425,27 +425,28 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
                                 <rect key="frame" x="0.0" y="56" width="414" height="611"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="754-rU-c4j">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="611"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-wi-iAP">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="611"/>
-                                    </imageView>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="611"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-wi-iAP">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="611"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="leading" secondItem="orh-fm-OQa" secondAttribute="trailing" constant="-414" id="6BE-m9-FSP"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="leading" secondItem="p0m-Rd-WTb" secondAttribute="leading" id="Dcb-eZ-dGb"/>
-                                    <constraint firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="Qd5-ie-tZZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="orh-fm-OQa" secondAttribute="trailing" id="Tmb-3U-9LJ"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerX" secondItem="p0m-Rd-WTb" secondAttribute="centerX" id="Ukb-9m-keh"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="leading" secondItem="orh-fm-OQa" secondAttribute="leading" id="X8A-rr-Tny"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerY" secondItem="p0m-Rd-WTb" secondAttribute="centerY" id="Xs1-Jx-My6"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="top" secondItem="orh-fm-OQa" secondAttribute="bottom" constant="-611" id="fwi-Sg-mtA"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="trailing" secondItem="orh-fm-OQa" secondAttribute="trailing" id="keo-4V-z1E"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="top" secondItem="p0m-Rd-WTb" secondAttribute="top" id="sm2-CY-JjA"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="v4I-sj-V4b"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="zA1-ja-LMn"/>
-                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="top" secondItem="orh-fm-OQa" secondAttribute="top" id="zH3-eE-SNr"/>
+                                    <constraint firstItem="754-rU-c4j" firstAttribute="leading" secondItem="p0m-Rd-WTb" secondAttribute="leading" id="APb-UG-Del"/>
+                                    <constraint firstItem="754-rU-c4j" firstAttribute="centerX" secondItem="p0m-Rd-WTb" secondAttribute="centerX" id="CYb-kQ-bNa"/>
+                                    <constraint firstAttribute="bottom" secondItem="754-rU-c4j" secondAttribute="bottom" id="EIC-Pc-HAH"/>
+                                    <constraint firstAttribute="trailing" secondItem="754-rU-c4j" secondAttribute="trailing" id="aMD-h5-tBI"/>
+                                    <constraint firstItem="754-rU-c4j" firstAttribute="centerY" secondItem="p0m-Rd-WTb" secondAttribute="centerY" id="kHo-pF-9WU"/>
+                                    <constraint firstItem="754-rU-c4j" firstAttribute="top" secondItem="p0m-Rd-WTb" secondAttribute="top" id="uOP-AB-Sdv"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -499,7 +500,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUh-1C-5gY" id="JzU-KC-SFe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>

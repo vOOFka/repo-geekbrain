@@ -22,6 +22,7 @@ class FriendPhotoFullScreen: UIViewController {
     private var photoArray = [Photos]()
     private var propertyAnimator: UIViewPropertyAnimator!
     private let recognazer = UIPanGestureRecognizer()
+    private var isChange = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,29 +33,56 @@ class FriendPhotoFullScreen: UIViewController {
     }
     
     fileprivate func setupPanRecognizer() {
-        view.addGestureRecognizer(recognazer)
+        self.view.addGestureRecognizer(recognazer)
         recognazer.addTarget(self, action: #selector(onPan(_:)))
     }
     
-    @objc private func onPan(_ sender: UIPanGestureRecognizer) {
-      //  let indexOfCurrentPhoto = image.1
-      //  var indexNextPhoto = 0
-      //  var reverseAnimations = false
+    @objc func onPan(_ sender: UIPanGestureRecognizer) {
+        let indexOfCurrentPhoto = image.1
+        var indexNextPhoto = 0
+        
+//        switch sender.direction {
+//        case .left:
+//            indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto + 1)
+//        case .right:
+//            indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto - 1)
+//            //reverseAnimations = true
+//        default:
+//            break
+//        }
+//        image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
+        
+        isChange = !isChange
+        let fromView = isChange ? currentPhotoImageView : nextPhotoImageView
+        let toView = isChange ? nextPhotoImageView : currentPhotoImageView
+        
+       // toView!.image = photoArray[indexNextPhoto].photo
+        
+        let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
         switch sender.state {
         case .began:
-            let flipRotation = CATransform3DMakeRotation(.pi, 0, 1, 0)
-            propertyAnimator = UIViewPropertyAnimator(duration: 2, curve: .easeInOut, animations: {
-                self.currentPhotoImageView.transform = CATransform3DGetAffineTransform(flipRotation)
+            propertyAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
+                //fromView!.frame = fromView!.frame.offsetBy(dx: 0, dy: 100)
+                fromView!.transform = CGAffineTransform(translationX: fromView!.frame.size.width / 2 , y: 0).concatenating(scale)
+               // UIView.transition(from: fromView!, to: toView!, duration: 5, options: [.transitionCrossDissolve, .showHideTransitionViews])
             })
+            propertyAnimator.startAnimation()
             propertyAnimator.pauseAnimation()
         case .changed:
-            let translation = recognazer.translation(in: view)
+            let translation = recognazer.translation(in: self.view)
             let percent = translation.x / 100
             let animationPercent = min(1, max(0, percent))
             propertyAnimator.fractionComplete = animationPercent
+            print(animationPercent)
         case .ended:
-            propertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 0.4)
+            if propertyAnimator.fractionComplete > 50 {
+                propertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+            } else {
+                propertyAnimator.stopAnimation(true)
+            }
+        case .cancelled:
+                propertyAnimator.stopAnimation(true)
         default:
             break
         }
@@ -72,11 +100,11 @@ class FriendPhotoFullScreen: UIViewController {
 //        }
 //        print("\(indexNextPhoto)")
         //changePhotoAnimations(index: indexNextPhoto, reverse: reverseAnimations)
+
     }
     
-    fileprivate func changePhotoAnimations(index i: Int, reverse: Bool) {
-       // let fromView = currentPhotoImageView!
-      //  let toView = nextPhotoImageView!
+    fileprivate func changePhotoAnimations(index i: Int) {//, reverse: Bool) {
+
         
 //        if reverse == false {
 //            UIView.animate(withDuration: 0.2,

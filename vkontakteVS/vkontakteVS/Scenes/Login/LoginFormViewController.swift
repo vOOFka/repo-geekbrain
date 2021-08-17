@@ -48,13 +48,6 @@ class LoginFormViewController: UIViewController {
     }
     
     //MARK: Functions
-//    private func someNetworkDelay(delay: Double) {
-//        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
-//            self.transparancyCircleView.animate()
-//            self.isLoading = true
-//        })
-//    }
-    
     private func setupTransparancyCircleView() {
         authScrollView.addSubview(transparancyCircleView)
         
@@ -144,9 +137,9 @@ class LoginFormViewController: UIViewController {
             isLoading = true
             cloudView.animationStart()
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-              //  if self.shouldPerformSegue(withIdentifier: "showMainScreenID", sender: nil) {
+                if self.shouldPerformSegue(withIdentifier: "showMainScreenID", sender: nil) {
                     self.performSegue(withIdentifier: "showMainScreenID", sender: nil)
-              //  }
+                }
             }
         }
     }
