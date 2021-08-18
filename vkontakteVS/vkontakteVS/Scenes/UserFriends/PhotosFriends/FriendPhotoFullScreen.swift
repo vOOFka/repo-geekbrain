@@ -20,7 +20,7 @@ class FriendPhotoFullScreen: UIViewController {
         }
     }
     private var photoArray = [Photos]()
-    private var propertyAnimator: UIViewPropertyAnimator!
+    private var animator: UIViewPropertyAnimator!
     private let recognazer = UIPanGestureRecognizer()
     private var isChange = false
     
@@ -38,8 +38,9 @@ class FriendPhotoFullScreen: UIViewController {
     }
     
     @objc func onPan(_ sender: UIPanGestureRecognizer) {
-        let indexOfCurrentPhoto = image.1
-        var indexNextPhoto = 0
+       // let indexOfCurrentPhoto = image.1
+        //var indexNextPhoto = 0
+        let defaultCenter = currentPhotoImageView.center
         
 //        switch sender.direction {
 //        case .left:
@@ -53,36 +54,66 @@ class FriendPhotoFullScreen: UIViewController {
 //        image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
         
         isChange = !isChange
-        let fromView = isChange ? currentPhotoImageView : nextPhotoImageView
-        let toView = isChange ? nextPhotoImageView : currentPhotoImageView
+        let fromView = isChange ? currentPhotoImageView! : nextPhotoImageView!
+     //   let toView = isChange ? nextPhotoImageView! : currentPhotoImageView!
         
        // toView!.image = photoArray[indexNextPhoto].photo
-        
-        let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
+       let translation = recognazer.translation(in: view)
+       let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
+       //let bluer
         
         switch sender.state {
         case .began:
-            propertyAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
-                //fromView!.frame = fromView!.frame.offsetBy(dx: 0, dy: 100)
-                fromView!.transform = CGAffineTransform(translationX: fromView!.frame.size.width / 2 , y: 0).concatenating(scale)
-               // UIView.transition(from: fromView!, to: toView!, duration: 5, options: [.transitionCrossDissolve, .showHideTransitionViews])
+            print("began")
+            animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
+                if sender.direction == .right {
+                    fromView.transform = CGAffineTransform(translationX: fromView.frame.size.width + fromView.frame.size.width, y: 0).concatenating(scale)
+                }
+                else if sender.direction == .left {
+                    fromView.transform = CGAffineTransform(translationX: -fromView.frame.size.width, y: 0).concatenating(scale)
+                }
+               // UIView.transition(from: fromView, to: toView, duration: 5, options: [.transitionCrossDissolve, .showHideTransitionViews])
             })
-            propertyAnimator.startAnimation()
-            propertyAnimator.pauseAnimation()
+            animator.startAnimation()
+            animator.pauseAnimation()
         case .changed:
-            let translation = recognazer.translation(in: self.view)
-            let percent = translation.x / 100
+           // print("changed")
+            
+           // someAnimation(with: translation)
+            //fromView.transform = CGAffineTransform(translationX: translation.x, y: 0).concatenating(scale)
+            
+            //fromView.center = CGPoint(x: newX, y: 0)
+            //recognazer.setTranslation(CGPoint.zero, in: self.view)
+            
+            let percent = abs(translation.x / 100)
             let animationPercent = min(1, max(0, percent))
-            propertyAnimator.fractionComplete = animationPercent
-            print(animationPercent)
+            animator.fractionComplete = animationPercent
+            print("defaultCenter: \(defaultCenter.x), translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
-            if propertyAnimator.fractionComplete > 50 {
-                propertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-            } else {
-                propertyAnimator.stopAnimation(true)
+            print("ended")
+            //left
+            if translation.x < -20 {
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+//                UIView.animate(withDuration: 0.2, animations: {
+//                    fromView.center.x = -fromView.frame.size.width
+//                })
             }
+            //right
+            else if translation.x > 20 {
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+//                UIView.animate(withDuration: 0.2, animations: {
+//                    fromView.center.x = fromView.frame.size.width + fromView.frame.size.width
+//                })
+            }
+            animator.stopAnimation(true)
+            UIView.animate(withDuration: 0, delay: 1, options: [], animations: {
+                fromView.transform = .identity
+                fromView.center = defaultCenter
+            })
         case .cancelled:
-                propertyAnimator.stopAnimation(true)
+            print("cancelled")
+           // propertyAnimator.fractionComplete = 0
+           // propertyAnimator.stopAnimation(true)
         default:
             break
         }
