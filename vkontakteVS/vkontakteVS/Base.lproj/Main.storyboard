@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -182,7 +182,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="124.33333396911621" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
@@ -262,7 +262,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendTableViewCell" id="6XC-Ol-mjb" customClass="FriendTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="85.333335876464844"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="85.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6XC-Ol-mjb" id="fzU-Fo-5cD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85.333335876464844"/>
@@ -407,7 +407,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendPhotosCollectionView" destination="xFA-Yk-6fv" id="Oy4-Fa-3pM"/>
-                        <segue destination="dp7-rc-geE" kind="custom" identifier="FriendPhotoFullScreen" customClass="CustomSegue" customModule="vkontakteVS" customModuleProvider="target" id="q1x-nD-E1B"/>
+                        <segue destination="dp7-rc-geE" kind="show" identifier="FriendPhotoFullScreen" id="q1x-nD-E1B"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynr-gh-96j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -419,17 +419,17 @@
             <objects>
                 <viewController id="dp7-rc-geE" customClass="FriendPhotoFullScreen" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KCp-VW-sgS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
-                                <rect key="frame" x="20" y="0.0" width="374" height="736"/>
+                                <rect key="frame" x="20" y="56" width="374" height="611"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="736"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-wi-iAP">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="736"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -497,7 +497,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUh-1C-5gY" id="JzU-KC-SFe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
