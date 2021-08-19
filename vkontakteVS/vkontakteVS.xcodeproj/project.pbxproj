@@ -12,6 +12,10 @@
 		843025FE26B920D60085307C /* LettersControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843025FD26B920D60085307C /* LettersControl.swift */; };
 		843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BC42B26C3A82D00303CE7 /* TransparancyCircleView.swift */; };
 		84481BB326AED8DB002CBC86 /* AveliableGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */; };
+		847AEF0B26CE760F00746CB6 /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF0A26CE760F00746CB6 /* AnimationController.swift */; };
+		847AEF0D26CE855600746CB6 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF0C26CE855600746CB6 /* CustomNavigationController.swift */; };
+		847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF0E26CE8D9700746CB6 /* CustomSegue.swift */; };
+		847AEF1126CE997D00746CB6 /* CustomPush+PopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF1026CE997D00746CB6 /* CustomPush+PopAnimators.swift */; };
 		84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */; };
 		84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */; };
 		84A0613826BC1E1B00BC0937 /* UserNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */; };
@@ -70,6 +74,10 @@
 		843025FD26B920D60085307C /* LettersControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LettersControl.swift; sourceTree = "<group>"; };
 		843BC42B26C3A82D00303CE7 /* TransparancyCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparancyCircleView.swift; sourceTree = "<group>"; };
 		84481BB226AED8DB002CBC86 /* AveliableGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveliableGroupsTableViewController.swift; sourceTree = "<group>"; };
+		847AEF0A26CE760F00746CB6 /* AnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
+		847AEF0C26CE855600746CB6 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		847AEF0E26CE8D9700746CB6 /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
+		847AEF1026CE997D00746CB6 /* CustomPush+PopAnimators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomPush+PopAnimators.swift"; sourceTree = "<group>"; };
 		84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsViewController.swift; sourceTree = "<group>"; };
 		84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewsTableViewCell.swift; sourceTree = "<group>"; };
 		84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserNewsTableViewCell.xib; sourceTree = "<group>"; };
@@ -186,6 +194,10 @@
 			isa = PBXGroup;
 			children = (
 				84A5895D26CBB84B00FC9F9F /* ExtensionPanRecognizer.swift */,
+				847AEF0A26CE760F00746CB6 /* AnimationController.swift */,
+				847AEF0C26CE855600746CB6 /* CustomNavigationController.swift */,
+				847AEF0E26CE8D9700746CB6 /* CustomSegue.swift */,
+				847AEF1026CE997D00746CB6 /* CustomPush+PopAnimators.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -492,6 +504,7 @@
 				843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */,
 				F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */,
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
+				847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */,
 				F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */,
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,
 				F4F5B10626AAE06900BD17EF /* Group.swift in Sources */,
@@ -499,6 +512,8 @@
 				F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */,
 				F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */,
 				F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */,
+				847AEF0D26CE855600746CB6 /* CustomNavigationController.swift in Sources */,
+				847AEF0B26CE760F00746CB6 /* AnimationController.swift in Sources */,
 				84A5895E26CBB84B00FC9F9F /* ExtensionPanRecognizer.swift in Sources */,
 				84DB71CD26B82B4200056C2D /* FriendsSectionTableViewHeader.swift in Sources */,
 				F408AFC926B75088004DBF67 /* FriendPhotoFullScreen.swift in Sources */,
@@ -509,6 +524,7 @@
 				F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */,
 				84A0613A26BD181000BC0937 /* News.swift in Sources */,
 				F4DDA0EB26A890A7002DEAE8 /* UserGroupsTableViewController.swift in Sources */,
+				847AEF1126CE997D00746CB6 /* CustomPush+PopAnimators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

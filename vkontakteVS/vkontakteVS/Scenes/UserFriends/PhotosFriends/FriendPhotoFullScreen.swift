@@ -54,6 +54,10 @@ class FriendPhotoFullScreen: UIViewController {
         let translation = recognazer.translation(in: view)
         let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
         
+        if sender.direction == .down {
+            self.navigationController?.popViewController(animated: true)
+        }
+            
         switch sender.state {
         case .began:
             print("began")
@@ -98,8 +102,8 @@ class FriendPhotoFullScreen: UIViewController {
                 animator.isReversed = true
                 animator.startAnimation()
             }
-        case .cancelled:
-            print("cancelled")
+//        case .cancelled:
+//            print("cancelled")
         default:
             break
         }

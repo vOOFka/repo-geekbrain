@@ -407,7 +407,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendPhotosCollectionView" destination="xFA-Yk-6fv" id="Oy4-Fa-3pM"/>
-                        <segue destination="dp7-rc-geE" kind="show" identifier="FriendPhotoFullScreen" id="q1x-nD-E1B"/>
+                        <segue destination="dp7-rc-geE" kind="custom" identifier="FriendPhotoFullScreen" customClass="CustomSegue" customModule="vkontakteVS" customModuleProvider="target" id="q1x-nD-E1B"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynr-gh-96j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -419,17 +419,17 @@
             <objects>
                 <viewController id="dp7-rc-geE" customClass="FriendPhotoFullScreen" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KCp-VW-sgS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
-                                <rect key="frame" x="20" y="56" width="374" height="611"/>
+                                <rect key="frame" x="20" y="0.0" width="374" height="736"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="736"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-wi-iAP">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="736"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -558,7 +558,7 @@
         <!--Группы-->
         <scene sceneID="21o-c4-7bs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0xJ-fq-JsH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0xJ-fq-JsH" customClass="CustomNavigationController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" id="GD9-Uc-dOB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zXJ-xV-btu">

@@ -13,10 +13,10 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     @IBOutlet private var friendPhotosCollectionView: UICollectionView!
     
     //MARK: Var
-    let reuseIdentifier = "PhotosCollectionViewCell"
-    let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
+    private let reuseIdentifier = "PhotosCollectionViewCell"
+    private let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
     var currentFriend: Friend?
-    var selectedImage: (UIImage?, Int) = (nil, 0)
+    private var selectedImage: (UIImage?, Int) = (nil, 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
