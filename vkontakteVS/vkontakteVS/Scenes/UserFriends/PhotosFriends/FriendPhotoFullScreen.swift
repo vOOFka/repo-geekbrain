@@ -23,8 +23,7 @@ class FriendPhotoFullScreen: UIViewController {
     private var animator: UIViewPropertyAnimator!
     private let recognazer = UIPanGestureRecognizer()
     private var isChange = false
-    private var defaultCenter = CGPoint(x: 0, y: 0)
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         //Configuration
@@ -38,7 +37,6 @@ class FriendPhotoFullScreen: UIViewController {
     fileprivate func setup() {
         currentPhotoImageView.image = image!.0
         nextPhotoImageView.alpha = 0
-        defaultCenter = currentPhotoImageView.center
     }
     
     fileprivate func setupPanRecognizer() {
@@ -52,11 +50,6 @@ class FriendPhotoFullScreen: UIViewController {
 
         let fromView = isChange ? nextPhotoImageView! : currentPhotoImageView!
         let toView = isChange ? currentPhotoImageView! : nextPhotoImageView!
-        
-        currentPhotoImageView.center = view.center
-        nextPhotoImageView.center = view.center
-
-        //image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
 
         let translation = recognazer.translation(in: view)
         let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
@@ -79,24 +72,28 @@ class FriendPhotoFullScreen: UIViewController {
             let percent = abs(translation.x / 100)
             let animationPercent = min(1, max(0, percent))
             animator.fractionComplete = animationPercent
-            print("defaultCenter: \(defaultCenter.x), translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
+            print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
             print("ended")
-            indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
-            toView.image = photoArray[indexNextPhoto].photo
-            
             if translation.x < -20 || translation.x > 20 {
+                indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
+                image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
+                toView.image = photoArray[indexNextPhoto].photo
+                
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-                UIView.transition(from: fromView, to: toView, duration: 2, options: [.transitionCrossDissolve, .showHideTransitionViews])
+                UIView.transition(from: fromView, to: toView, duration: 2,
+                                  options: [.transitionCrossDissolve, .showHideTransitionViews],
+                                  completion: {_ in
+                                    fromView.transform = CGAffineTransform(translationX: 0, y: 0)
+                                    toView.transform = CGAffineTransform(translationX: 0, y: 0)
+                })
                 isChange = !isChange
                 
-                
-                fromView.alpha = 1
-                toView.alpha = 0
-                fromView.isHidden = false
-                toView.isHidden = false
-                fromView.center = view.center
-                toView.center = view.center
+                fromView.alpha = 0
+                toView.alpha = 1
+//                fromView.isHidden = false
+//                toView.isHidden = false
+
             } else {
                 animator.isReversed = true
                 animator.startAnimation()
@@ -135,7 +132,7 @@ class FriendPhotoFullScreen: UIViewController {
 }
 
 extension FriendPhotoFullScreen: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return currentPhotoImageView
+    internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        isChange ? nextPhotoImageView! : currentPhotoImageView!
     }
 }
