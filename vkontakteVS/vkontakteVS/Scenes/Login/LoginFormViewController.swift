@@ -20,6 +20,7 @@ class LoginFormViewController: UIViewController {
     private let transparancyCircleView = TransparancyCircleView()
     private var isLoading = false
     private let cloudView = Cloud()
+    private let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnLogo(_sender:)))
     
     //MARK: Live cycle
     override func viewDidLoad() {
@@ -32,6 +33,10 @@ class LoginFormViewController: UIViewController {
         //Cloud activity indicator
         setupCloudView()
         //cloudView.animationStart()
+        
+        //Animation Logo
+        logoImageView.addGestureRecognizer(tapRecognazer)
+        animationLogo()
     }
     deinit {
         //removeNotifications()
@@ -48,6 +53,16 @@ class LoginFormViewController: UIViewController {
     }
     
     //MARK: Functions
+    private func animationLogo() {
+        let scale = CGAffineTransform(scaleX: 0.3, y: 2)
+
+        logoImageView.transform = CGAffineTransform(translationX: 0, y: -logoImageView.frame.height/2).concatenating(scale)
+        
+        UIView.animate(withDuration: 3.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.logoImageView.transform = .identity
+        })
+    }
+    
     private func setupTransparancyCircleView() {
         authScrollView.addSubview(transparancyCircleView)
         
@@ -132,6 +147,10 @@ class LoginFormViewController: UIViewController {
     }
     
     //MARK: Actions
+    @objc private func tapOnLogo(_sender: UITapGestureRecognizer) {
+        animationLogo()
+    }
+    
     @IBAction private func enterButton(_ sender: Any) {
         if isLoading != true {
             isLoading = true

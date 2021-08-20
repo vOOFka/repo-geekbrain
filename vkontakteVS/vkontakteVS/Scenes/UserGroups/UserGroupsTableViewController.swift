@@ -42,7 +42,6 @@ class UserGroupsTableViewController: UITableViewController {
         tableView.contentOffset = CGPoint(x: 0, y: -heightHeader)
         calculateHeightHeader()
 
-        transitioningDelegate = self
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -129,15 +128,5 @@ extension UserGroupsTableViewController {
         }
         bottom?.constant = offsetY <= 0 ? offsetY / 2 : 0
         groupsHeaderView.frame = headerRect
-    }
-}
-
-extension UserGroupsTableViewController: UIViewControllerTransitioningDelegate {
-    internal func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        AnimationController(animationType: .present)
-    }
-    
-    internal func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        AnimationController(animationType: .dismiss)
     }
 }

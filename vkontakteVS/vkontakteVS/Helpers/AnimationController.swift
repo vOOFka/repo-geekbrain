@@ -30,48 +30,79 @@ class AnimationController: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(false)
             return
         }
+        fromViewController.view.frame = transitionContext.containerView.frame
+        toViewController.view.frame = transitionContext.containerView.frame
+        
         switch animationType {
         case .present:
             print("present")
             transitionContext.containerView.addSubview(toViewController.view)
-            presentAnimation(with: transitionContext, viewToAnimate: toViewController.view)
+            //presentAnimation(with: transitionContext, viewToAnimate: toViewController.view)
+            presentAnimation90Degries(with: transitionContext, viewToAnimate: toViewController.view)
         case .dismiss:
             print("dismiss")
             transitionContext.containerView.addSubview(toViewController.view)
             transitionContext.containerView.addSubview(fromViewController.view)
-            dismissAnimation(with: transitionContext, viewToAnimate: fromViewController.view)
+            //dismissAnimation(with: transitionContext, viewToAnimate: toViewController.view)
+            dismissAnimation90Degries(with: transitionContext, viewToAnimate: toViewController.view)
         }
         
     }
     
-    func presentAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
-        viewToAnimate.clipsToBounds = true
-        viewToAnimate.transform = CGAffineTransform(scaleX: 0, y: 0)
-        let duration = transitionDuration(using: transitionContext)
+//    func presentAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
+//        viewToAnimate.clipsToBounds = true
+//        viewToAnimate.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        let duration = transitionDuration(using: transitionContext)
+//
+//        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
+//            viewToAnimate.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//        }, completion: { _ in
+//            transitionContext.completeTransition(true)
+//        })
+//    }
+    
+    func presentAnimation90Degries(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
+        viewToAnimate.layer.anchorPoint = CGPoint(x: 0, y: 0)
+        viewToAnimate.frame = CGRect(x: 0, y: 0, width: viewToAnimate.frame.width, height: viewToAnimate.frame.height)
+        viewToAnimate.transform = CGAffineTransform(rotationAngle: 1.8)
         
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
-            viewToAnimate.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            viewToAnimate.transform = .identity
         }, completion: { _ in
             transitionContext.completeTransition(true)
         })
-
+        
     }
     
-    func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
-        let duration = transitionDuration(using: transitionContext)
-        let scale = CGAffineTransform(scaleX: 0.3, y: 0.3)
-        let moveOut = CGAffineTransform(translationX: -viewToAnimate.frame.width, y: 0)
+//    func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
+//        //let duration = transitionDuration(using: transitionContext)
+//        let scale = CGAffineTransform(scaleX: 0.3, y: 0.3)
+//        let moveOut = CGAffineTransform(translationX: -viewToAnimate.frame.width, y: 0)
+//
+//        UIView.animateKeyframes(withDuration: 2.0, delay: 0, options: .calculationModeCubic, animations: {
+//            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
+//                viewToAnimate.transform = scale
+//            })
+//            UIView.addKeyframe(withRelativeStartTime: 3.0, relativeDuration: 1.0, animations: {
+//                viewToAnimate.transform = scale.concatenating(moveOut)
+//                viewToAnimate.alpha = 0
+//            })
+//        }) { _ in
+//            transitionContext.completeTransition(true)
+//        }
+//    }
+
+    func dismissAnimation90Degries(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
+        viewToAnimate.isHidden = false
+        viewToAnimate.layer.anchorPoint = CGPoint(x: 1, y: 0)
+        viewToAnimate.frame = CGRect(x: 0, y: 0, width: viewToAnimate.frame.width, height: viewToAnimate.frame.height)
+        viewToAnimate.transform = CGAffineTransform(rotationAngle: -1.8)
         
-        UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeLinear, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
-                viewToAnimate.transform = scale
-            })
-            UIView.addKeyframe(withRelativeStartTime: 3.0/duration, relativeDuration: 1.0, animations: {
-                viewToAnimate.transform = scale.concatenating(moveOut)
-                viewToAnimate.alpha = 0
-            })
-        }) { _ in
+        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            viewToAnimate.transform = .identity
+        }, completion: { _ in
             transitionContext.completeTransition(true)
-        }
+        })
+        
     }
 }
