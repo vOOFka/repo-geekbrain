@@ -21,19 +21,16 @@ class UserGroupsTableViewController: UITableViewController {
     //MARK: - Var
     private var userGroups = Group.userGroups
     private let cellID = "GroupTableViewCell"
-    private let searchView = GroupSearchBar()
-    //private var filteredUserGroups = [Group]()
+    private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
+    private let searchInNavigationBar = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchView.delegate = self
-        //searchView.frame = CGRect(x: 0, y: 70, width: tableView.bounds.width, height: 50)
         
         tableView.tableHeaderView = nil
         tableView.addSubview(groupsHeaderView)
         groupsHeaderView.clipsToBounds = true
-        //groupsHeaderView.addSubview(searchView)
         
         groupsTableView.separatorStyle = .none
         groupsTableView.allowsSelection = false
@@ -46,6 +43,11 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         calculateHeightHeader()
+    }
+    
+    // MARK: - Actions
+    @IBAction func searchButton(_ sender: UIBarButtonItem) {
+        showHideSearchBar()
     }
     
     //MARK: - Navigation
@@ -64,15 +66,6 @@ class UserGroupsTableViewController: UITableViewController {
     }
     
     //MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50
-    }
-
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return searchView
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userGroups.count
     }
@@ -86,7 +79,6 @@ class UserGroupsTableViewController: UITableViewController {
         cell.groupName.text = userGroups[indexPath.row].name
         cell.groupImage.isUserInteractionEnabled = true
         cell.groupImage.addGestureRecognizer(tapRecognazer)
-        
         return cell
         
     }
@@ -100,19 +92,6 @@ class UserGroupsTableViewController: UITableViewController {
         default:
             return
         }
-    }
-}
-
-extension UserGroupsTableViewController:  UISearchBarDelegate  {
-    //Config searchbar
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //filteredUserGroups.removeAll()
-        if searchText == "" {
-            userGroups = Group.userGroups
-        } else {
-            userGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
-        }
-        tableView.reloadData()
     }
 }
 
@@ -130,3 +109,29 @@ extension UserGroupsTableViewController {
         groupsHeaderView.frame = headerRect
     }
 }
+
+extension UserGroupsTableViewController: UISearchControllerDelegate, UISearchBarDelegate { 
+    func showHideSearchBar() {
+        if navigationItem.searchController == nil {
+            navigationItem.searchController = searchInNavigationBar
+            searchInNavigationBar.delegate = self
+            searchInNavigationBar.searchBar.delegate = self
+            searchInNavigationBar.searchBar.sizeToFit()
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            navigationItem.searchController = nil
+            filteredUserGroups.removeAll()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredUserGroups.removeAll()
+        if searchText == "" {
+            userGroups = Group.userGroups
+        } else {
+            userGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
+        }
+        tableView.reloadData()
+    }
+}
+

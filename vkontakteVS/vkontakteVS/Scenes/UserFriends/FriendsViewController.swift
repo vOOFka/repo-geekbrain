@@ -68,7 +68,8 @@ extension FriendsViewController: UITableViewDataSource {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderID) as? FriendsSectionTableViewHeader else {
             fatalError("Message: Error in dequeue FriendsSectionTableViewHeader")
         }
-        header.tintColor = UIColor.systemTeal
+        header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
+        header.contentView.alpha = 0.7
         header.letterLabel.text = friendsCategory[section].categoryFriendName
         return header
     }

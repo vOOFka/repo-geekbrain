@@ -41,8 +41,8 @@ class AnimationController: NSObject, UIViewControllerAnimatedTransitioning {
             presentAnimation90Degries(with: transitionContext, viewToAnimate: toViewController.view)
         case .dismiss:
             print("dismiss")
-            transitionContext.containerView.addSubview(toViewController.view)
             transitionContext.containerView.addSubview(fromViewController.view)
+            transitionContext.containerView.addSubview(toViewController.view)
             //dismissAnimation(with: transitionContext, viewToAnimate: toViewController.view)
             dismissAnimation90Degries(with: transitionContext, viewToAnimate: toViewController.view)
         }

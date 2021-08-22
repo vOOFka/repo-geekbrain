@@ -22,7 +22,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         //for custom animation transition
-        self.navigationController?.delegate = self
+        //self.navigationController?.delegate = self
     }
 
     // MARK: UICollectionViewDataSource
@@ -55,17 +55,17 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
 
 }
 
-extension FriendPhotosCollectionViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        switch operation {
-        case .push:
-            return AnimationController(animationType: .present)
-        case .pop:
-            return AnimationController(animationType: .dismiss)
-        case .none:
-            return nil
-        @unknown default:
-            return nil
-        }
-    }
-}
+//extension FriendPhotosCollectionViewController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        switch operation {
+//        case .push:
+//            return //AnimationController(animationType: .present)
+//        case .pop:
+//            return //AnimationController(animationType: .dismiss)
+//        case .none:
+//            return nil
+//        @unknown default:
+//            return nil
+//        }
+//    }
+//}

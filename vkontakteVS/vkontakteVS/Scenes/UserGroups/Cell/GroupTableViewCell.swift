@@ -10,7 +10,12 @@ import UIKit
 class GroupTableViewCell: UITableViewCell {
 
     //MARK: - Outlets
-    @IBOutlet weak var groupImage: UIImageView!
+    @IBOutlet weak var groupImage: UIImageView! {
+        didSet {
+            groupImage.layer.cornerRadius = 10.0
+            groupImage.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var groupName: UILabel!
 
 }

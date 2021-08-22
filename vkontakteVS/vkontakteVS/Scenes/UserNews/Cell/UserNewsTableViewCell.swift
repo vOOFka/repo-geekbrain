@@ -23,6 +23,8 @@ protocol NewsCellSizes {
     var newsTextFrame: CGRect { get }
     var newsImageFrame: CGRect { get }
     var hightCell: CGFloat { get }
+    var moreTextButton: CGRect { get }
+    
 }
 
 class UserNewsTableViewCell: UITableViewCell {
@@ -35,6 +37,7 @@ class UserNewsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var dateNewsLabel: UILabel!
     @IBOutlet weak var textNewsLabel: UILabel!
+    @IBOutlet weak var moreTextButton: UIButton!
     @IBOutlet weak var imageNews: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
@@ -60,6 +63,7 @@ class UserNewsTableViewCell: UITableViewCell {
         
         textNewsLabel.frame = cellModel.size.newsTextFrame
         imageNews.frame = cellModel.size.newsImageFrame
+        moreTextButton.frame = cellModel.size.moreTextButton
     }
     
     private func setup() {
@@ -73,4 +77,8 @@ class UserNewsTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
     
+    // MARK: Actions
+    @IBAction func tapMoreButton(_ sender: Any) {
+        print("More text")
+    }
 }
