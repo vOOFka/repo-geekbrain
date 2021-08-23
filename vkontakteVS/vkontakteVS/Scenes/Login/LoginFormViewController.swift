@@ -20,6 +20,7 @@ class LoginFormViewController: UIViewController {
     private let transparancyCircleView = TransparancyCircleView()
     private var isLoading = false
     private let cloudView = Cloud()
+    private let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnLogo(_sender:)))
     
     //MARK: Live cycle
     override func viewDidLoad() {
@@ -31,7 +32,11 @@ class LoginFormViewController: UIViewController {
             
         //Cloud activity indicator
         setupCloudView()
-        cloudView.animation()
+        //cloudView.animationStart()
+        
+        //Animation Logo
+        logoImageView.addGestureRecognizer(tapRecognazer)
+        animationLogo()
     }
     deinit {
         //removeNotifications()
@@ -48,12 +53,15 @@ class LoginFormViewController: UIViewController {
     }
     
     //MARK: Functions
-//    private func someNetworkDelay(delay: Double) {
-//        DispatchQueue.main.asyncAfter(deadline:.now() + delay, execute: {
-//            self.transparancyCircleView.animate()
-//            self.isLoading = true
-//        })
-//    }
+    private func animationLogo() {
+        let scale = CGAffineTransform(scaleX: 0.3, y: 2)
+
+        logoImageView.transform = CGAffineTransform(translationX: 0, y: -logoImageView.frame.height/2).concatenating(scale)
+        
+        UIView.animate(withDuration: 3.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.logoImageView.transform = .identity
+        })
+    }
     
     private func setupTransparancyCircleView() {
         authScrollView.addSubview(transparancyCircleView)
@@ -71,8 +79,8 @@ class LoginFormViewController: UIViewController {
         NSLayoutConstraint.activate([
             cloudView.centerYAnchor.constraint(equalTo: enterButton.centerYAnchor, constant: 100),
             cloudView.centerXAnchor.constraint(equalTo: authScrollView.centerXAnchor),
-            cloudView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),//(equalToConstant: 100),
-            cloudView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor)//(equalToConstant: 150)
+            cloudView.heightAnchor.constraint(equalToConstant: 80),
+            cloudView.widthAnchor.constraint(equalToConstant: 130)
         ])
     }
     
@@ -132,12 +140,26 @@ class LoginFormViewController: UIViewController {
             showAuthError()
             loginTextField.text = ""
             passwordTextField.text = ""
-            enterButton.isEnabled = true
+            isLoading = false
+            cloudView.animationStop()
             return false
         }
     }
     
     //MARK: Actions
+    @objc private func tapOnLogo(_sender: UITapGestureRecognizer) {
+        animationLogo()
+    }
+    
     @IBAction private func enterButton(_ sender: Any) {
+        if isLoading != true {
+            isLoading = true
+            cloudView.animationStart()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                if self.shouldPerformSegue(withIdentifier: "showMainScreenID", sender: nil) {
+                    self.performSegue(withIdentifier: "showMainScreenID", sender: nil)
+                }
+            }
+        }
     }
 }

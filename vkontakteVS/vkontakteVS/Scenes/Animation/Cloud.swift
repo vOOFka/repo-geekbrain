@@ -23,12 +23,12 @@ class Cloud: UIView {
     
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
-        frame = CGRect(x: 0, y: 0, width: 150, height: 100)
+        frame = CGRect(x: 0, y: 0, width: 130, height: 80)
         
         let scale = CGSize(width: self.bounds.size.width / cloudePath.bounds.size.width, height: self.bounds.size.height / cloudePath.bounds.size.height)
         cloudePath.apply(CGAffineTransform(scaleX: scale.width, y: scale.height))
         cloudLayer.path = cloudePath.cgPath
-        cloudLayer.lineWidth = 5
+        cloudLayer.lineWidth = 0.0
         cloudLayer.fillColor = UIColor.white.cgColor
         cloudLayer.strokeColor =  #colorLiteral(red: 0.262745098, green: 0.3529411765, blue: 0.3921568627, alpha: 1)
         cloudLayer.lineCap = .round
@@ -37,13 +37,14 @@ class Cloud: UIView {
         self.layer.addSublayer(cloudLayer)
     }
     
-    func animation() {
+    func animationStart() {
+        cloudLayer.lineWidth = 5.0
         let duration: CFTimeInterval = 5
         let startAnimationStroke = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeStart))
         startAnimationStroke.fromValue = 0
         startAnimationStroke.toValue = 1
         //startAnimationStroke.duration = 3
-        startAnimationStroke.beginTime = 0.3
+        startAnimationStroke.beginTime = 0.2
 
         let endAnimationStroke = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
         endAnimationStroke.fromValue = 0
@@ -53,7 +54,7 @@ class Cloud: UIView {
 
 
         let animationGroup = CAAnimationGroup()
-        animationGroup.animations = [startAnimationStroke, endAnimationStroke]
+        animationGroup.animations = [endAnimationStroke, startAnimationStroke]
         animationGroup.repeatCount = .infinity
         animationGroup.duration = duration
 
@@ -74,6 +75,11 @@ class Cloud: UIView {
 //        followPathAnimation.repeatCount = .infinity
 //
 //        circle.add(followPathAnimation, forKey: nil)
+    }
+    
+    func animationStop() {
+        cloudLayer.lineWidth = 0.0
+        cloudLayer.removeAllAnimations()
     }
 }
 

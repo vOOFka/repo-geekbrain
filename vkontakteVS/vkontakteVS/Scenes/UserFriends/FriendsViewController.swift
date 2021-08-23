@@ -24,9 +24,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let friendClick = friendsCategory[indexPath.section].friends[indexPath.row] //friendsArray[indexPath.row]
+            let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
             let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
-            currentFriendPhotosVC.currentFriend = friendClick            
+            currentFriendPhotosVC.currentFriend = friendClick
         }
     }
     
@@ -37,7 +37,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
         //watch press LettersControl
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
-        
+        //for custom animation transition
+        self.navigationController?.delegate = self
      }
     
     @objc private func letterWasChange(_ control: LettersControl) {
@@ -67,7 +68,8 @@ extension FriendsViewController: UITableViewDataSource {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderID) as? FriendsSectionTableViewHeader else {
             fatalError("Message: Error in dequeue FriendsSectionTableViewHeader")
         }
-        header.tintColor = UIColor.systemTeal
+        header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
+        header.contentView.alpha = 0.7
         header.letterLabel.text = friendsCategory[section].categoryFriendName
         return header
     }
@@ -107,5 +109,20 @@ extension UIViewController {
                         tapImageView.transform = CGAffineTransform.identity
                        },
                        completion: nil)
+    }
+}
+
+extension FriendsViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        switch operation {
+        case .push:
+            return AnimationController(animationType: .present)
+        case .pop:
+            return AnimationController(animationType: .dismiss)
+        case .none:
+            return nil
+        @unknown default:
+            return nil
+        }
     }
 }

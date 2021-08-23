@@ -8,115 +8,127 @@
 import UIKit
 
 class FriendPhotoFullScreen: UIViewController {
-
-    @IBOutlet weak private var photoFullScreenImage: UIImageView!
+    
+    @IBOutlet weak private var currentPhotoImageView: UIImageView!
+    @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
-    var image: (UIImage?, Int) = (nil, 0)
+    
+    var image: (UIImage?, Int)?
     var currentFriend: Friend? {
         didSet{
             photoArray = currentFriend?.photos ?? [Photos]()
         }
     }
-    var photoArray = [Photos]()
-    
+    private var photoArray = [Photos]()
+    private var animator: UIViewPropertyAnimator!
+    private let recognazer = UIPanGestureRecognizer()
+    private var isChange = false
+       
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Configuration
+        setup()
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
-        setupSwipeRecognizer()
+        setupPanRecognizer()
     }
     
-    fileprivate func setupSwipeRecognizer() {
-        let next = UISwipeGestureRecognizer()
-        let back = UISwipeGestureRecognizer()
-        next.direction = .left
-        back.direction = .right
-        view.addGestureRecognizer(next)
-        view.addGestureRecognizer(back)
-        next.addTarget(self, action: #selector(changePhotoFullScreenImage(_:)))
-        back.addTarget(self, action: #selector(changePhotoFullScreenImage(_:)))
+    fileprivate func setup() {
+        currentPhotoImageView.image = image!.0
+        nextPhotoImageView.alpha = 0
     }
     
-    @objc private func changePhotoFullScreenImage(_ swipe: UISwipeGestureRecognizer) {
-        let indexOfCurrentPhoto = image.1
+    fileprivate func setupPanRecognizer() {
+        self.view.addGestureRecognizer(recognazer)
+        recognazer.addTarget(self, action: #selector(onPan(_:)))
+    }
+    
+    @objc func onPan(_ sender: UIPanGestureRecognizer) {
+        let indexOfCurrentPhoto = image!.1
         var indexNextPhoto = 0
-        var reverseAnimations = false
+
+        let fromView = isChange ? nextPhotoImageView! : currentPhotoImageView!
+        let toView = isChange ? currentPhotoImageView! : nextPhotoImageView!
+
+        let translation = recognazer.translation(in: view)
+        let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
         
-        switch swipe.direction {
-        case .left:
-            indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto + 1)
-        case .right:
-            indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto - 1)
-            reverseAnimations = true
+        if sender.direction == .down {
+            self.navigationController?.popViewController(animated: true)
+        }
+            
+        switch sender.state {
+        case .began:
+            print("began")
+            animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
+                if sender.direction == .right {
+                    fromView.transform = CGAffineTransform(translationX: fromView.frame.size.width + fromView.frame.size.width, y: 0).concatenating(scale)
+                }
+                else if sender.direction == .left {
+                    fromView.transform = CGAffineTransform(translationX: -fromView.frame.size.width, y: 0).concatenating(scale)
+                }
+            })
+            animator.startAnimation()
+            animator.pauseAnimation()
+        case .changed:
+            // print("changed")
+            let percent = abs(translation.x / 100)
+            let animationPercent = min(1, max(0, percent))
+            animator.fractionComplete = animationPercent
+            print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
+        case .ended:
+            print("ended")
+            if translation.x < -20 || translation.x > 20 {
+                indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
+                image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
+                toView.image = photoArray[indexNextPhoto].photo
+                
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+                UIView.transition(from: fromView, to: toView, duration: 2,
+                                  options: [.transitionCrossDissolve, .showHideTransitionViews],
+                                  completion: {_ in
+                                    fromView.transform = CGAffineTransform(translationX: 0, y: 0)
+                                    toView.transform = CGAffineTransform(translationX: 0, y: 0)
+                })
+                isChange = !isChange
+                
+                fromView.alpha = 0
+                toView.alpha = 1
+//                fromView.isHidden = false
+//                toView.isHidden = false
+
+            } else {
+                animator.isReversed = true
+                animator.startAnimation()
+            }
+//        case .cancelled:
+//            print("cancelled")
         default:
             break
         }
-        changePhotoAnimations(index: indexNextPhoto, reverse: reverseAnimations)
     }
     
-    fileprivate func changePhotoAnimations(index i: Int, reverse: Bool) {
-        let fromView = photoFullScreenImage!
-        let toView = UIImageView(image: photoArray[i].photo)
+    private func whatNextIndexOfPhoto(index: Int, direction: Direction) -> Int {
+        var i = index
         
-        toView.frame.size = fromView.frame.size
-        toView.contentMode = .scaleAspectFit
-        toView.center.x = fromView.center.x + fromView.frame.size.width
-        
-        if reverse == false {
-            UIView.animate(withDuration: 0.2,
-                           delay: 0.2,
-                           options: .curveLinear)
-            {
-                fromView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.2,
-                               options: .curveLinear) {
-                    toView.center.x = fromView.center.x
-                }
-                UIView.transition(from: fromView, to: toView,
-                                  duration: 1,
-                                  options: [.curveEaseIn, .transitionCrossDissolve ])
-            }
+        if direction == .right {
+            i = i - 1
         } else {
-            toView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            
-            UIView.animate(withDuration: 0.5, delay: 0.2,
-                           options: .curveLinear) {
-                fromView.center.x = toView.center.x
-            } completion: { _ in
-                toView.center.x = fromView.center.x - fromView.frame.size.width
-                
-                UIView.animate(withDuration: 0.2,
-                               delay: 0.2,
-                               options: .curveLinear)
-                {
-                    toView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                }
-                UIView.transition(from: fromView, to: toView,
-                                  duration: 1,
-                                  options: [.curveEaseIn, .transitionCrossDissolve ])
-            }
+            i = i + 1
         }
-        photoFullScreenImage = toView
-        image = (photoArray[i].photo, i)
-    }
-    
-    private func whatNextIndexOfPhoto(index: Int) -> Int {
-        if index > (photoArray.count - 1) {
-           return 0
-        } else if index < 0 {
-            return photoArray.count - 1
+        
+        if i > (photoArray.count - 1) {
+            i = 0
+        } else if i < 0 {
+            i = photoArray.count - 1
         }
-        return index
+        return i
     }
     
     private func setupPhotoFullScreenScrollView() {
-        //image config
-        photoFullScreenImage.image = image.0
-        photoFullScreenImage.contentMode = .scaleAspectFit
         //scroolview config
-        photoFullScreenScrollView.contentSize = image.0?.size ?? view.bounds.size
+        photoFullScreenScrollView.contentSize = image!.0?.size ?? view.bounds.size
         photoFullScreenScrollView.delegate = self
         photoFullScreenScrollView.minimumZoomScale = 1.0
         photoFullScreenScrollView.maximumZoomScale = 3.0
@@ -124,7 +136,7 @@ class FriendPhotoFullScreen: UIViewController {
 }
 
 extension FriendPhotoFullScreen: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return photoFullScreenImage
+    internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        isChange ? nextPhotoImageView! : currentPhotoImageView!
     }
 }

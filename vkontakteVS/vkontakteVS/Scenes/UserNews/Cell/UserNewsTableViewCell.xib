@@ -167,13 +167,21 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text News" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcg-fC-gqb" userLabel="Text News">
-                                <rect key="frame" x="10" y="80" width="260" height="30"/>
+                                <rect key="frame" x="10" y="80" width="260" height="19"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiK-Vd-Bbl">
+                                <rect key="frame" x="10" y="100" width="140" height="15"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Показать больше..."/>
+                                <connections>
+                                    <action selector="tapMoreButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LkZ-Qm-7UN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -190,6 +198,7 @@
                 <outlet property="headerView" destination="zbz-Zj-6qf" id="Tbe-gF-a9e"/>
                 <outlet property="imageNews" destination="LHs-07-fvW" id="Yp2-6N-C5P"/>
                 <outlet property="likesLabel" destination="iaO-Ad-p9k" id="iHn-3r-5KF"/>
+                <outlet property="moreTextButton" destination="uiK-Vd-Bbl" id="aXc-Aw-WVb"/>
                 <outlet property="repostLabel" destination="QbO-3q-utJ" id="j7p-Fw-TzU"/>
                 <outlet property="textNewsLabel" destination="qcg-fC-gqb" id="IoZ-G1-BOu"/>
                 <outlet property="viewsLabel" destination="Frn-ba-q9Q" id="Uwf-iu-7xF"/>

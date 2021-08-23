@@ -13,14 +13,16 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     @IBOutlet private var friendPhotosCollectionView: UICollectionView!
     
     //MARK: Var
-    let reuseIdentifier = "PhotosCollectionViewCell"
-    let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
+    private let reuseIdentifier = "PhotosCollectionViewCell"
+    private let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
     var currentFriend: Friend?
-    var selectedImage: (UIImage?, Int) = (nil, 0)
+    private var selectedImage: (UIImage?, Int)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //for custom animation transition
+        //self.navigationController?.delegate = self
     }
 
     // MARK: UICollectionViewDataSource
@@ -52,3 +54,18 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     }
 
 }
+
+//extension FriendPhotosCollectionViewController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        switch operation {
+//        case .push:
+//            return //AnimationController(animationType: .present)
+//        case .pop:
+//            return //AnimationController(animationType: .dismiss)
+//        case .none:
+//            return nil
+//        @unknown default:
+//            return nil
+//        }
+//    }
+//}

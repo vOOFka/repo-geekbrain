@@ -36,7 +36,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="enterButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="flW-Ct-1Am"/>
-                                                    <segue destination="Vx8-Ay-W67" kind="presentation" identifier="showMainScreenID" modalPresentationStyle="fullScreen" id="uaF-xB-xej"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eKM-pt-yyU" userLabel="Stack View Horizontal">
@@ -92,7 +91,7 @@
                                             <constraint firstItem="eKM-pt-yyU" firstAttribute="centerX" secondItem="Ezc-Ta-Awh" secondAttribute="centerX" id="yPU-ht-zx6"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vk" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-tL-yDO">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vk" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-tL-yDO">
                                         <rect key="frame" x="155.33333333333334" y="0.0" width="103.33333333333334" height="184"/>
                                     </imageView>
                                 </subviews>
@@ -127,6 +126,7 @@
                         <outlet property="loginTextField" destination="FhI-ew-RDJ" id="mKS-AS-jrl"/>
                         <outlet property="logoImageView" destination="aDu-tL-yDO" id="JtN-Fz-0HI"/>
                         <outlet property="passwordTextField" destination="YFE-is-rTs" id="Nh9-U6-vGe"/>
+                        <segue destination="Vx8-Ay-W67" kind="show" identifier="showMainScreenID" id="GpL-3f-iBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -136,7 +136,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gAw-Bd-cRs">
             <objects>
-                <tabBarController wantsFullScreenLayout="YES" id="Vx8-Ay-W67" sceneMemberID="viewController">
+                <tabBarController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="Vx8-Ay-W67" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="eWk-Tk-mVx"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h1v-j3-oyh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -158,7 +158,7 @@
             <objects>
                 <tableViewController id="5UX-zM-DRy" customClass="UserGroupsTableViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BhD-qR-cPN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleAspectFill" id="R9D-s6-nzy">
@@ -181,7 +181,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
@@ -225,11 +225,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="iyF-tt-JfH">
                         <barButtonItem key="backBarButtonItem" title="Мои группы" id="tEu-pT-xgV"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Rv-u8-umf">
-                            <connections>
-                                <segue destination="UUu-QB-DwQ" kind="show" id="Vh9-qB-lh7"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="1Rv-u8-umf">
+                                <connections>
+                                    <segue destination="UUu-QB-DwQ" kind="show" id="Vh9-qB-lh7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="SearchGroup" image="magnifyingglass" catalog="system" id="Q8O-gf-Cwc">
+                                <connections>
+                                    <action selector="searchButton:" destination="5UX-zM-DRy" id="Qiq-rf-xCZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="bottom" destination="jyL-12-pOs" id="cs9-Kd-1Wg"/>
@@ -246,11 +253,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="hww-oJ-L5e" customClass="FriendsViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S29-ob-Lb8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mrn-oz-gsD" customClass="LettersControl" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -258,7 +265,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="45" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lc3-sH-R9D">
-                                <rect key="frame" x="0.0" y="94" width="414" height="593"/>
+                                <rect key="frame" x="0.0" y="106" width="414" height="561"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendTableViewCell" id="6XC-Ol-mjb" customClass="FriendTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
@@ -354,18 +361,18 @@
             <objects>
                 <collectionViewController id="7Ow-cE-bHL" customClass="FriendPhotosCollectionViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="xFA-Yk-6fv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4kt-uo-vyf">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="4kt-uo-vyf">
                             <size key="itemSize" width="128" height="178"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotosCollectionViewCell" id="QHf-Tp-F0p" customClass="PhotosCollectionViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="128" height="178"/>
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="178"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q2N-AR-aem">
                                     <rect key="frame" x="0.0" y="0.0" width="128" height="178"/>
@@ -419,39 +426,48 @@
             <objects>
                 <viewController id="dp7-rc-geE" customClass="FriendPhotoFullScreen" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KCp-VW-sgS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="p0m-Rd-WTb">
+                                <rect key="frame" x="20" y="56" width="374" height="611"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="643"/>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fm-OQa">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-wi-iAP">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="611"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="leading" secondItem="p0m-Rd-WTb" secondAttribute="leading" id="Dcb-eZ-dGb"/>
-                                    <constraint firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="Qd5-ie-tZZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="orh-fm-OQa" secondAttribute="trailing" id="Tmb-3U-9LJ"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerX" secondItem="p0m-Rd-WTb" secondAttribute="centerX" id="Ukb-9m-keh"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerY" secondItem="p0m-Rd-WTb" secondAttribute="centerY" id="Xs1-Jx-My6"/>
-                                    <constraint firstItem="orh-fm-OQa" firstAttribute="top" secondItem="p0m-Rd-WTb" secondAttribute="top" id="sm2-CY-JjA"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="leading" secondItem="orh-fm-OQa" secondAttribute="leading" id="3os-kb-qUv"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="trailing" secondItem="orh-fm-OQa" secondAttribute="trailing" id="Asd-NA-gxt"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="centerX" secondItem="orh-fm-OQa" secondAttribute="centerX" id="CUg-fd-WFO"/>
+                                    <constraint firstAttribute="trailing" secondItem="8aV-wi-iAP" secondAttribute="trailing" id="E4x-vM-0GT"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="Ew0-Re-Bfs"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="top" secondItem="orh-fm-OQa" secondAttribute="top" id="GFj-2x-4xB"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="centerY" secondItem="p0m-Rd-WTb" secondAttribute="centerY" id="ew1-XS-NMd"/>
+                                    <constraint firstAttribute="bottom" secondItem="orh-fm-OQa" secondAttribute="bottom" id="fSp-gl-ZTl"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="centerY" secondItem="orh-fm-OQa" secondAttribute="centerY" id="oSu-sR-C8a"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="top" secondItem="p0m-Rd-WTb" secondAttribute="top" id="uyt-4R-tSj"/>
+                                    <constraint firstItem="8aV-wi-iAP" firstAttribute="centerX" secondItem="p0m-Rd-WTb" secondAttribute="centerX" id="wyF-Bw-Vtm"/>
+                                    <constraint firstItem="orh-fm-OQa" firstAttribute="leading" secondItem="p0m-Rd-WTb" secondAttribute="leading" id="zGO-2Q-Mqu"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="dEc-OH-0UL"/>
+                        <viewLayoutGuide key="safeArea" id="N5b-rm-QL4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="leading" secondItem="dEc-OH-0UL" secondAttribute="leading" id="6P2-l5-ZM2"/>
-                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="centerX" secondItem="KCp-VW-sgS" secondAttribute="centerX" id="7ja-ds-4a4"/>
-                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="bottom" secondItem="dEc-OH-0UL" secondAttribute="bottom" id="F5W-n4-USv"/>
-                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="trailing" secondItem="dEc-OH-0UL" secondAttribute="trailing" id="kCi-JH-RjH"/>
-                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="top" secondItem="dEc-OH-0UL" secondAttribute="top" id="oQA-LF-Duh"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="bottom" secondItem="KCp-VW-sgS" secondAttribute="bottomMargin" id="Bx5-qe-3Bx"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="top" secondItem="KCp-VW-sgS" secondAttribute="topMargin" id="DaX-Re-Nqx"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="leading" secondItem="KCp-VW-sgS" secondAttribute="leadingMargin" id="QON-oG-A7M"/>
+                            <constraint firstItem="p0m-Rd-WTb" firstAttribute="centerX" secondItem="KCp-VW-sgS" secondAttribute="centerX" id="gFI-Gs-evE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zkI-Kf-gE7"/>
                     <connections>
-                        <outlet property="photoFullScreenImage" destination="orh-fm-OQa" id="4J6-fM-zwd"/>
+                        <outlet property="currentPhotoImageView" destination="orh-fm-OQa" id="5qJ-o6-ZMM"/>
+                        <outlet property="nextPhotoImageView" destination="8aV-wi-iAP" id="vp0-N3-Y8d"/>
                         <outlet property="photoFullScreenScrollView" destination="p0m-Rd-WTb" id="MgF-tK-7sD"/>
                     </connections>
                 </viewController>
@@ -466,7 +482,7 @@
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2.fill" catalog="system" id="Z1E-WC-oC9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SYc-ZK-fBs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -483,12 +499,20 @@
             <objects>
                 <tableViewController id="UUu-QB-DwQ" customClass="AveliableGroupsTableViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uU5-2M-xoM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="dRH-io-ty8" customClass="GroupSearchBar" customModule="vkontakteVS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="delegate" destination="UUu-QB-DwQ" id="2FT-fi-cY5"/>
+                            </connections>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="126.33333587646484"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUh-1C-5gY" id="JzU-KC-SFe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
@@ -530,13 +554,7 @@
                             <outlet property="delegate" destination="UUu-QB-DwQ" id="TUm-Q3-CYr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="2b0-yQ-jN6">
-                        <barButtonItem key="rightBarButtonItem" title="SearchGroup" image="magnifyingglass" catalog="system" id="Q8O-gf-Cwc">
-                            <connections>
-                                <action selector="searchButton:" destination="UUu-QB-DwQ" id="48U-iB-MVe"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="2b0-yQ-jN6"/>
                     <connections>
                         <outlet property="aveliableGroupsTableView" destination="uU5-2M-xoM" id="jIL-7A-H4o"/>
                     </connections>
@@ -549,11 +567,11 @@
         <!--Группы-->
         <scene sceneID="21o-c4-7bs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0xJ-fq-JsH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0xJ-fq-JsH" customClass="CustomNavigationController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" id="GD9-Uc-dOB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zXJ-xV-btu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -570,11 +588,11 @@
             <objects>
                 <viewController id="Xur-JO-hFb" customClass="UserNewsViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OwQ-b6-NNY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S5a-iJ-y96">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Xur-JO-hFb" id="rId-zz-SQz"/>

@@ -16,10 +16,12 @@ class AveliableGroupsTableViewController: UITableViewController {
     var aveliableGroups = Group.aveliableGroups
     private var filteredAveliableGroups = [Group]()
     private let cellID = "AveliableGroupTableViewCell"
-    private let searchInNavigationBar = UISearchController(searchResultsController: nil)
+    private let searchView = GroupSearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchView.delegate = self        
+        aveliableGroupsTableView.separatorStyle = .none
     }
 
     // MARK: - Table view data source
@@ -38,29 +40,12 @@ class AveliableGroupsTableViewController: UITableViewController {
         cell.groupImage.addGestureRecognizer(tapRecognazer)
         return cell
     }
-    
-    // MARK: - Actions
-    @IBAction func searchButton(_ sender: UIBarButtonItem) {
-        showHideSearchBar()
-    }
 }
 
-extension AveliableGroupsTableViewController: UISearchControllerDelegate, UISearchBarDelegate {
-    func showHideSearchBar() {
-        if navigationItem.searchController == nil {
-            navigationItem.searchController = searchInNavigationBar
-            searchInNavigationBar.delegate = self
-            searchInNavigationBar.searchBar.delegate = self
-            searchInNavigationBar.searchBar.sizeToFit()
-            navigationItem.hidesSearchBarWhenScrolling = false
-        } else {
-            navigationItem.searchController = nil
-            filteredAveliableGroups.removeAll()
-        }
-    }
-    
+extension AveliableGroupsTableViewController:  UISearchBarDelegate  {
+    //Config searchbar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredAveliableGroups.removeAll()
+        //filteredUserGroups.removeAll()
         if searchText == "" {
             aveliableGroups = Group.aveliableGroups
         } else {
