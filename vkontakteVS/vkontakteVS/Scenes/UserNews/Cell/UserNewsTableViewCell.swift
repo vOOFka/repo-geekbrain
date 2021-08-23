@@ -6,8 +6,12 @@
 //
 
 import UIKit
+protocol UserNewsTableViewCellDelegate: AnyObject {
+    func newHeightCell(for cell: UserNewsTableViewCell)
+}
 
 protocol NewsTableViewCellModel {
+    var newsId: Int { get }
     var group: Group { get }
     var date: String { get }
     var text: String? { get }
@@ -16,7 +20,7 @@ protocol NewsTableViewCellModel {
     var comments: String { get }
     var repost: String { get }
     var views: String { get }
-    var size: NewsCellSizes { get }
+    var size: NewsCellSizes { get set }
 }
 
 protocol NewsCellSizes {
@@ -28,7 +32,8 @@ protocol NewsCellSizes {
 }
 
 class UserNewsTableViewCell: UITableViewCell {
-
+    // MARK: Vars
+    weak var delegate: UserNewsTableViewCellDelegate?
     // MARK: Outlets
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var headerView: UIView!
@@ -80,5 +85,6 @@ class UserNewsTableViewCell: UITableViewCell {
     // MARK: Actions
     @IBAction func tapMoreButton(_ sender: Any) {
         print("More text")
+        delegate?.newHeightCell(for: self)
     }
 }

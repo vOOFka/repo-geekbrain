@@ -48,19 +48,7 @@ class AnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
     }
-    
-//    func presentAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
-//        viewToAnimate.clipsToBounds = true
-//        viewToAnimate.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        let duration = transitionDuration(using: transitionContext)
-//
-//        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
-//            viewToAnimate.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//        }, completion: { _ in
-//            transitionContext.completeTransition(true)
-//        })
-//    }
-    
+   
     func presentAnimation90Degries(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
         viewToAnimate.layer.anchorPoint = CGPoint(x: 0, y: 0)
         viewToAnimate.frame = CGRect(x: 0, y: 0, width: viewToAnimate.frame.width, height: viewToAnimate.frame.height)
@@ -73,24 +61,6 @@ class AnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         })
         
     }
-    
-//    func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
-//        //let duration = transitionDuration(using: transitionContext)
-//        let scale = CGAffineTransform(scaleX: 0.3, y: 0.3)
-//        let moveOut = CGAffineTransform(translationX: -viewToAnimate.frame.width, y: 0)
-//
-//        UIView.animateKeyframes(withDuration: 2.0, delay: 0, options: .calculationModeCubic, animations: {
-//            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
-//                viewToAnimate.transform = scale
-//            })
-//            UIView.addKeyframe(withRelativeStartTime: 3.0, relativeDuration: 1.0, animations: {
-//                viewToAnimate.transform = scale.concatenating(moveOut)
-//                viewToAnimate.alpha = 0
-//            })
-//        }) { _ in
-//            transitionContext.completeTransition(true)
-//        }
-//    }
 
     func dismissAnimation90Degries(with transitionContext: UIViewControllerContextTransitioning, viewToAnimate: UIView) {
         viewToAnimate.isHidden = false

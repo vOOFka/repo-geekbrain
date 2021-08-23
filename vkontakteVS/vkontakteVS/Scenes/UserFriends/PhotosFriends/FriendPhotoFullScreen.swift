@@ -52,7 +52,7 @@ class FriendPhotoFullScreen: UIViewController {
         let toView = isChange ? currentPhotoImageView! : nextPhotoImageView!
 
         let translation = recognazer.translation(in: view)
-        let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        let scale = CGAffineTransform(scaleX: 0.9, y: 0.9)
         
         if sender.direction == .down {
             self.navigationController?.popViewController(animated: true)
@@ -79,31 +79,25 @@ class FriendPhotoFullScreen: UIViewController {
             print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
             print("ended")
-            if translation.x < -20 || translation.x > 20 {
+            if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
                 image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
                 toView.image = photoArray[indexNextPhoto].photo
                 
-                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-                UIView.transition(from: fromView, to: toView, duration: 2,
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 3)
+                UIView.transition(from: fromView, to: toView, duration: 3,
                                   options: [.transitionCrossDissolve, .showHideTransitionViews],
                                   completion: {_ in
                                     fromView.transform = CGAffineTransform(translationX: 0, y: 0)
                                     toView.transform = CGAffineTransform(translationX: 0, y: 0)
                 })
                 isChange = !isChange
-                
                 fromView.alpha = 0
                 toView.alpha = 1
-//                fromView.isHidden = false
-//                toView.isHidden = false
-
             } else {
                 animator.isReversed = true
                 animator.startAnimation()
             }
-//        case .cancelled:
-//            print("cancelled")
         default:
             break
         }

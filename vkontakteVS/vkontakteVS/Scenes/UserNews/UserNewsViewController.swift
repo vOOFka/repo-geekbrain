@@ -12,14 +12,12 @@ class UserNewsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Var
-    private let cellID = "UserNewsTableViewCell"
-    private var news = UserActualNews.getNewsFromUserGroups()
-    
+    lazy private var news = UserActualNews.getNewsFromUserGroups(with: newsWithFullText)
+    private var newsWithFullText = [Int]() 
     override func viewDidLoad() {
         super.viewDidLoad()
         //register cell
-        tableView.register(UINib(nibName: cellID, bundle: nil), forCellReuseIdentifier: cellID)
-        
+        tableView.register(UserNewsTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         
@@ -33,9 +31,9 @@ extension UserNewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? UserNewsTableViewCell else {
-            fatalError("Message: Error in dequeue UserNewsTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(UserNewsTableViewCell.self, for: indexPath)
+        cell.delegate = self
+        cell.tag = news[indexPath.row].newsId
         cell.setNews(cellModel: news[indexPath.row])
         return cell
     }
@@ -46,4 +44,12 @@ extension UserNewsViewController: UITableViewDelegate {
         let cellViewModel = news[indexPath.row]
         return cellViewModel.size.hightCell
     } 
+}
+
+extension UserNewsViewController: UserNewsTableViewCellDelegate {
+    func newHeightCell(for cell: UserNewsTableViewCell) {
+        newsWithFullText.append(cell.tag)
+        news = UserActualNews.getNewsFromUserGroups(with: newsWithFullText)
+        tableView.reloadData()
+    }
 }

@@ -31,9 +31,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PhotosCollectionViewCell else {
-            fatalError("Message: Error in dequeue PhotosCollectionViewCell")
-        }        
+        let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
         cell.photoImageView.image = currentFriend?.photos[indexPath.row].photo
         return cell
     }
@@ -54,18 +52,3 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     }
 
 }
-
-//extension FriendPhotosCollectionViewController: UINavigationControllerDelegate {
-//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        switch operation {
-//        case .push:
-//            return //AnimationController(animationType: .present)
-//        case .pop:
-//            return //AnimationController(animationType: .dismiss)
-//        case .none:
-//            return nil
-//        @unknown default:
-//            return nil
-//        }
-//    }
-//}

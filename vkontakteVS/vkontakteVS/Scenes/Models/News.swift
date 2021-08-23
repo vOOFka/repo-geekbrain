@@ -8,6 +8,7 @@
 import UIKit
 
 struct News {
+    let newsId: Int
     let groupId: Int
     let date: Date
     let text: String?
@@ -19,7 +20,7 @@ struct News {
 }
 
 extension News {
-    static let someNews = [News(groupId: 0,
+    static let someNews = [News(newsId: 0, groupId: 0,
                                 date: Date(),
                                 text:"""
 Участники проекта «Спектр-РГ» объявили о важном событии: орбитальная обсерватория подтвердила модель происхождения Вселенной в результате Большого взрыва. Участники проекта «Спектр-РГ» объявили о важном событии: орбитальная обсерватория подтвердила модель происхождения Вселенной в результате Большого взрыва.
@@ -29,7 +30,7 @@ extension News {
                                 likes: 12,
                                 repost: 16,
                                 views: 123),
-                           News(groupId: 2,
+                           News(newsId: 1, groupId: 2,
                                 date: Date(),
                                 text: nil,
 //                                text:"""
@@ -40,7 +41,7 @@ extension News {
                                 likes: nil,
                                 repost: 1,
                                 views: 876),
-                           News(groupId: 3,
+                           News(newsId: 2, groupId: 3,
                                 date: Date(),
                                 text:"""
 Сегодня в мире смартфонов наметилось очень суровое расслоение: между условным средним классом и флагманами пролегает финансовая пропасть в 40-50 тысяч рублей, и в этой пропасти нет почти никого — только подешевевшие прошлогодние модели вроде Samsung Galaxy S20 FE или Huawei P40 и редкие представители вымирающего вида «убийц флагманов» вроде OnePlus 9/9R, которые приходится приобретать «серым» образом. Ну или ASUS Zenfone 8, который все-таки дороже и ориентируется скорее на особую аудиторию любителей компактных смартфонов. Xiaomi Mi, некогда бывшие сюзеренами этих земель, окончательно приклеились к флагманским позициям с соответствующей ценой — в официальной рознице Xiaomi Mi 11 стоит 86 тысяч рублей.
@@ -50,7 +51,7 @@ extension News {
                                 likes: 9,
                                 repost: 3,
                                 views: 35),
-                           News(groupId: 4,
+                           News(newsId: 3, groupId: 4,
                                 date: Date(),
                                 text:"""
 Как и ожидалось, в блокчейн-сети Ethereum вышло обновление London, которое принесёт с собой ряд важных изменений, в том числе переработанный механизм начисления комиссий за проводимые транзакции. На фоне этой новости курс второй по популярности криптовалюты мира начал расти и на момент написания этой заметки за один Ethereum давали около $2790.
@@ -60,7 +61,7 @@ extension News {
                                 likes: 59,
                                 repost: 63,
                                 views: 756),
-                           News(groupId: 4,
+                           News(newsId: 4, groupId: 4,
                                 date: Date(),
                                 text:"""
 Власти Детройта (США) совместно с Ford и Bosch готовятся открыть «лабораторию» Smart Parking Lab на базе принадлежащего компании Bedrock гаража-полигона. В реальных условиях автопроизводители смогут тестировать и совершенствовать технологии, используемые для автономной парковки.
@@ -74,6 +75,7 @@ extension News {
 }
 
 struct UserActualNews: NewsTableViewCellModel {
+    var newsId: Int
     var group: Group
     var date: String
     var text: String?
@@ -84,7 +86,7 @@ struct UserActualNews: NewsTableViewCellModel {
     var views: String
     var size: NewsCellSizes
     
-    static func getNewsFromUserGroups() -> [NewsTableViewCellModel] {
+    static func getNewsFromUserGroups(with newsWithFullText: [Int]) -> [NewsTableViewCellModel] {
         var actualUserNewsArray = [NewsTableViewCellModel]()
         let userGroups = Group.userGroups
         let someNews = News.someNews
@@ -92,8 +94,10 @@ struct UserActualNews: NewsTableViewCellModel {
         for news in someNews {
             for group in userGroups {
                 if group.groupId == news.groupId {
-                    let sizes = NewsCellSizeCalculator().sizes(newsText: news.text, newsImage: news.image)
+                    let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == news.newsId }
+                    let sizes = NewsCellSizeCalculator().sizes(newsText: news.text, newsImage: news.image, showAllText: showAllText)
                     let actualUserNews = UserActualNews(
+                        newsId: news.newsId,
                         group:  group,
                         date:   "11 августа 2021",
                         text:   news.text ?? nil,

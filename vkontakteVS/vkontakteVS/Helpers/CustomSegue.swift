@@ -19,8 +19,8 @@ class CustomSegue: UIStoryboardSegue {
         
         UIView.animate(withDuration: animationDuration) {
             self.destination.view.transform = .identity
-        } //completion: { _ in
-          //  self.source.present(self.destination, animated: false)
-      //  }
+        } completion: { _ in
+            self.source.present(self.destination, animated: false)
+        }
     }
 }
