@@ -52,21 +52,35 @@ class FriendPhotoFullScreen: UIViewController {
         let toView = isChange ? currentPhotoImageView! : nextPhotoImageView!
 
         let translation = recognazer.translation(in: view)
-        let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        let scaleOut = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        let scaleIn = CGAffineTransform(scaleX: 1, y: 1)
         
         if sender.direction == .down {
             self.navigationController?.popViewController(animated: true)
         }
-            
+        
+        let offsetXFromView = fromView.frame.size.width
+        var offsetXToView: CGFloat = 0
+        toView.alpha = 0
+        
         switch sender.state {
         case .began:
             print("began")
-            animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
+            if sender.direction == .right {
+                offsetXToView = -offsetXFromView
+            } else if sender.direction == .left {
+                offsetXToView = offsetXFromView
+            }
+            toView.transform = CGAffineTransform(translationX: offsetXToView, y: 0).concatenating(scaleOut)
+            
+            animator = UIViewPropertyAnimator(duration: 0.6, curve: .easeInOut, animations: {
                 if sender.direction == .right {
-                    fromView.transform = CGAffineTransform(translationX: fromView.frame.size.width + fromView.frame.size.width, y: 0).concatenating(scale)
+                    fromView.transform = CGAffineTransform(translationX: offsetXFromView, y: 0).concatenating(scaleOut)
+                    toView.transform = CGAffineTransform(translationX: 0, y: 0).concatenating(scaleIn)
                 }
                 else if sender.direction == .left {
-                    fromView.transform = CGAffineTransform(translationX: -fromView.frame.size.width, y: 0).concatenating(scale)
+                    fromView.transform = CGAffineTransform(translationX: -offsetXFromView, y: 0).concatenating(scaleOut)
+                    toView.transform = CGAffineTransform(translationX: 0, y: 0).concatenating(scaleIn)
                 }
             })
             animator.startAnimation()
@@ -79,31 +93,21 @@ class FriendPhotoFullScreen: UIViewController {
             print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
             print("ended")
-            if translation.x < -20 || translation.x > 20 {
+            if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
                 image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
                 toView.image = photoArray[indexNextPhoto].photo
-                
-                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-                UIView.transition(from: fromView, to: toView, duration: 2,
-                                  options: [.transitionCrossDissolve, .showHideTransitionViews],
-                                  completion: {_ in
-                                    fromView.transform = CGAffineTransform(translationX: 0, y: 0)
-                                    toView.transform = CGAffineTransform(translationX: 0, y: 0)
-                })
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 3)
+                UIView.animate(withDuration: 0.8, delay: 0,
+                               options: .curveEaseOut, animations: {
+                                toView.alpha = 1
+                                fromView.alpha = 0
+                               })
                 isChange = !isChange
-                
-                fromView.alpha = 0
-                toView.alpha = 1
-//                fromView.isHidden = false
-//                toView.isHidden = false
-
             } else {
                 animator.isReversed = true
                 animator.startAnimation()
             }
-//        case .cancelled:
-//            print("cancelled")
         default:
             break
         }

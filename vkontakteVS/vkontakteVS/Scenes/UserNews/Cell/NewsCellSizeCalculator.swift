@@ -31,7 +31,7 @@ final class NewsCellSizeCalculator {
         self.screenMinSize = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     }
 
-    func sizes(newsText: String?, newsImage: UIImage?) -> NewsCellSizes {
+    func sizes(newsText: String?, newsImage: UIImage?, showAllText: Bool) -> NewsCellSizes {
         let cellViewWidth = screenMinSize - Constrains.cellViewInsets.left - Constrains.cellViewInsets.right
         
         var newsLabelFrame = CGRect(origin: CGPoint(x: Constrains.newsTextLabel.left,
@@ -51,7 +51,7 @@ final class NewsCellSizeCalculator {
             var height = newsText!.height(width: width, font: Constrains.newsTextLabelFont)
             let limitHeightLines = Constrains.newsTextLabelFont.lineHeight * Constrains.minimumNewsTextLabelLines
             
-            if height > limitHeightLines {
+            if height > limitHeightLines && showAllText != true {
                 height = Constrains.newsTextLabelFont.lineHeight * Constrains.minimumNewsTextLabelLines
                 showMoreTextButton = true
             }
@@ -67,9 +67,10 @@ final class NewsCellSizeCalculator {
             let width = cellViewWidth - Constrains.newsImage.left - Constrains.newsImage.right
             let ratio: CGFloat = { newsImage!.size.height / newsImage!.size.width}()
             let hight = width * ratio
+            let delta = showAllText ? newsLabelFrame.maxY : moreTextButtonFrame.maxY
             
             newsImageFrame = CGRect(origin: CGPoint(x: Constrains.newsImage.left,
-                                                    y: Constrains.newsTextLabel.bottom + moreTextButtonFrame.maxY),
+                                                  y: Constrains.newsTextLabel.bottom + delta),
                                          size: CGSize(width: width, height: hight))
             cellHight = cellHight + hight
         }
