@@ -92,7 +92,7 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vk" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-tL-yDO">
-                                        <rect key="frame" x="155.33333333333334" y="0.0" width="103.33333333333334" height="184"/>
+                                        <rect key="frame" x="155.33333333333331" y="0.0" width="103.33333333333333" height="184"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>

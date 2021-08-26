@@ -20,7 +20,6 @@ class LoginFormViewController: UIViewController {
     private let transparancyCircleView = TransparancyCircleView()
     private var isLoading = false
     private let cloudView = Cloud()
-    private let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnLogo(_sender:)))
     
     //MARK: Live cycle
     override func viewDidLoad() {
@@ -35,8 +34,12 @@ class LoginFormViewController: UIViewController {
         //cloudView.animationStart()
         
         //Animation Logo
+        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnLogo(_sender:)))
         logoImageView.addGestureRecognizer(tapRecognazer)
         animationLogo()
+        
+        //Login field default
+        loginTextField.text = UserSession.shared.userName
     }
     deinit {
         //removeNotifications()
@@ -55,11 +58,16 @@ class LoginFormViewController: UIViewController {
     //MARK: Functions
     private func animationLogo() {
         let scale = CGAffineTransform(scaleX: 0.3, y: 2)
-
-        logoImageView.transform = CGAffineTransform(translationX: 0, y: -logoImageView.frame.height/2).concatenating(scale)
+        let offsetY: CGFloat = logoImageView.frame.size.height + 30
         
-        UIView.animate(withDuration: 3.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.logoImageView.transform = .identity
+        //self.logoImageView.transform = CGAffineTransform(translationX: 0, y: 0)
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
+            self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -offsetY/2).concatenating(scale)
+        }, completion: {_ in
+            self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -offsetY).concatenating(scale)
+            UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+                self.logoImageView.transform = .identity
+            })
         })
     }
     
@@ -122,7 +130,7 @@ class LoginFormViewController: UIViewController {
         let pass  = passwordTextField.text!
 //        var authResult: String { (login == "" && pass == "") ? "Пользователь авторизовался": "Ошибка авторизации"}
 //        print(authResult)
-        return (login == "" && pass == "") ? true : false
+        return (login == UserSession.shared.userName && pass == "") ? true : false
     }
     
     private func showAuthError() {
@@ -138,7 +146,7 @@ class LoginFormViewController: UIViewController {
             return true
         } else {
             showAuthError()
-            loginTextField.text = ""
+            loginTextField.text = UserSession.shared.userName
             passwordTextField.text = ""
             isLoading = false
             cloudView.animationStop()
