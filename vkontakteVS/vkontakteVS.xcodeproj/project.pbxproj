@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,6 +30,9 @@
 		F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */; };
 		F44E001A26D42D6000BD976C /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001926D42D6000BD976C /* Reusable.swift */; };
 		F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001F26D6BA1E00BD976C /* UserSession.swift */; };
+		F44E002F26D95ACD00BD976C /* VKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E002E26D95ACD00BD976C /* VKWebViewController.swift */; };
+		F44E003426D95EAD00BD976C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E003326D95EAD00BD976C /* NetworkService.swift */; };
+		F44E004626DC35D500BD976C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F44E004526DC35D500BD976C /* Alamofire */; };
 		F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46CCDCD26C93A220062E6DA /* Cloud.swift */; };
 		F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DA926B6B38300822B6A /* LikeShape.swift */; };
 		F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DAE26B6D32A00822B6A /* LikeButton.swift */; };
@@ -94,6 +97,8 @@
 		F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		F44E001926D42D6000BD976C /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F44E001F26D6BA1E00BD976C /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		F44E002E26D95ACD00BD976C /* VKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKWebViewController.swift; sourceTree = "<group>"; };
+		F44E003326D95EAD00BD976C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F46CCDCD26C93A220062E6DA /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		F46D1DA926B6B38300822B6A /* LikeShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeShape.swift; sourceTree = "<group>"; };
 		F46D1DAE26B6D32A00822B6A /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -128,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E004626DC35D500BD976C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +251,14 @@
 			path = Patterns;
 			sourceTree = "<group>";
 		};
+		F44E002A26D9596800BD976C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F44E003326D95EAD00BD976C /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		F4B0C84826A5DBBB00B1853C = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +282,7 @@
 		F4B0C85326A5DBBB00B1853C /* vkontakteVS */ = {
 			isa = PBXGroup;
 			children = (
+				F44E002A26D9596800BD976C /* Network */,
 				F44E001E26D6B99A00BD976C /* Patterns */,
 				84A5895C26CBB7F900FC9F9F /* Helpers */,
 				F4DDA0F426AAC95D002DEAE8 /* Scenes */,
@@ -341,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				F4B0C85826A5DBBB00B1853C /* LoginFormViewController.swift */,
+				F44E002E26D95ACD00BD976C /* VKWebViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -388,6 +404,9 @@
 			dependencies = (
 			);
 			name = vkontakteVS;
+			packageProductDependencies = (
+				F44E004526DC35D500BD976C /* Alamofire */,
+			);
 			productName = vkontakteVS;
 			productReference = F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */;
 			productType = "com.apple.product-type.application";
@@ -459,6 +478,9 @@
 				Base,
 			);
 			mainGroup = F4B0C84826A5DBBB00B1853C;
+			packageReferences = (
+				F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = F4B0C85226A5DBBB00B1853C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -520,6 +542,7 @@
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
 				847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */,
 				F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */,
+				F44E003426D95EAD00BD976C /* NetworkService.swift in Sources */,
 				F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */,
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,
 				F4F5B10626AAE06900BD17EF /* Group.swift in Sources */,
@@ -535,6 +558,7 @@
 				F4F5B10B26AAE3D200BD17EF /* Friend.swift in Sources */,
 				F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */,
 				F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */,
+				F44E002F26D95ACD00BD976C /* VKWebViewController.swift in Sources */,
 				84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */,
 				F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */,
 				84A0613A26BD181000BC0937 /* News.swift in Sources */,
@@ -873,6 +897,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F44E004526DC35D500BD976C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4B0C84926A5DBBB00B1853C /* Project object */;
 }

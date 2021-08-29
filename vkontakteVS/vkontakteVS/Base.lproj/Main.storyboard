@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN7-vZ-5R0">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -126,12 +126,41 @@
                         <outlet property="loginTextField" destination="FhI-ew-RDJ" id="mKS-AS-jrl"/>
                         <outlet property="logoImageView" destination="aDu-tL-yDO" id="JtN-Fz-0HI"/>
                         <outlet property="passwordTextField" destination="YFE-is-rTs" id="Nh9-U6-vGe"/>
-                        <segue destination="Vx8-Ay-W67" kind="show" identifier="showMainScreenID" id="GpL-3f-iBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="82.5" y="100"/>
+            <point key="canvasLocation" x="-112" y="-651"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="UiB-3q-8c4">
+            <objects>
+                <viewController id="iN7-vZ-5R0" customClass="VKWebViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="enK-xe-zZa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-gB-nuE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="z24-ts-Vuu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="hIc-gB-nuE" id="0bL-Vt-PL7"/>
+                        <segue destination="Vx8-Ay-W67" kind="show" identifier="showMainScreenID" id="Jxd-9G-gOL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UbR-hS-Dip" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-113.04347826086958" y="99.456521739130437"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gAw-Bd-cRs">
@@ -248,7 +277,7 @@
             </objects>
             <point key="canvasLocation" x="2649.275362318841" y="207.88043478260872"/>
         </scene>
-        <!--Friends View Controller-->
+        <!--Мои друзья-->
         <scene sceneID="Pro-YB-d4c">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="hww-oJ-L5e" customClass="FriendsViewController" customModule="vkontakteVS" customModuleProvider="target" sceneMemberID="viewController">
@@ -344,7 +373,7 @@
                             <constraint firstItem="nDi-pB-iwF" firstAttribute="bottom" secondItem="Lc3-sH-R9D" secondAttribute="bottom" id="vln-gF-esd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JOi-Lf-nOa">
+                    <navigationItem key="navigationItem" title="Мои друзья" id="JOi-Lf-nOa">
                         <barButtonItem key="backBarButtonItem" title="К списку друзей" id="enJ-b6-uOh"/>
                     </navigationItem>
                     <connections>

@@ -17,12 +17,20 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     private let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
     var currentFriend: Friend?
     private var selectedImage: (UIImage?, Int)?
+    private let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //for custom animation transition
-        //self.navigationController?.delegate = self
+        //self.navigationController?.delegate = self       
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Show photos friend from VK in console JSON
+        networkService.getPhotos(friendId: "671822833")
     }
 
     // MARK: UICollectionViewDataSource

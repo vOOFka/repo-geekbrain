@@ -17,6 +17,7 @@ class AveliableGroupsTableViewController: UITableViewController {
     private var filteredAveliableGroups = [Group]()
     private let cellID = "AveliableGroupTableViewCell"
     private let searchView = GroupSearchBar()
+    private let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,5 +53,12 @@ extension AveliableGroupsTableViewController:  UISearchBarDelegate  {
             aveliableGroups = aveliableGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
         }
         tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchBar.searchTextField.text
+        if searchText != "" {
+            networkService.searchGroups(search: searchText!)
+        }
     }
 }

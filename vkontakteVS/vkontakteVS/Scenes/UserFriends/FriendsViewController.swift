@@ -19,6 +19,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     private let friendsCategory = FriendsCategory.allCategorys
     private let cellID = "FriendTableViewCell"
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
+    private let networkService = NetworkService()
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,12 +50,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+       // navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        //Show friends from VK in console JSON
+        networkService.getFriends()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+       // navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
