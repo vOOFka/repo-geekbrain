@@ -24,6 +24,7 @@ class UserGroupsTableViewController: UITableViewController {
     private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
     private let searchInNavigationBar = UISearchController(searchResultsController: nil)
+    private let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,12 @@ class UserGroupsTableViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsets(top: heightHeader, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -heightHeader)
         calculateHeightHeader()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Show user groups from VK in console JSON
+        networkService.getGroups()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -133,5 +139,12 @@ extension UserGroupsTableViewController: UISearchControllerDelegate, UISearchBar
         }
         tableView.reloadData()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchBar.searchTextField.text
+        if searchText != "" {
+            networkService.searchGroups(search: searchText!)
+        }
+    }    
 }
 
