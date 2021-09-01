@@ -15,8 +15,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     
     //MARK: - Var
-    private let friendsLetters = Friend.lettersFriends()
-    private let friendsCategory = FriendsCategory.allCategorys
+    private let friendsLetters = ["S"] //Friend.lettersFriends()
+    private let friendsCategory = ["S"] //FriendsCategory.allCategorys
+    private var friendsItems = [Friend]() //FriendsCategory.allCategorys
     private let cellID = "FriendTableViewCell"
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkService()
@@ -24,10 +25,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
-            let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
-            currentFriendPhotosVC.currentFriend = friendClick
+            //guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            //let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
+           // let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
+            //currentFriendPhotosVC.currentFriend = friendClick
         }
     }
     
@@ -52,8 +53,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         super.viewWillAppear(animated)
        // navigationController?.setNavigationBarHidden(true, animated: animated)
         
-        //Show friends from VK in console JSON
-        networkService.getFriends()
+        //Show friends from VK API
+        networkService.getFriends(completion: { [weak self] friendsItems in
+            self?.friendsItems = friendsItems?.items ?? [Friend]()
+            self?.tableView.reloadData()
+        })
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,25 +78,25 @@ extension FriendsViewController: UITableViewDataSource {
         }
         header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
         header.contentView.alpha = 0.7
-        header.letterLabel.text = friendsCategory[section].categoryFriendName
+        //header.letterLabel.text = friendsCategory[section].categoryFriendName
         return header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsCategory[section].friends.count
+        return 0//friendsCategory[section].friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FriendTableViewCell else {
             fatalError("Message: Error in dequeue FriendTableViewCell")
         }
-        let category = friendsCategory[indexPath.section]
-        let friendImage = category.friends[indexPath.item].image
-        let friendName = category.friends[indexPath.item].name
+        //let category = friendsCategory[indexPath.section]
+        //let friendImage = category.friends[indexPath.item].image
+        //let friendName = category.friends[indexPath.item].name
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         
-        cell.friendImage.image = friendImage
-        cell.friendName.text = friendName
+        //cell.friendImage.image = friendImage
+        //cell.friendName.text = friendName
         cell.friendImage.isUserInteractionEnabled = true
         cell.friendImage.addGestureRecognizer(tapRecognazer)
        

@@ -16,7 +16,7 @@ class FriendPhotoFullScreen: UIViewController {
     var image: (UIImage?, Int)?
     var currentFriend: Friend? {
         didSet{
-            photoArray = currentFriend?.photos ?? [Photos]()
+            photoArray = [Photos]()
         }
     }
     private var photoArray = [Photos]()

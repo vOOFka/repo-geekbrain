@@ -13,7 +13,7 @@ class LettersControl: UIControl {
     // MARK: Vars
     private var stackView = UIStackView()
     private var letterButtons = [UIButton]()
-    private var letterArray = Friend.lettersFriends()
+    private var letterArray = ["F"]//Friend.lettersFriends()
     var selectedLetter = (0, "") {
         didSet {
             sendActions(for: .valueChanged)

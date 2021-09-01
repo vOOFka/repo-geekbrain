@@ -35,17 +35,17 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentFriend?.photos.count ?? 0
+        return 0//currentFriend?.photos.count ?? 0
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
-        cell.photoImageView.image = currentFriend?.photos[indexPath.row].photo
+        //cell.photoImageView.image = currentFriend?.photos[indexPath.row].photo
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedImage = (currentFriend?.photos[indexPath.row].photo, indexPath.row)
+        //selectedImage = (currentFriend?.photos[indexPath.row].photo, indexPath.row)
         performSegue(withIdentifier: showFriendPhotoFullScreenVC, sender: nil)
     }
     
