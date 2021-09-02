@@ -13,7 +13,7 @@ class LettersControl: UIControl {
     // MARK: Vars
     private var stackView = UIStackView()
     private var letterButtons = [UIButton]()
-    private var letterArray = ["F"]//Friend.lettersFriends()
+    private var letters = [String]()
     var selectedLetter = (0, "") {
         didSet {
             sendActions(for: .valueChanged)
@@ -22,12 +22,12 @@ class LettersControl: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupControl()
+        setupControl(array: letters)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupControl()
+        setupControl(array: letters)
     }
     
     override func layoutSubviews() {
@@ -35,8 +35,8 @@ class LettersControl: UIControl {
         stackView.frame = bounds
     }
    
-    private func setupControl() {
-        for letter in letterArray {
+    func setupControl(array letters:[String]) {
+        for letter in letters {
             let button = UIButton()
             button.setTitle(letter, for: .normal)
             button.setTitleColor(.blue, for: .normal)

@@ -7,10 +7,6 @@
 
 import UIKit
 
-//class FriendsResponse: Decodable {
-//    let response: Friends
-//}
-
 class Friends: Decodable {
     let items: [Friend]
     
@@ -26,12 +22,13 @@ class Friends: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let itemsContainer = try container.nestedContainer(keyedBy: ItemsKeys.self, forKey: .response)
         self.items = try itemsContainer.decode([Friend].self, forKey: .items)
-        
     }
 }
 
 class Friend: Decodable {
     var id: Int = 0
+    var category: String { return String(fullName.first!) }
+    var fullName: String { return String(firstName + (nickName ?? "") + lastName) }
     var firstName: String = ""
     var lastName: String = ""
     var nickName: String?
@@ -71,61 +68,27 @@ class Friend: Decodable {
     }
 }
 
-//struct FriendsResponseExtract: Decodable {
-//    let response: FriendsResponse
-//}
-//
-//struct FriendsResponse: Decodable {
-//    let items: [Friend]
-//}
-//
-//struct Friend: Decodable {
-//    let id: Int
-//    let firstName: String
-//    let lastName: String
-//    let nickName: String?
-//    let deactivated: String?
-//    let isClosed: Bool?
-//    let canAccessClosed: Bool?
-//    let city: City?
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case firstName = "first_name"
-//        case lastName = "last_name"
-//        case nickName = "nickname"
-//        case deactivated
-//        case isClosed = "is_closed"
-//        case canAccessClosed = "can_access_closed"
-//        case city
-//    }
-//}
-//
-//struct City: Decodable {
-//    let id: Int
-//    let title: String
-//}
-
-//struct Friend {
-//    let name: String
-//    let image: UIImage?
-//    let photos: [Photos]
-//    private static let friendsNameArray = ["Иванов Иван","Петров Петр","Ледова Катя","Медведева Мария","Илья Муромец","Алеша Попович","Борисов Борис","Матвей Смирнов","Гендальф Розовый","Брюс Уэйн","Умка Белый","Мария Чернышева","Богдан Яковлев","Артём Виноградов"]
-//}
-//
-//extension Friend {
-//    static let allFriends: [Friend] = {
-//        var friends = [Friend]()
-//        for friend in friendsNameArray {
-//            let photos = Photos.getRandomPhotos()
-//            friends.append(Friend(name: friend, image: UIImage(named: friend), photos: photos))
-//        }
-//        return friends
-//    }()
-//
-//    static func lettersFriends() -> [String] {
-//        var array = friendsNameArray.map({ String($0.first!) })
-//        array = Array(Set(array))
-//        return array.sorted()
-//    }
-//}
+extension Friends {
+    func lettersFriends(array friends: [Friend]) -> [String] {
+        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
+        var array = friendsNameArray.map({ String($0.first!) })
+        array = Array(Set(array))
+        return array.sorted()
+    }
+    
+    func getFriendsCategory(array friends: [Friend]) -> [FriendsCategory] {
+        var friendsCategories = [FriendsCategory]()
+        let categories = self.lettersFriends(array: friends)
+        
+        for category in categories {
+            let newCategory = FriendsCategory(category: category, array: [Friend]())
+            for friend in friends {
+                if category == friend.category {
+                    newCategory.friends.append(friend)
+                }
+            }
+            friendsCategories.append(newCategory)
+        }
+        return friendsCategories
+    }
+}
