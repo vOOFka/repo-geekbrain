@@ -5,7 +5,7 @@
 //  Created by Home on 27.08.2021.
 //
 
-import Foundation
+import UIKit
 import Alamofire
 
 class NetworkService {
@@ -54,7 +54,7 @@ class NetworkService {
         let parameters: Parameters = ["user_id" : userId,
                                     "access_token" : accessToken,
                                     "v" : versionAPI,
-                                    "fields" : "nickname, domain, sex, bdate, city"]
+                                    "fields" : "nickname, domain, sex, bdate, city, photo_200_orig"]
         session.request(host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
@@ -74,5 +74,18 @@ class NetworkService {
                                     "extended" : "1"]
         let requestAF = session.request(host + path, method: .get, parameters: parameters)
         requestAF.responseJSON { response in print(response.value ?? "No photo finds") }
+    }
+    
+    func getImageFromWeb(imageURL: String, completion: @escaping (UIImage) -> Void) {
+        Alamofire.AF.request(imageURL, method: .get).response { (response) in
+            if response.error == nil {
+                print(response.result)
+                if let data = response.data {
+                    completion(UIImage(data: data)!)
+                } else {
+                    completion(UIImage(named: "NoImage")!)
+                }
+            }
+        }
     }
 }

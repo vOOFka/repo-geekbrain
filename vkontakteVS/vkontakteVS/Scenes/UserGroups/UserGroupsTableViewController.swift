@@ -78,11 +78,11 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
+//        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         cell.groupImage.image = userGroups[indexPath.row].image
         cell.groupName.text = userGroups[indexPath.row].name
         cell.groupImage.isUserInteractionEnabled = true
-        cell.groupImage.addGestureRecognizer(tapRecognazer)
+//        cell.groupImage.addGestureRecognizer(tapRecognazer)
         return cell
         
     }

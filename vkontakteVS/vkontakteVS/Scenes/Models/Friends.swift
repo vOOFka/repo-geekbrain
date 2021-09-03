@@ -42,7 +42,7 @@ class Friend: Decodable {
     var isClosed: Bool?
     var canAccessClosed: Bool?
     var cityName: String?
-    var crop_photo: Int?
+    var urlAvatar: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -53,24 +53,12 @@ class Friend: Decodable {
         case isClosed = "is_closed"
         case canAccessClosed = "can_access_closed"
         case cityName = "city"
-        case crop_photo
+        case urlAvatar = "photo_200_orig"
     }
     
     enum CityKeys: String, CodingKey {
         case city = "title"
     }
-    
-    enum AvatarKeys: String, CodingKey {
-        case photo
-    }
-    
-    enum PhotoKeys: String, CodingKey {
-        case id
-    }
-    
-//    enum SizesKeys: String, CodingKey {
-//        case id
-//    }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -81,13 +69,10 @@ class Friend: Decodable {
         self.deactivated = try? container.decode(String.self, forKey: .deactivated)
         self.isClosed = try? container.decode(Bool.self, forKey: .isClosed)
         self.canAccessClosed = try? container.decode(Bool.self, forKey: .canAccessClosed)
+        self.urlAvatar = try? container.decode(String.self, forKey: .urlAvatar)
         //City
         let cityContainer = try? container.nestedContainer(keyedBy: CityKeys.self, forKey: .cityName)
         self.cityName = try? cityContainer?.decode(String.self, forKey: .city)
-        //Avatar
-        let photoContainer = try? container.nestedContainer(keyedBy: AvatarKeys.self, forKey: .crop_photo)
-        let idContainer = try? photoContainer?.nestedContainer(keyedBy: PhotoKeys.self, forKey: .photo)
-        self.crop_photo = try? idContainer?.decode(Int.self, forKey: .id)
     }
 }
 

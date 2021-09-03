@@ -32,11 +32,11 @@ class AveliableGroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
+//        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         cell.groupImage.image = aveliableGroups[indexPath.row].image
         cell.groupName.text = aveliableGroups[indexPath.row].name
         cell.groupImage.isUserInteractionEnabled = true
-        cell.groupImage.addGestureRecognizer(tapRecognazer)
+ //       cell.groupImage.addGestureRecognizer(tapRecognazer)
         return cell
     }
 }

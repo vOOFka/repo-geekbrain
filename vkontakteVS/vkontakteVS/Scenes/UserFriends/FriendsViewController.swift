@@ -13,7 +13,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak private var lettersControl: LettersControl!
     @IBOutlet weak private var tableView: UITableView!
     
-    
     //MARK: - Var
     private var friendsLetters = [String]()
     private var friendsCategory = [FriendsCategory]()
@@ -42,6 +41,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
         //for custom animation transition
         self.navigationController?.delegate = self
+        //Show friends from VK API
+        updateFriendsFromVKAPI()
      }
     
     @objc private func letterWasChange(_ control: LettersControl) {
@@ -52,9 +53,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        //Show friends from VK API
+        // navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       // navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    fileprivate func updateFriendsFromVKAPI() {
         networkService.getFriends(completion: { [weak self] friendsItems in
             self?.friendsItems = friendsItems?.items ?? [Friend]()
             //Получение категорий через метод
@@ -73,15 +80,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
             self!.lettersControl.setupControl(array: self?.friendsLetters ?? [String]())
         })
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-       // navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
 }
 
-extension FriendsViewController: UITableViewDataSource {
-    
+extension FriendsViewController: UITableViewDataSource {    
     func numberOfSections(in tableView: UITableView) -> Int {
         return friendsCategory.count
     }
@@ -103,32 +104,9 @@ extension FriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(FriendTableViewCell.self, for: indexPath)
         let category = friendsCategory[indexPath.section]
-       // let friendImage = category.friends[indexPath.item].image
-        let friendName = category.friends[indexPath.item].fullName
-        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
-        
-        //cell.friendImage.image = friendImage
-        cell.friendName.text = friendName
-        cell.friendImage.isUserInteractionEnabled = true
-        cell.friendImage.addGestureRecognizer(tapRecognazer)
-       
+        let currentCellFriend = category.friends[indexPath.item]
+        cell.configuration(currentFriend: currentCellFriend)
         return cell
-    }
-}
-
-extension UIViewController {
-    @objc func tapOnAvatar(tap: UITapGestureRecognizer){
-        let tapImageView = tap.view as! UIImageView
-        tapImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        UIView.animate(withDuration: 1.0,
-                       delay: 0.1,
-                       usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 10,
-                       options: UIView.AnimationOptions.curveEaseInOut,
-                       animations: {
-                        tapImageView.transform = CGAffineTransform.identity
-                       },
-                       completion: nil)
     }
 }
 
