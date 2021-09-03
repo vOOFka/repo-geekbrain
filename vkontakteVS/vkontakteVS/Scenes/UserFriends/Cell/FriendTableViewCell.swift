@@ -15,10 +15,9 @@ class FriendTableViewCell: UITableViewCell {
         didSet {
             friendImage.layer.cornerRadius = friendImage.frame.size.height / 2
             friendImage.layer.masksToBounds = true
-//            friendImage.layer.borderColor = UIColor.brown.cgColor
-//            friendImage.layer.borderWidth = 10
         }
     }
     
     @IBOutlet weak var friendName: UILabel!
+    @IBOutlet weak var cityName: UILabel!
 }

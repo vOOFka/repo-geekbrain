@@ -101,9 +101,7 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FriendTableViewCell else {
-            fatalError("Message: Error in dequeue FriendTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(FriendTableViewCell.self, for: indexPath)
         let category = friendsCategory[indexPath.section]
        // let friendImage = category.friends[indexPath.item].image
         let friendName = category.friends[indexPath.item].fullName

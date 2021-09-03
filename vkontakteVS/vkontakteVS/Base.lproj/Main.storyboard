@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN7-vZ-5R0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN7-vZ-5R0">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -92,7 +92,7 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vk" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-tL-yDO">
-                                        <rect key="frame" x="155.33333333333331" y="0.0" width="103.33333333333333" height="184"/>
+                                        <rect key="frame" x="155.33333333333334" y="0.0" width="103.33333333333334" height="184"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -211,7 +211,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupTableViewCell" id="IAz-7b-kou" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="124.33333396911621" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IAz-7b-kou" id="hom-ps-pPR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>
@@ -298,7 +298,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendTableViewCell" id="6XC-Ol-mjb" customClass="FriendTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="85.333335876464844"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="85.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6XC-Ol-mjb" id="fzU-Fo-5cD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85.333335876464844"/>
@@ -337,17 +337,27 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZq-U3-EZA">
+                                                    <rect key="frame" x="110" y="46.333333333333336" width="274" height="19.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cRa-uK-6Fu" firstAttribute="top" secondItem="fzU-Fo-5cD" secondAttribute="topMargin" constant="5" id="1Iw-m4-SZ4"/>
+                                                <constraint firstItem="bZq-U3-EZA" firstAttribute="leading" secondItem="KvX-es-jQa" secondAttribute="trailing" constant="20" id="8I0-zi-0Nc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bZq-U3-EZA" secondAttribute="trailing" constant="10" id="ENl-rg-WCN"/>
                                                 <constraint firstItem="KvX-es-jQa" firstAttribute="leading" secondItem="fzU-Fo-5cD" secondAttribute="leading" constant="20" id="HTl-Mx-1NT"/>
                                                 <constraint firstAttribute="bottom" secondItem="KvX-es-jQa" secondAttribute="bottom" constant="5" id="Sd5-xV-GLa"/>
                                                 <constraint firstItem="KvX-es-jQa" firstAttribute="top" secondItem="fzU-Fo-5cD" secondAttribute="top" constant="10" id="V1M-TD-H2t"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="cRa-uK-6Fu" secondAttribute="trailing" constant="10" id="VwJ-YL-JiR"/>
+                                                <constraint firstItem="bZq-U3-EZA" firstAttribute="top" secondItem="cRa-uK-6Fu" secondAttribute="bottom" constant="10" id="cSf-8x-4as"/>
                                                 <constraint firstItem="cRa-uK-6Fu" firstAttribute="leading" secondItem="KvX-es-jQa" secondAttribute="trailing" constant="20" id="kHK-cs-uUr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cityName" destination="bZq-U3-EZA" id="qbZ-nl-2Tp"/>
                                             <outlet property="friendImage" destination="d32-q1-tqn" id="n51-0m-0Rg"/>
                                             <outlet property="friendName" destination="cRa-uK-6Fu" id="yjN-uS-yCU"/>
                                             <segue destination="7Ow-cE-bHL" kind="show" identifier="FriendPhotoSegue" id="qmu-h9-GcK"/>
@@ -541,7 +551,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="AveliableGroupTableViewCell" id="VUh-1C-5gY" customClass="GroupTableViewCell" customModule="vkontakteVS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="126.33333587646484"/>
+                                <rect key="frame" x="0.0" y="68.333333969116211" width="414" height="126.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUh-1C-5gY" id="JzU-KC-SFe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="126.33333587646484"/>

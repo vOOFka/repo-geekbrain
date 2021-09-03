@@ -20,7 +20,7 @@ class NetworkService {
         return Session(configuration: config)
     }()
 
-    func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T? {
+    private func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T? {
         guard let data = data,
               let decoded = try? JSONDecoder().decode(type.self, from: data) else { return nil }
         return decoded
