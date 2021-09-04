@@ -53,11 +53,14 @@ class Friend: Decodable {
         case isClosed = "is_closed"
         case canAccessClosed = "can_access_closed"
         case cityName = "city"
-        case urlAvatar = "photo_200_orig"
+        case urlAvatar = "photo_100" //"photo_200_orig"
     }
     
     enum CityKeys: String, CodingKey {
         case city = "title"
+    }
+    
+    init() {
     }
     
     required init(from decoder: Decoder) throws {

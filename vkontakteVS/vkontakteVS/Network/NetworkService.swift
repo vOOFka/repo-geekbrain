@@ -54,7 +54,7 @@ class NetworkService {
         let parameters: Parameters = ["user_id" : userId,
                                     "access_token" : accessToken,
                                     "v" : versionAPI,
-                                    "fields" : "nickname, domain, sex, bdate, city, photo_200_orig"]
+                                    "fields" : "nickname, domain, sex, bdate, city, photo_100"]
         session.request(host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
@@ -65,15 +65,20 @@ class NetworkService {
         }
     }
     
-    func getPhotos(friendId: String) {
-        let path = "photos.get"
+    func getPhotosAll(friendId: Int, completion: @escaping (Photos?) -> Void) {
+        let path = "photos.getAll"
         let parameters: Parameters = ["owner_id" : friendId,
                                     "access_token" : accessToken,
                                     "v" : versionAPI,
-                                    "album_id" : "wall",
                                     "extended" : "1"]
-        let requestAF = session.request(host + path, method: .get, parameters: parameters)
-        requestAF.responseJSON { response in print(response.value ?? "No photo finds") }
+        session.request(host + path, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                completion(self.decodingData(type: Photos.self, from: data))
+            }
+        }
     }
     
     func getImageFromWeb(imageURL: String, completion: @escaping (UIImage) -> Void) {

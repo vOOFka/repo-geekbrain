@@ -25,10 +25,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
-            //guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            //let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
-           // let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
-            //currentFriendPhotosVC.currentFriend = friendClick
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
+            let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
+            currentFriendPhotosVC.currentFriend = friendClick
         }
     }
     
