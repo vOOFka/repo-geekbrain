@@ -14,13 +14,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="x0t-gC-eNz" customClass="GroupSearchBar" customModule="vkontakteVS" customModuleProvider="target">
+                <searchBar contentMode="redraw" placeholder="Enter text for search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0t-gC-eNz" customClass="GroupSearchBar" customModule="vkontakteVS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                     <textInputTraits key="textInputTraits"/>
-                    <scopeButtonTitles>
-                        <string>Title</string>
-                        <string>Title</string>
-                    </scopeButtonTitles>
                 </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

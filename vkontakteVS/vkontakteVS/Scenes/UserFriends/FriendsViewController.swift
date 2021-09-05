@@ -18,7 +18,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     private var friendsCategory = [FriendsCategory]()
     private var friendsCategoryDictionary = [String : [Friend]]()
     private var friendsItems = [Friend]()
-    private let cellID = "FriendTableViewCell"
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkService()
     

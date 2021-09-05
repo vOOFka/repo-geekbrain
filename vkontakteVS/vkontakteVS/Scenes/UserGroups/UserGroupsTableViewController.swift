@@ -19,8 +19,7 @@ class UserGroupsTableViewController: UITableViewController {
     @IBOutlet private weak var bottom: NSLayoutConstraint!
     
     //MARK: - Var
-    private var userGroups = Group.userGroups
-    private let cellID = "GroupTableViewCell"
+    private var userGroups = [Group]()
     private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
     private let searchInNavigationBar = UISearchController(searchResultsController: nil)
@@ -39,59 +38,56 @@ class UserGroupsTableViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsets(top: heightHeader, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -heightHeader)
         calculateHeightHeader()
+        
+        //Show groups from VK API
+        updateGroupsFromVKAPI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //Show user groups from VK in console JSON
-        networkService.getGroups()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         calculateHeightHeader()
     }
-    
+    //MARK: - Functions
+    fileprivate func updateGroupsFromVKAPI() {
+        networkService.getGroups(completion: { [weak self] groupsItems in
+            self?.userGroups = groupsItems?.items ?? [Group]()
+            self?.filteredUserGroups = groupsItems?.items ?? [Group]()
+            self?.groupsTableView.reloadData()
+        })
+    }
     // MARK: - Actions
     @IBAction func searchButton(_ sender: UIBarButtonItem) {
         showHideSearchBar()
     }
-    
     //MARK: - Navigation
-    @IBAction func goBackFromAveliableGroups (with segue: UIStoryboardSegue) {
-        guard let aveliableVC = segue.source as? AveliableGroupsTableViewController,
-              let indexPath = aveliableVC.tableView.indexPathForSelectedRow else { return }
-        
-        let newUserGroupe = aveliableVC.aveliableGroups[indexPath.row]
-        
-        guard !userGroups.contains(where: { group -> Bool in
+    @IBAction func goBackFromAppendGroups (with segue: UIStoryboardSegue) {
+        guard let appendVC = segue.source as? AppendGroupsTableViewController,
+              let indexPath = appendVC.tableView.indexPathForSelectedRow else { return }
+        let newUserGroupe = appendVC.foundAppendGroups[indexPath.row]
+        guard !filteredUserGroups.contains(where: { group -> Bool in
             group.name == newUserGroupe.name
         }) else { return }
-        
-        userGroups.append(newUserGroupe)
+        filteredUserGroups.append(newUserGroupe)
+        userGroups = filteredUserGroups
         groupsTableView.reloadData()
     }
-    
     //MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userGroups.count
+        return filteredUserGroups.count
     }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-//        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
-        cell.groupImage.image = userGroups[indexPath.row].image
-        cell.groupName.text = userGroups[indexPath.row].name
-        cell.groupImage.isUserInteractionEnabled = true
-//        cell.groupImage.addGestureRecognizer(tapRecognazer)
+        let currentCellFGroup = filteredUserGroups[indexPath.row]
+        cell.configuration(currentGroup: currentCellFGroup)
         return cell
-        
     }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            userGroups.remove(at: indexPath.row)
-            //tableView.reloadData()
+            filteredUserGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             return
@@ -101,7 +97,7 @@ class UserGroupsTableViewController: UITableViewController {
 
 extension UserGroupsTableViewController {
     //for Paralax Effect
-    func calculateHeightHeader() {
+    fileprivate func calculateHeightHeader() {
         var headerRect = CGRect(x: 0, y: -heightHeader, width: tableView.bounds.width, height: heightHeader)
         let bottom = groupsHeaderView.constraints.filter{ $0.identifier == "bottom"}.first
         let offsetY = tableView.contentOffset.y
@@ -115,7 +111,7 @@ extension UserGroupsTableViewController {
 }
 
 extension UserGroupsTableViewController: UISearchControllerDelegate, UISearchBarDelegate { 
-    func showHideSearchBar() {
+    fileprivate func showHideSearchBar() {
         if navigationItem.searchController == nil {
             navigationItem.searchController = searchInNavigationBar
             searchInNavigationBar.delegate = self
@@ -124,25 +120,29 @@ extension UserGroupsTableViewController: UISearchControllerDelegate, UISearchBar
             navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             navigationItem.searchController = nil
-            filteredUserGroups.removeAll()
         }
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredUserGroups.removeAll()
-        if searchText == "" {
-            userGroups = Group.userGroups
-        } else {
-            userGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
-        }
-        tableView.reloadData()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let searchText = searchBar.searchTextField.text
+    internal func searchGroups(_ searchText: String) {
         if searchText != "" {
-            networkService.searchGroups(search: searchText!)
+            filteredUserGroups = userGroups.filter( { ($0.name).uppercased().contains(searchText.uppercased()) } )
+        } else {
+            filteredUserGroups = userGroups
         }
-    }    
+        groupsTableView.reloadData()
+    }
+    
+    internal func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchGroups(searchText)
+    }
+    
+    internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchBar.searchTextField.text ?? ""
+        searchGroups(searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchGroups("")
+    }
 }
-

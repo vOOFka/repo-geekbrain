@@ -23,7 +23,7 @@ class FriendPhotoFullScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //Configuration
-        //configuration()
+        nextPhotoImageView.alpha = 0
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
@@ -39,7 +39,6 @@ class FriendPhotoFullScreen: UIViewController {
             let url = selectPhoto.0!.sizes.first(where: { $0.type == size })!.urlPhoto
             self.networkService.getImageFromWeb(imageURL: url, completion: { [weak self] photo in self?.currentPhotoImageView.image = photo })
         }
-        nextPhotoImageView.alpha = 0
     }
     
     fileprivate func setupPanRecognizer() {
@@ -98,10 +97,15 @@ class FriendPhotoFullScreen: UIViewController {
             print("ended")
             if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
-                //image = (photosItems[indexNextPhoto].photo, indexNextPhoto)
-                //toView.image = photosItems[indexNextPhoto].photo
+                image = (photosItems[indexNextPhoto], indexNextPhoto)
+                DispatchQueue.main.async {
+                    //Choice size download photo
+                    let size = sizeType.max
+                    let url = self.photosItems[indexNextPhoto].sizes.first(where: { $0.type == size })!.urlPhoto
+                    self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
+                }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 3)
-                UIView.animate(withDuration: 0.8, delay: 0,
+                UIView.animate(withDuration: 0.8, delay: 0.5,
                                options: .curveEaseOut, animations: {
                                 toView.alpha = 1
                                 fromView.alpha = 0
@@ -135,7 +139,7 @@ class FriendPhotoFullScreen: UIViewController {
     
     private func setupPhotoFullScreenScrollView() {
         //scroolview config
-        //photoFullScreenScrollView.contentSize = image!.0?.size ?? view.bounds.size
+        photoFullScreenScrollView.contentSize = currentPhotoImageView.image?.size ?? view.bounds.size
         photoFullScreenScrollView.delegate = self
         photoFullScreenScrollView.minimumZoomScale = 1.0
         photoFullScreenScrollView.maximumZoomScale = 3.0

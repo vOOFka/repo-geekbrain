@@ -13,11 +13,9 @@ class Photos: Decodable {
     enum CodingKeys: String, CodingKey {
         case response
     }
-    
     enum ItemsKeys: String, CodingKey {
         case items
     }
-    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let itemsContainer = try container.nestedContainer(keyedBy: ItemsKeys.self, forKey: .response)
@@ -45,11 +43,9 @@ class Photo: Decodable {
         case likes
         case reposts
     }
-    
     enum LikesKeys: String, CodingKey {
         case likes = "count"
     }
-    
     enum RepostsKeys: String, CodingKey {
         case reposts = "count"
     }
@@ -95,8 +91,7 @@ class sizePhoto: Decodable {
         case width
         case type
         case urlPhoto = "url"
-    }
-    
+    }    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.height = try container.decode(Int.self, forKey: .height)

@@ -12,7 +12,6 @@ protocol UserNewsTableViewCellDelegate: AnyObject {
 
 protocol NewsTableViewCellModel {
     var newsId: Int { get }
-    var group: Group { get }
     var date: String { get }
     var text: String? { get }
     var image: UIImage? { get }
@@ -56,8 +55,6 @@ class UserNewsTableViewCell: UITableViewCell {
     
     //MARK: Functions
     func setNews(cellModel: NewsTableViewCellModel) {
-        groupImageView.image = cellModel.group.image
-        groupNameLabel.text = cellModel.group.name
         dateNewsLabel.text = cellModel.date
         textNewsLabel.text = cellModel.text
         imageNews.image = cellModel.image
