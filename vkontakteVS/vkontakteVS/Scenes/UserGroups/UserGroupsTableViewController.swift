@@ -23,7 +23,7 @@ class UserGroupsTableViewController: UITableViewController {
     private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
     private let searchInNavigationBar = UISearchController(searchResultsController: nil)
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceInplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +53,10 @@ class UserGroupsTableViewController: UITableViewController {
     //MARK: - Functions
     fileprivate func updateGroupsFromVKAPI() {
         networkService.getGroups(completion: { [weak self] groupsItems in
-            self?.userGroups = groupsItems?.items ?? [Group]()
-            self?.filteredUserGroups = groupsItems?.items ?? [Group]()
-            self?.groupsTableView.reloadData()
+            guard let self = self else { return }
+            self.userGroups = groupsItems?.items ?? []
+            self.filteredUserGroups = groupsItems?.items ?? []
+            self.groupsTableView.reloadData()
         })
     }
     // MARK: - Actions

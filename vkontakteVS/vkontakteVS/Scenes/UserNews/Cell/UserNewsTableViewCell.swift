@@ -11,14 +11,14 @@ protocol UserNewsTableViewCellDelegate: AnyObject {
 }
 
 protocol NewsTableViewCellModel {
-    var newsId: Int { get }
+    var id: Int { get }
     var date: String { get }
     var text: String? { get }
-    var image: UIImage? { get }
-    var likes: String { get }
-    var comments: String { get }
-    var repost: String { get }
-    var views: String { get }
+//    var image: UIImage? { get }
+//    var likes: String { get }
+//    var comments: String { get }
+//    var repost: String { get }
+//    var views: String { get }
     var size: NewsCellSizes { get set }
 }
 
@@ -57,14 +57,14 @@ class UserNewsTableViewCell: UITableViewCell {
     func setNews(cellModel: NewsTableViewCellModel) {
         dateNewsLabel.text = cellModel.date
         textNewsLabel.text = cellModel.text
-        imageNews.image = cellModel.image
-        likesLabel.text = cellModel.likes
-        commentsLabel.text = cellModel.comments
-        repostLabel.text = cellModel.repost
-        viewsLabel.text = cellModel.views
+//        imageNews.image = cellModel.image
+//        likesLabel.text = cellModel.likes
+//        commentsLabel.text = cellModel.comments
+//        repostLabel.text = cellModel.repost
+//        viewsLabel.text = cellModel.views
         
         textNewsLabel.frame = cellModel.size.newsTextFrame
-        imageNews.frame = cellModel.size.newsImageFrame
+ //       imageNews.frame = cellModel.size.newsImageFrame
         moreTextButton.frame = cellModel.size.moreTextButton
     }
     

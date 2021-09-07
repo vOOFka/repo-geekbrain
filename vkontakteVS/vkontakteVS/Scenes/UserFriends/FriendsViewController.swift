@@ -19,7 +19,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     private var friendsCategoryDictionary = [String : [Friend]]()
     private var friendsItems = [Friend]()
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceInplimentation()
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,21 +62,22 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func updateFriendsFromVKAPI() {
         networkService.getFriends(completion: { [weak self] friendsItems in
-            self?.friendsItems = friendsItems?.items ?? [Friend]()
+            guard let self = self else { return }
+            self.friendsItems = friendsItems?.items ?? [Friend]()
             //Получение категорий через метод
-            //self?.friendsCategory = (friendsItems?.getFriendsCategory(array: self!.friendsItems))!
+            //self.friendsCategory = (friendsItems?.getFriendsCategory(array: self.friendsItems))!
             //Получение категорий через словарь, как лучше?
-            self?.friendsCategoryDictionary = Dictionary(grouping: self!.friendsItems) { $0.category }
-            for (_, value) in self!.friendsCategoryDictionary.enumerated() {
+            self.friendsCategoryDictionary = Dictionary(grouping: self.friendsItems) { $0.category }
+            for (_, value) in self.friendsCategoryDictionary.enumerated() {
                 let category = FriendsCategory(category: value.key, array: value.value)
-                self?.friendsCategory.append(category)
+                self.friendsCategory.append(category)
             }
-            self?.friendsCategory.sort(by: { $0.category < $1.category })
+            self.friendsCategory.sort(by: { $0.category < $1.category })
             
-            self?.friendsLetters = (friendsItems?.lettersFriends(array: self!.friendsItems))!
-            self?.tableView.reloadData()
+            self.friendsLetters = (friendsItems?.lettersFriends(array: self.friendsItems))!
+            self.tableView.reloadData()
             //Update custom UIControl
-            self!.lettersControl.setupControl(array: self?.friendsLetters ?? [String]())
+            self.lettersControl.setupControl(array: self.friendsLetters)
         })
     }
 }
@@ -87,9 +88,7 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderID) as? FriendsSectionTableViewHeader else {
-            fatalError("Message: Error in dequeue FriendsSectionTableViewHeader")
-        }
+        let header = tableView.dequeueReusableHeaderFooterView(FriendsSectionTableViewHeader.self, viewForHeaderInSection: section)
         header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
         header.contentView.alpha = 0.7
         header.letterLabel.text = friendsCategory[section].category

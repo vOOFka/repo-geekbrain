@@ -19,7 +19,7 @@ class FriendTableViewCell: UITableViewCell {
     @IBOutlet weak private var friendName: UILabel!
     @IBOutlet weak private var cityName: UILabel!
     //MARK: - Prefirence
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceInplimentation()
     //MARK: - Functions
     func configuration(currentFriend: Friend) {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))

@@ -34,6 +34,17 @@ extension UITableView {
             fatalError("Message: Error in dequeue \(Cell.reuseIdentifire)")}
         return cell
     }
+    
+    func register<Header: UIView> (_:Header.Type) {
+        self.register(Header.nib, forHeaderFooterViewReuseIdentifier: Header.reuseIdentifire)
+    }
+    
+    func dequeueReusableHeaderFooterView<Header: UIView> (_:Header.Type, viewForHeaderInSection section: Int) -> Header {
+        guard let header = self.dequeueReusableHeaderFooterView(withIdentifier: Header.reuseIdentifire) as? Header
+        else {
+            fatalError("Message: Error in dequeue \(Header.reuseIdentifire)")}
+        return header
+    }
 }
 
 extension UICollectionView {

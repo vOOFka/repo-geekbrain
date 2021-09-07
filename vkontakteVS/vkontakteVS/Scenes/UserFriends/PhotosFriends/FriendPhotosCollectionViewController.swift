@@ -18,7 +18,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     var currentFriend = Friend()
     private var photosItems = [Photo]()
     private var selectedImage: (Photo?, Int)?
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceInplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,9 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     
     fileprivate func updatePhotosFromVKAPI() {
         networkService.getPhotosAll(friendId: currentFriend.id, completion: { [weak self] photosItems in
-            self?.photosItems = photosItems?.items ?? [Photo]()
-            self?.collectionView.reloadData()
+            guard let self = self else { return }
+            self.photosItems = photosItems?.items ?? [Photo]()
+            self.collectionView.reloadData()
             })
     }
 

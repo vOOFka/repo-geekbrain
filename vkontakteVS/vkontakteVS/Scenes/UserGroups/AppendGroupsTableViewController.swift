@@ -15,7 +15,7 @@ class AppendGroupsTableViewController: UITableViewController {
     var foundAppendGroups = [Group]()
     private var searching = false
     private let searchView = GroupSearchBar()
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceInplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,9 @@ class AppendGroupsTableViewController: UITableViewController {
     //MARK: - Functions
     fileprivate func foundGroupsFromVKAPI(searchText: String) {
         networkService.searchGroups(search: searchText, completion: { [weak self] groupsItems in
-            self?.foundAppendGroups = groupsItems?.items ?? [Group]()
-            self?.appendGroupsTableView.reloadData()
+            guard let self = self else { return }
+            self.foundAppendGroups = groupsItems?.items ?? []
+            self.appendGroupsTableView.reloadData()
         })
     }
     // MARK: - Table view data source
@@ -45,7 +46,7 @@ class AppendGroupsTableViewController: UITableViewController {
 }
 
 extension AppendGroupsTableViewController:  UISearchBarDelegate  {
-    internal func searchGroups(_ searchText: String) {
+    func searchGroups(_ searchText: String) {
         if searchText != "" {
             searching = true
             foundGroupsFromVKAPI(searchText: searchText)
@@ -56,7 +57,7 @@ extension AppendGroupsTableViewController:  UISearchBarDelegate  {
         }
     }
     
-    internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchText = searchBar.searchTextField.text ?? ""
         searchGroups(searchText)
     }

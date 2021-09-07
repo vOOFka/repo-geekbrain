@@ -29,9 +29,9 @@ class Photo: Decodable {
     var ownerId: Int = 0
     var text: String?
     var date: Int = 0
-    var sizes: [sizePhoto]
-    var likes: Int
-    var reposts: Int
+    var sizes = [sizePhoto]()
+    var likes: Int = 0
+    var reposts: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,7 +49,7 @@ class Photo: Decodable {
     enum RepostsKeys: String, CodingKey {
         case reposts = "count"
     }
-    
+    init() {}
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
@@ -91,7 +91,8 @@ class sizePhoto: Decodable {
         case width
         case type
         case urlPhoto = "url"
-    }    
+    }
+    init() {}
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.height = try container.decode(Int.self, forKey: .height)
