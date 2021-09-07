@@ -17,7 +17,6 @@ class Friends: Decodable {
     enum ItemsKeys: String, CodingKey {
         case items
     }
-    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let itemsContainer = try container.nestedContainer(keyedBy: ItemsKeys.self, forKey: .response)
@@ -43,6 +42,7 @@ class Friend: Decodable {
     var canAccessClosed: Bool?
     var cityName: String?
     var urlAvatar: String?
+    var imageAvatar: UIImage?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -59,10 +59,7 @@ class Friend: Decodable {
     enum CityKeys: String, CodingKey {
         case city = "title"
     }
-    
-    init() {
-    }
-    
+    init() {}    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
@@ -76,30 +73,5 @@ class Friend: Decodable {
         //City
         let cityContainer = try? container.nestedContainer(keyedBy: CityKeys.self, forKey: .cityName)
         self.cityName = try? cityContainer?.decode(String.self, forKey: .city)
-    }
-}
-
-extension Friends {
-    func lettersFriends(array friends: [Friend]) -> [String] {
-        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
-        var array = friendsNameArray.map({ String($0.first!) })
-        array = Array(Set(array))
-        return array.sorted()
-    }
-    
-    func getFriendsCategory(array friends: [Friend]) -> [FriendsCategory] {
-        var friendsCategories = [FriendsCategory]()
-        let categories = self.lettersFriends(array: friends)
-        
-        for category in categories {
-            let newCategory = FriendsCategory(category: category, array: [Friend]())
-            for friend in friends {
-                if category == friend.category {
-                    newCategory.friends.append(friend)
-                }
-            }
-            friendsCategories.append(newCategory)
-        }
-        return friendsCategories
     }
 }

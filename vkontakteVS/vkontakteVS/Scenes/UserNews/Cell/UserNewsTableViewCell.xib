@@ -33,7 +33,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="001" id="hNM-LJ-EQs">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hNM-LJ-EQs">
                                         <rect key="frame" x="0.0" y="10" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -207,7 +207,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="001" width="800" height="800"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="106"/>
         <image name="eyes" catalog="system" width="128" height="99"/>
         <image name="heart" catalog="system" width="128" height="109"/>

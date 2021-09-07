@@ -9,8 +9,7 @@ import UIKit
 import Alamofire
 
 protocol NetworkService {
-    func getNewsfeed()
-    //func getNewsfeed(completion: @escaping (NewsFeed?) -> Void)
+    func getNewsfeed(completion: @escaping (NewsFeed?) -> Void)
     func getGroups(completion: @escaping (Groups?) -> Void)
     func searchGroups(search groupeName: String, completion: @escaping (Groups?) -> Void)
     func getFriends(completion: @escaping (Friends?) -> Void)
@@ -40,23 +39,21 @@ class NetworkServiceInplimentation: NetworkService {
         return decoded
     }
     
-   // func getNewsfeed(completion: @escaping (NewsFeed?) -> Void) {
-    func getNewsfeed() {
+    func getNewsfeed(completion: @escaping (NewsFeed?) -> Void) {
         let path = "newsfeed.get"
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
-                                      "filters" : "photo"]//,
+                                      "filters" : "post"]//,
                                     //  "count": "50"]
-        let requestAF = Constans.session.request(Constans.host + path, method: .get, parameters: parameters)
-        requestAF.responseJSON { response in print(response.value ?? "No news finds") }
-//        session.request(host + path, method: .get, parameters: parameters).response { response in
-//            switch response.result {
-//            case .failure(let error):
-//                print(error)
-//            case .success(let data):
-//                completion(self.decodingData(type: NewsFeed.self, from: data))
-//            }
-//        }
+        Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            case .success(let data):
+                completion(self.decodingData(type: NewsFeed.self, from: data))
+            }
+        }
     }
     
     func getGroups(completion: @escaping (Groups?) -> Void) {
@@ -69,6 +66,7 @@ class NetworkServiceInplimentation: NetworkService {
             switch response.result {
             case .failure(let error):
                 print(error)
+                completion(nil)
             case .success(let data):
                 completion(self.decodingData(type: Groups.self, from: data))
             }
@@ -88,6 +86,7 @@ class NetworkServiceInplimentation: NetworkService {
             switch response.result {
             case .failure(let error):
                 print(error)
+                completion(nil)
             case .success(let data):
                 completion(self.decodingData(type: Groups.self, from: data))
             }
@@ -104,6 +103,7 @@ class NetworkServiceInplimentation: NetworkService {
             switch response.result {
             case .failure(let error):
                 print(error)
+                completion(nil)
             case .success(let data):
                 completion(self.decodingData(type: Friends.self, from: data))
             }
@@ -120,6 +120,7 @@ class NetworkServiceInplimentation: NetworkService {
             switch response.result {
             case .failure(let error):
                 print(error)
+                completion(nil)
             case .success(let data):
                 completion(self.decodingData(type: Photos.self, from: data))
             }

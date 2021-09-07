@@ -30,8 +30,9 @@ class Photo: Decodable {
     var text: String?
     var date: Int = 0
     var sizes = [sizePhoto]()
-    var likes: Int = 0
-    var reposts: Int = 0
+    var likes: Int? = 0
+    var reposts: Int? = 0
+    var image: UIImage?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -59,11 +60,11 @@ class Photo: Decodable {
         self.date = try container.decode(Int.self, forKey: .date)
         self.sizes = try container.decode([sizePhoto].self, forKey: .sizes)
         //Likes
-        let likesContainer = try container.nestedContainer(keyedBy: LikesKeys.self, forKey: .likes)
-        self.likes = try likesContainer.decode(Int.self, forKey: .likes)
+        let likesContainer = try? container.nestedContainer(keyedBy: LikesKeys.self, forKey: .likes)
+        self.likes = try likesContainer?.decode(Int.self, forKey: .likes)
         //Reposts
-        let repostsContainer = try container.nestedContainer(keyedBy: RepostsKeys.self, forKey: .reposts)
-        self.reposts = try repostsContainer.decode(Int.self, forKey: .reposts)
+        let repostsContainer = try? container.nestedContainer(keyedBy: RepostsKeys.self, forKey: .reposts)
+        self.reposts = try repostsContainer?.decode(Int.self, forKey: .reposts)
     }
 }
 

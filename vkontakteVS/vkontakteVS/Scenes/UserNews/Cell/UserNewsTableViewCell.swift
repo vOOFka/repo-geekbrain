@@ -19,7 +19,7 @@ protocol NewsTableViewCellModel {
 //    var comments: String { get }
 //    var repost: String { get }
 //    var views: String { get }
-    var size: NewsCellSizes { get set }
+ //   var size: NewsCellSizes { get set }
 }
 
 protocol NewsCellSizes {
@@ -54,8 +54,13 @@ class UserNewsTableViewCell: UITableViewCell {
     }
     
     //MARK: Functions
+    func configuration(currentNews: News) {
+        dateNewsLabel.text = String(currentNews.date)
+        textNewsLabel.text = currentNews.text
+    }
+    
     func setNews(cellModel: NewsTableViewCellModel) {
-        dateNewsLabel.text = cellModel.date
+        dateNewsLabel.text = String(cellModel.date)
         textNewsLabel.text = cellModel.text
 //        imageNews.image = cellModel.image
 //        likesLabel.text = cellModel.likes
@@ -63,9 +68,9 @@ class UserNewsTableViewCell: UITableViewCell {
 //        repostLabel.text = cellModel.repost
 //        viewsLabel.text = cellModel.views
         
-        textNewsLabel.frame = cellModel.size.newsTextFrame
+ //       textNewsLabel.frame = cellModel.size.newsTextFrame
  //       imageNews.frame = cellModel.size.newsImageFrame
-        moreTextButton.frame = cellModel.size.moreTextButton
+ //       moreTextButton.frame = cellModel.size.moreTextButton
     }
     
     private func setup() {

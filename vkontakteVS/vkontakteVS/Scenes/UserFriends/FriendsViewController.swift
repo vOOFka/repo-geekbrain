@@ -14,7 +14,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak private var tableView: UITableView!
     
     //MARK: - Var
-    private var friendsLetters = [String]()
     private var friendsCategory = [FriendsCategory]()
     private var friendsCategoryDictionary = [String : [Friend]]()
     private var friendsItems = [Friend]()
@@ -63,22 +62,40 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     fileprivate func updateFriendsFromVKAPI() {
         networkService.getFriends(completion: { [weak self] friendsItems in
             guard let self = self else { return }
-            self.friendsItems = friendsItems?.items ?? [Friend]()
-            //Получение категорий через метод
-            //self.friendsCategory = (friendsItems?.getFriendsCategory(array: self.friendsItems))!
-            //Получение категорий через словарь, как лучше?
-            self.friendsCategoryDictionary = Dictionary(grouping: self.friendsItems) { $0.category }
-            for (_, value) in self.friendsCategoryDictionary.enumerated() {
-                let category = FriendsCategory(category: value.key, array: value.value)
-                self.friendsCategory.append(category)
-            }
-            self.friendsCategory.sort(by: { $0.category < $1.category })
-            
-            self.friendsLetters = (friendsItems?.lettersFriends(array: self.friendsItems))!
-            self.tableView.reloadData()
-            //Update custom UIControl
-            self.lettersControl.setupControl(array: self.friendsLetters)
+            self.extractFriends( friendsItems: friendsItems)
         })
+    }
+    
+    fileprivate func extractFriends(friendsItems: Friends?) {
+        let friendsItems = friendsItems?.items ?? []
+        //Download Avatar
+        downloadPhoto(friendsItems: friendsItems)
+        //Получение категорий через словарь
+        friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
+        for (_, value) in friendsCategoryDictionary.enumerated() {
+            let category = FriendsCategory(category: value.key, array: value.value)
+            friendsCategory.append(category)
+        }
+        friendsCategory.sort(by: { $0.category < $1.category })
+        tableView.reloadData()
+        //Update custom UIControl
+        let friendsLetters = lettersFriends(array: friendsItems)
+        lettersControl.setupControl(array: friendsLetters)
+    }
+    
+    fileprivate func downloadPhoto(friendsItems: [Friend]) {
+        friendsItems.forEach({
+            var img: UIImage?
+            networkService.getImageFromWeb(imageURL: $0.urlAvatar ?? "", completion: { imageAvatar in img = imageAvatar})
+            $0.imageAvatar = img
+        })
+    }
+    
+    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
+        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
+        var array = friendsNameArray.map({ String($0.first!) })
+        array = Array(Set(array))
+        return array.sorted()
     }
 }
 

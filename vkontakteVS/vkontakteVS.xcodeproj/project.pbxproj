@@ -31,7 +31,7 @@
 		F44E001A26D42D6000BD976C /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001926D42D6000BD976C /* Reusable.swift */; };
 		F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001F26D6BA1E00BD976C /* UserSession.swift */; };
 		F44E002F26D95ACD00BD976C /* VKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E002E26D95ACD00BD976C /* VKWebViewController.swift */; };
-		F44E003426D95EAD00BD976C /* NetworkServiceInplimentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E003326D95EAD00BD976C /* NetworkServiceInplimentation.swift */; };
+		F44E003426D95EAD00BD976C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E003326D95EAD00BD976C /* NetworkService.swift */; };
 		F44E004626DC35D500BD976C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F44E004526DC35D500BD976C /* Alamofire */; };
 		F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46CCDCD26C93A220062E6DA /* Cloud.swift */; };
 		F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DA926B6B38300822B6A /* LikeShape.swift */; };
@@ -98,7 +98,7 @@
 		F44E001926D42D6000BD976C /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F44E001F26D6BA1E00BD976C /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		F44E002E26D95ACD00BD976C /* VKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKWebViewController.swift; sourceTree = "<group>"; };
-		F44E003326D95EAD00BD976C /* NetworkServiceInplimentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceInplimentation.swift; sourceTree = "<group>"; };
+		F44E003326D95EAD00BD976C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F46CCDCD26C93A220062E6DA /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		F46D1DA926B6B38300822B6A /* LikeShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeShape.swift; sourceTree = "<group>"; };
 		F46D1DAE26B6D32A00822B6A /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		F44E002A26D9596800BD976C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				F44E003326D95EAD00BD976C /* NetworkServiceInplimentation.swift */,
+				F44E003326D95EAD00BD976C /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -542,7 +542,7 @@
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
 				847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */,
 				F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */,
-				F44E003426D95EAD00BD976C /* NetworkServiceInplimentation.swift in Sources */,
+				F44E003426D95EAD00BD976C /* NetworkService.swift in Sources */,
 				F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */,
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,
 				F4F5B10626AAE06900BD17EF /* Groups.swift in Sources */,

@@ -15,7 +15,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     private let networkService = NetworkServiceInplimentation()
     //MARK: - Functions
     func configuration(currentPhoto: Photo) {
-        likesControl.setupLikesUI(countLikes: currentPhoto.likes)
+        likesControl.setupLikesUI(countLikes: currentPhoto.likes ?? 0)
         DispatchQueue.main.async {
             //Choice size download photo
             let size = sizeType.mid

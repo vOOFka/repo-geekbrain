@@ -17,25 +17,26 @@ class UserNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //register cell
+        tableView.register(UserNewsTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
-
+        //Show News from VK API
+        updateNewsFromVKAPI()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //Show News from VK API
-        updateNewsFromVKAPI()
     }
     
     //MARK: - Functions
     fileprivate func updateNewsFromVKAPI() {
-        networkService.getNewsfeed()
-//        networkService.getNewsfeed(completion: { [weak self] newsItems in
-//            self?.userNews = newsItems?.items ?? [News]()
-//            print(newsItems ?? "Error")
-//            self?.tableView.reloadData()
-//        })
+        networkService.getNewsfeed(completion: { [weak self] newsItems in
+            guard let self = self else { return }
+            self.userNews = newsItems?.items ?? [News]()
+            print(newsItems ?? "Error")
+            self.tableView.reloadData()
+        })
     }
 }
 
@@ -47,15 +48,16 @@ extension UserNewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(UserNewsTableViewCell.self, for: indexPath)
         cell.tag = userNews[indexPath.row].id
-        cell.setNews(cellModel: userNews[indexPath.row] as! NewsTableViewCellModel)
+        cell.configuration(currentNews: userNews[indexPath.row])
+        //cell.setNews(cellModel: userNews[indexPath.row] as! NewsTableViewCellModel)
         return cell
     }
 }
 
 extension UserNewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellViewModel = userNews[indexPath.row]
-        return 50.0//cellViewModel.size?.hightCell ?? CGFloat(50.0)
+        //let cellViewModel = userNews[indexPath.row]
+        return 250.0//cellViewModel.size?.hightCell ?? CGFloat(50.0)
     } 
 }
 

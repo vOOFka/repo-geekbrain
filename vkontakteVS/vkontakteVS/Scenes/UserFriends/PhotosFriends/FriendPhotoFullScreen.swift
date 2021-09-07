@@ -58,7 +58,7 @@ class FriendPhotoFullScreen: UIViewController {
         let scaleIn = CGAffineTransform(scaleX: 1, y: 1)
         
         if sender.direction == .down {
-            self.navigationController?.popViewController(animated: true)
+           // self.navigationController?.popViewController(animated: true)
         }
         
         let offsetXFromView = fromView.frame.size.width
@@ -104,7 +104,7 @@ class FriendPhotoFullScreen: UIViewController {
                     let url = self.photosItems[indexNextPhoto].sizes.first(where: { $0.type == size })!.urlPhoto
                     self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
                 }
-                animator.continueAnimation(withTimingParameters: nil, durationFactor: 3)
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 2)
                 UIView.animate(withDuration: 0.8, delay: 0.5,
                                options: .curveEaseOut, animations: {
                                 toView.alpha = 1

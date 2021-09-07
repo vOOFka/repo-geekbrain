@@ -25,9 +25,10 @@ class FriendTableViewCell: UITableViewCell {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         friendName.text = currentFriend.fullName
         cityName.text = currentFriend.cityName
-        DispatchQueue.main.async {
-            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
-        }      
+        friendImage.image = currentFriend.imageAvatar
+//        DispatchQueue.main.async {
+//            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
+//        }
         friendImage.isUserInteractionEnabled = true
         friendImage.addGestureRecognizer(tapRecognazer)
     }

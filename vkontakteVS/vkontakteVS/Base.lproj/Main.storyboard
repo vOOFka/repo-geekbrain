@@ -140,9 +140,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-gB-nuE">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-gB-nuE">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -152,6 +151,14 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z24-ts-Vuu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="leading" secondItem="z24-ts-Vuu" secondAttribute="leading" id="5Zq-Vh-2ii"/>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="trailing" secondItem="z24-ts-Vuu" secondAttribute="trailing" id="Oe1-cd-3Sm"/>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="centerX" secondItem="enK-xe-zZa" secondAttribute="centerX" id="dM3-7g-3IP"/>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="bottom" secondItem="z24-ts-Vuu" secondAttribute="bottom" id="hcb-2X-nbl"/>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="centerY" secondItem="enK-xe-zZa" secondAttribute="centerY" id="sfF-Vg-l5I"/>
+                            <constraint firstItem="hIc-gB-nuE" firstAttribute="top" secondItem="z24-ts-Vuu" secondAttribute="top" id="uYs-JP-yLs"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="webView" destination="hIc-gB-nuE" id="0bL-Vt-PL7"/>

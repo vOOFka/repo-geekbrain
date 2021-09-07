@@ -81,8 +81,8 @@ class UserGroupsTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let currentCellFGroup = filteredUserGroups[indexPath.row]
-        cell.configuration(currentGroup: currentCellFGroup)
+        let currentCellGroup = filteredUserGroups[indexPath.row]
+        cell.configuration(currentGroup: currentCellGroup)
         return cell
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
