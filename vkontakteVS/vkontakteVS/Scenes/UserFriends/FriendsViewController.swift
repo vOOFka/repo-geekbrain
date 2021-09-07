@@ -13,11 +13,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak private var lettersControl: LettersControl!
     @IBOutlet weak private var tableView: UITableView!
     
-    
     //MARK: - Var
-    private let friendsLetters = Friend.lettersFriends()
-    private let friendsCategory = FriendsCategory.allCategorys
-    private let cellID = "FriendTableViewCell"
+    private var friendsLetters = [String]()
+    private var friendsCategory = [FriendsCategory]()
+    private var friendsCategoryDictionary = [String : [Friend]]()
+    private var friendsItems = [Friend]()
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkService()
     
@@ -40,6 +40,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
         //for custom animation transition
         self.navigationController?.delegate = self
+        //Show friends from VK API
+        updateFriendsFromVKAPI()
      }
     
     @objc private func letterWasChange(_ control: LettersControl) {
@@ -50,20 +52,36 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        //Show friends from VK in console JSON
-        networkService.getFriends()
+        // navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
        // navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    fileprivate func updateFriendsFromVKAPI() {
+        networkService.getFriends(completion: { [weak self] friendsItems in
+            self?.friendsItems = friendsItems?.items ?? [Friend]()
+            //Получение категорий через метод
+            //self?.friendsCategory = (friendsItems?.getFriendsCategory(array: self!.friendsItems))!
+            //Получение категорий через словарь, как лучше?
+            self?.friendsCategoryDictionary = Dictionary(grouping: self!.friendsItems) { $0.category }
+            for (_, value) in self!.friendsCategoryDictionary.enumerated() {
+                let category = FriendsCategory(category: value.key, array: value.value)
+                self?.friendsCategory.append(category)
+            }
+            self?.friendsCategory.sort(by: { $0.category < $1.category })
+            
+            self?.friendsLetters = (friendsItems?.lettersFriends(array: self!.friendsItems))!
+            self?.tableView.reloadData()
+            //Update custom UIControl
+            self!.lettersControl.setupControl(array: self?.friendsLetters ?? [String]())
+        })
+    }
 }
 
-extension FriendsViewController: UITableViewDataSource {
-    
+extension FriendsViewController: UITableViewDataSource {    
     func numberOfSections(in tableView: UITableView) -> Int {
         return friendsCategory.count
     }
@@ -74,7 +92,7 @@ extension FriendsViewController: UITableViewDataSource {
         }
         header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
         header.contentView.alpha = 0.7
-        header.letterLabel.text = friendsCategory[section].categoryFriendName
+        header.letterLabel.text = friendsCategory[section].category
         return header
     }
     
@@ -83,36 +101,11 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FriendTableViewCell else {
-            fatalError("Message: Error in dequeue FriendTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(FriendTableViewCell.self, for: indexPath)
         let category = friendsCategory[indexPath.section]
-        let friendImage = category.friends[indexPath.item].image
-        let friendName = category.friends[indexPath.item].name
-        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
-        
-        cell.friendImage.image = friendImage
-        cell.friendName.text = friendName
-        cell.friendImage.isUserInteractionEnabled = true
-        cell.friendImage.addGestureRecognizer(tapRecognazer)
-       
+        let currentCellFriend = category.friends[indexPath.item]
+        cell.configuration(currentFriend: currentCellFriend)
         return cell
-    }
-}
-
-extension UIViewController {
-    @objc func tapOnAvatar(tap: UITapGestureRecognizer){
-        let tapImageView = tap.view as! UIImageView
-        tapImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        UIView.animate(withDuration: 1.0,
-                       delay: 0.1,
-                       usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 10,
-                       options: UIView.AnimationOptions.curveEaseInOut,
-                       animations: {
-                        tapImageView.transform = CGAffineTransform.identity
-                       },
-                       completion: nil)
     }
 }
 

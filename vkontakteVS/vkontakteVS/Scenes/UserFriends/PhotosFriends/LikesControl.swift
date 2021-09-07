@@ -17,12 +17,12 @@ class LikesControl: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLikesUI()
+        setupLikesUI(countLikes: 0)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLikesUI()
+        setupLikesUI(countLikes: 0)
         //fatalError("init(coder:) has not been implemented")
     }
     
@@ -31,12 +31,12 @@ class LikesControl: UIControl {
         stackView.frame = bounds
     }
     
-    private func setupLikesUI() {
+    func setupLikesUI(countLikes: Int) {
         likeButton.addTarget(self, action: #selector(clickLikes(_:)), for: .touchUpInside)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
         
-        likesLabel.text = "0"
+        likesLabel.text = String(countLikes)
         likesLabel.textColor = UIColor.black
         likesLabel.textAlignment = .center
 

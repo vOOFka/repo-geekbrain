@@ -8,7 +8,6 @@
 import UIKit
 
 class GroupTableViewCell: UITableViewCell {
-
     //MARK: - Outlets
     @IBOutlet weak var groupImage: UIImageView! {
         didSet {
@@ -17,5 +16,16 @@ class GroupTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var groupName: UILabel!
-
+    //MARK: - Prefirence
+    private let networkService = NetworkService()
+    //MARK: - Functions
+    func configuration(currentGroup: Group) {
+        let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
+        groupName.text = currentGroup.name
+        DispatchQueue.main.async {
+            self.networkService.getImageFromWeb(imageURL: currentGroup.urlPhoto , completion: { [weak self] imageAvatar in self?.groupImage.image = imageAvatar })
+        }
+        groupImage.isUserInteractionEnabled = true
+        groupImage.addGestureRecognizer(tapRecognazer)
+    }
 }

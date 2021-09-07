@@ -12,7 +12,7 @@ class SliderLetterControl: UIControl {
     // MARK: Vars
     private var stackView = UIStackView()
     private var letterSlider = UISlider()
-    private var letterArray = Friend.lettersFriends()
+    private var letterArray = ["a"]//Friend.lettersFriends()
     var selectedLetter = (0, "") {
         didSet {
             sendActions(for: .valueChanged)

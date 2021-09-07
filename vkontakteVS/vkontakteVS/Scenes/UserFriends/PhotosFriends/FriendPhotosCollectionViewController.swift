@@ -15,37 +15,46 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     //MARK: Var
     private let reuseIdentifier = "PhotosCollectionViewCell"
     private let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
-    var currentFriend: Friend?
-    private var selectedImage: (UIImage?, Int)?
+    var currentFriend = Friend()
+    private var photosItems = [Photo]()
+    private var selectedImage: (Photo?, Int)?
     private let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //for custom animation transition
-        //self.navigationController?.delegate = self       
-
+        //self.navigationController?.delegate = self
+        //Show friends from VK API
+        updatePhotosFromVKAPI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //Show photos friend from VK in console JSON
-        networkService.getPhotos(friendId: "671822833")
+    }
+    
+    fileprivate func updatePhotosFromVKAPI() {
+        networkService.getPhotosAll(friendId: currentFriend.id, completion: { [weak self] photosItems in
+            self?.photosItems = photosItems?.items ?? [Photo]()
+            self?.collectionView.reloadData()
+            })
     }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentFriend?.photos.count ?? 0
+        return photosItems.count
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
-        cell.photoImageView.image = currentFriend?.photos[indexPath.row].photo
+        if !photosItems.isEmpty {
+            let photo = photosItems[indexPath.row]
+            cell.configuration(currentPhoto: photo)
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedImage = (currentFriend?.photos[indexPath.row].photo, indexPath.row)
+        selectedImage = (photosItems[indexPath.row], indexPath.row)
         performSegue(withIdentifier: showFriendPhotoFullScreenVC, sender: nil)
     }
     
@@ -54,9 +63,9 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
             guard let fullScreenVC = segue.destination as? FriendPhotoFullScreen else {
                 fatalError("Message: prepare for FriendPhotoFullScreen")
             }
-            fullScreenVC.image = selectedImage
-            fullScreenVC.currentFriend = currentFriend
+            if selectedImage != nil {
+                fullScreenVC.configuration(selectPhoto: selectedImage!, anotherPhoto: photosItems)
+            }
         }
     }
-
 }

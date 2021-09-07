@@ -8,18 +8,14 @@
 import UIKit
 
 class FriendPhotoFullScreen: UIViewController {
-    
+    //MARK: - Outlets
     @IBOutlet weak private var currentPhotoImageView: UIImageView!
     @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
-    
-    var image: (UIImage?, Int)?
-    var currentFriend: Friend? {
-        didSet{
-            photoArray = currentFriend?.photos ?? [Photos]()
-        }
-    }
-    private var photoArray = [Photos]()
+    //MARK: - Prefirence
+    private let networkService = NetworkService()
+    private var image: (Photo?, Int)?
+    private var photosItems = [Photo]()
     private var animator: UIViewPropertyAnimator!
     private let recognazer = UIPanGestureRecognizer()
     private var isChange = false
@@ -27,16 +23,22 @@ class FriendPhotoFullScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //Configuration
-        setup()
+        nextPhotoImageView.alpha = 0
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
         setupPanRecognizer()
     }
-    
-    fileprivate func setup() {
-        currentPhotoImageView.image = image!.0
-        nextPhotoImageView.alpha = 0
+    //MARK: - Functions
+    func configuration(selectPhoto: (Photo?, Int), anotherPhoto: [Photo]) {
+        image = selectPhoto
+        photosItems = anotherPhoto
+        DispatchQueue.main.async {
+            //Choice size download photo
+            let size = sizeType.max
+            let url = selectPhoto.0!.sizes.first(where: { $0.type == size })!.urlPhoto
+            self.networkService.getImageFromWeb(imageURL: url, completion: { [weak self] photo in self?.currentPhotoImageView.image = photo })
+        }
     }
     
     fileprivate func setupPanRecognizer() {
@@ -95,10 +97,15 @@ class FriendPhotoFullScreen: UIViewController {
             print("ended")
             if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
-                image = (photoArray[indexNextPhoto].photo, indexNextPhoto)
-                toView.image = photoArray[indexNextPhoto].photo
+                image = (photosItems[indexNextPhoto], indexNextPhoto)
+                DispatchQueue.main.async {
+                    //Choice size download photo
+                    let size = sizeType.max
+                    let url = self.photosItems[indexNextPhoto].sizes.first(where: { $0.type == size })!.urlPhoto
+                    self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
+                }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 3)
-                UIView.animate(withDuration: 0.8, delay: 0,
+                UIView.animate(withDuration: 0.8, delay: 0.5,
                                options: .curveEaseOut, animations: {
                                 toView.alpha = 1
                                 fromView.alpha = 0
@@ -122,17 +129,17 @@ class FriendPhotoFullScreen: UIViewController {
             i = i + 1
         }
         
-        if i > (photoArray.count - 1) {
+        if i > (photosItems.count - 1) {
             i = 0
         } else if i < 0 {
-            i = photoArray.count - 1
+            i = photosItems.count - 1
         }
         return i
     }
     
     private func setupPhotoFullScreenScrollView() {
         //scroolview config
-        photoFullScreenScrollView.contentSize = image!.0?.size ?? view.bounds.size
+        photoFullScreenScrollView.contentSize = currentPhotoImageView.image?.size ?? view.bounds.size
         photoFullScreenScrollView.delegate = self
         photoFullScreenScrollView.minimumZoomScale = 1.0
         photoFullScreenScrollView.maximumZoomScale = 3.0
