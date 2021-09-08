@@ -204,6 +204,17 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="userGroupsHeader-1" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-OY-HRN">
                                     <rect key="frame" x="-273" y="0.0" width="960" height="100"/>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои группы" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dP-QI-60r">
+                                    <rect key="frame" x="-273" y="40" width="960" height="100"/>
+                                    <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <rect key="contentStretch" x="0.0" y="0.10000000000000001" width="1" height="1"/>
+                                    <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="31"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                    <color key="shadowColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <size key="shadowOffset" width="2" height="-2"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemYellowColor"/>
                             <accessibility key="accessibilityConfiguration">
@@ -211,8 +222,12 @@
                             </accessibility>
                             <constraints>
                                 <constraint firstItem="EHc-OY-HRN" firstAttribute="leading" secondItem="R9D-s6-nzy" secondAttribute="leading" constant="-273" id="3cq-MH-2uQ" userLabel="userGroupsHeader-1.leading = leading"/>
+                                <constraint firstItem="2dP-QI-60r" firstAttribute="width" secondItem="EHc-OY-HRN" secondAttribute="width" id="AsE-LQ-ddx"/>
+                                <constraint firstItem="2dP-QI-60r" firstAttribute="height" secondItem="EHc-OY-HRN" secondAttribute="height" id="MMn-6l-wW3"/>
+                                <constraint firstItem="2dP-QI-60r" firstAttribute="centerY" secondItem="R9D-s6-nzy" secondAttribute="centerY" constant="40" id="eNo-Bs-pXI"/>
                                 <constraint firstAttribute="trailing" secondItem="EHc-OY-HRN" secondAttribute="trailing" constant="-273" id="fxJ-rs-AEn" userLabel="trailing = userGroupsHeader-1.trailing"/>
                                 <constraint firstItem="EHc-OY-HRN" firstAttribute="top" secondItem="R9D-s6-nzy" secondAttribute="top" id="hYc-F2-w7Q"/>
+                                <constraint firstItem="2dP-QI-60r" firstAttribute="centerX" secondItem="R9D-s6-nzy" secondAttribute="centerX" id="jpI-hO-OfA"/>
                                 <constraint firstAttribute="bottom" secondItem="EHc-OY-HRN" secondAttribute="bottom" identifier="bottom" id="jyL-12-pOs"/>
                             </constraints>
                         </view>
@@ -677,6 +692,9 @@
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

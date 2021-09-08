@@ -8,23 +8,27 @@
 import UIKit
 
 class NewsFeed: Decodable {
-    let items: [News]
+    var items: [News] = []
+    var groups: [Group] = []
     
     enum CodingKeys: String, CodingKey {
         case response
     }
     enum ItemsKeys: String, CodingKey {
-        case items
+        case items, groups
     }
+    init() {}
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let itemsContainer = try container.nestedContainer(keyedBy: ItemsKeys.self, forKey: .response)
         self.items = try itemsContainer.decode([News].self, forKey: .items)
+        self.groups = try itemsContainer.decode([Group].self, forKey: .groups)
     }
 }
 
 class News: Decodable {
     var id: Int = 0
+    var sourceId: Int = 0
     var date: Int = 0
     var text: String = ""
     var attachments: [Attachments]?
@@ -34,13 +38,14 @@ class News: Decodable {
   //  }
     
     enum CodingKeys: String, CodingKey {
-        case id = "post_id"
+        case id = "post_id", sourceId = "source_id"
         case date,text,attachments
     }
     init() {}
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
+        self.sourceId = try container.decode(Int.self, forKey: .sourceId)
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
         self.attachments = try? container.decode([Attachments].self, forKey: .attachments)

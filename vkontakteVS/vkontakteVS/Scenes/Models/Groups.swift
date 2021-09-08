@@ -27,7 +27,7 @@ class Group: Decodable {
     var id: Int = 0
     var name: String = ""
     var isMember: Int = 1
-    var urlPhoto: String? = ""
+    var urlPhoto: String = ""
     
     enum CodingKeys: String, CodingKey {
         case id,name

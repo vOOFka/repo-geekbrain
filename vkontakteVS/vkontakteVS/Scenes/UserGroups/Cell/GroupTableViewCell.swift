@@ -24,9 +24,7 @@ class GroupTableViewCell: UITableViewCell {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         groupName.text = currentGroup.name
         let url = currentGroup.urlPhoto
-        if  url != nil {
-            groupImage.kf.setImage(with: URL(string: url!))
-        }
+        groupImage.kf.setImage(with: URL(string: url))
 //        DispatchQueue.main.async {
 //            self.networkService.getImageFromWeb(imageURL: currentGroup.urlPhoto , completion: { [weak self] imageAvatar in self?.groupImage.image = imageAvatar })
 //        }

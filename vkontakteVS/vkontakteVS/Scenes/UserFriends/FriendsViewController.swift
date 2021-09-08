@@ -17,7 +17,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     private var friendsCategory = [FriendsCategory]()
    // private var friendsCategoryDictionary = [String : [Friend]]()
    // private var friendsItems = [Friend]()
-    private let sectionHeaderID = "FriendsSectionTableViewHeader"
+    //private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkServiceInplimentation()
     
     //MARK: - Navigation
@@ -34,7 +34,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //register Header of cell
-        tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
+        tableView.register(FriendsSectionTableViewHeader.self)
         //watch press LettersControl
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
         //for custom animation transition
