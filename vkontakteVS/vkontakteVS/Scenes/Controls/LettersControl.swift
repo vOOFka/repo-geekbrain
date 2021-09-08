@@ -36,6 +36,8 @@ class LettersControl: UIControl {
     }
    
     func setupControl(array letters:[String]) {
+        var letters = letters
+        
         for letter in letters {
             let button = UIButton()
             button.setTitle(letter, for: .normal)

@@ -15,8 +15,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     //MARK: - Var
     private var friendsCategory = [FriendsCategory]()
-    private var friendsCategoryDictionary = [String : [Friend]]()
-    private var friendsItems = [Friend]()
+   // private var friendsCategoryDictionary = [String : [Friend]]()
+   // private var friendsItems = [Friend]()
     private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkServiceInplimentation()
     
@@ -41,7 +41,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.navigationController?.delegate = self
         //Show friends from VK API
         updateFriendsFromVKAPI()
-     }
+    }
     
     @objc private func letterWasChange(_ control: LettersControl) {
         let letter = control.selectedLetter
@@ -68,10 +68,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func extractFriends(friendsItems: Friends?) {
         let friendsItems = friendsItems?.items ?? []
-        //Download Avatar
-        downloadPhoto(friendsItems: friendsItems)
         //Получение категорий через словарь
-        friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
+        let friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
         for (_, value) in friendsCategoryDictionary.enumerated() {
             let category = FriendsCategory(category: value.key, array: value.value)
             friendsCategory.append(category)
@@ -81,14 +79,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         //Update custom UIControl
         let friendsLetters = lettersFriends(array: friendsItems)
         lettersControl.setupControl(array: friendsLetters)
-    }
-    
-    fileprivate func downloadPhoto(friendsItems: [Friend]) {
-        friendsItems.forEach({
-            var img: UIImage?
-            networkService.getImageFromWeb(imageURL: $0.urlAvatar ?? "", completion: { imageAvatar in img = imageAvatar})
-            $0.imageAvatar = img
-        })
     }
     
     fileprivate func lettersFriends(array friends: [Friend]) -> [String] {

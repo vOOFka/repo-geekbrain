@@ -15,7 +15,7 @@ protocol NetworkService {
     func getFriends(completion: @escaping (Friends?) -> Void)
     func getPhotosAll(friendId: Int, completion: @escaping (Photos?) -> Void)
     //Helpers
-    func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void)
+    //func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void)
     func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T?
 }
 
@@ -127,16 +127,16 @@ class NetworkServiceInplimentation: NetworkService {
         }
     }
     
-    func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void) {
-        AF.request(imageURL, method: .get).response { (response) in
-            if response.error == nil {
-                print(response.result)
-                if let data = response.data {
-                    completion(UIImage(data: data))
-                } else {
-                    completion(UIImage(named: "NoImage"))
-                }
-            }
-        }
-    }
+//    func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void) {
+//        AF.request(imageURL, method: .get).response { (response) in
+//            if response.error == nil {
+//                print(response.result)
+//                if let data = response.data {
+//                    completion(UIImage(data: data))
+//                } else {
+//                    completion(UIImage(named: "NoImage"))
+//                }
+//            }
+//        }
+//    }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendPhotoFullScreen: UIViewController {
     //MARK: - Outlets
@@ -13,17 +14,18 @@ class FriendPhotoFullScreen: UIViewController {
     @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
     //MARK: - Prefirence
-    private let networkService = NetworkServiceInplimentation()
+    //private let networkService = NetworkServiceInplimentation()
     private var image: (Photo?, Int)?
     private var photosItems = [Photo]()
     private var animator: UIViewPropertyAnimator!
     private let recognazer = UIPanGestureRecognizer()
     private var isChange = false
-       
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Configuration
         nextPhotoImageView.alpha = 0
+        downloadPhotoFromWeb()
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
@@ -33,12 +35,20 @@ class FriendPhotoFullScreen: UIViewController {
     func configuration(selectPhoto: (Photo?, Int), anotherPhoto: [Photo]) {
         image = selectPhoto
         photosItems = anotherPhoto
-        DispatchQueue.main.async {
-            //Choice size download photo
-            let size = sizeType.max
-            let url = selectPhoto.0!.sizes.first(where: { $0.type == size })!.urlPhoto
-            self.networkService.getImageFromWeb(imageURL: url, completion: { [weak self] photo in self?.currentPhotoImageView.image = photo })
-        }
+//        DispatchQueue.main.async {
+//            Choice size download photo
+//            let size = sizeType.max
+//            let url = selectPhoto.0!.sizes.first(where: { $0.type == size })!.urlPhoto
+//             self.networkService.getImageFromWeb(imageURL: url, completion: { [weak self] photo in self?.currentPhotoImageView.image = photo })
+//        }
+    }
+    
+    fileprivate func downloadPhotoFromWeb() {
+        //Download photo
+        let size = sizeType.max
+        let url = image?.0!.sizes.first(where: { $0.type == size })!.urlPhoto
+        if (currentPhotoImageView != nil) && (image != nil) {
+            currentPhotoImageView.kf.setImage(with: URL(string: url!))}
     }
     
     fileprivate func setupPanRecognizer() {
@@ -67,7 +77,7 @@ class FriendPhotoFullScreen: UIViewController {
         
         switch sender.state {
         case .began:
-            print("began")
+            //print("began")
             if sender.direction == .right {
                 offsetXToView = -offsetXFromView
             } else if sender.direction == .left {
@@ -92,9 +102,9 @@ class FriendPhotoFullScreen: UIViewController {
             let percent = abs(translation.x / 100)
             let animationPercent = min(1, max(0, percent))
             animator.fractionComplete = animationPercent
-            print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
+            //print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
-            print("ended")
+            //print("ended")
             if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
                 image = (photosItems[indexNextPhoto], indexNextPhoto)
@@ -102,7 +112,8 @@ class FriendPhotoFullScreen: UIViewController {
                     //Choice size download photo
                     let size = sizeType.max
                     let url = self.photosItems[indexNextPhoto].sizes.first(where: { $0.type == size })!.urlPhoto
-                    self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
+                    toView.kf.setImage(with: URL(string: url))
+                    //self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
                 }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 2)
                 UIView.animate(withDuration: 0.8, delay: 0.5,

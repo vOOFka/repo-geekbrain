@@ -16,6 +16,7 @@
 		847AEF0D26CE855600746CB6 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF0C26CE855600746CB6 /* CustomNavigationController.swift */; };
 		847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF0E26CE8D9700746CB6 /* CustomSegue.swift */; };
 		847AEF1126CE997D00746CB6 /* CustomPush+PopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AEF1026CE997D00746CB6 /* CustomPush+PopAnimators.swift */; };
+		8498843826E8EA10006E57DE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8498843726E8EA10006E57DE /* Kingfisher */; };
 		84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613226BC1B8B00BC0937 /* UserNewsViewController.swift */; };
 		84A0613726BC1E1B00BC0937 /* UserNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */; };
 		84A0613826BC1E1B00BC0937 /* UserNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */; };
@@ -133,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8498843826E8EA10006E57DE /* Kingfisher in Frameworks */,
 				F44E004626DC35D500BD976C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,19 +156,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		840A643226BBB9E000C9E03F /* Custom */ = {
+		840A643226BBB9E000C9E03F /* CustomSearchBar */ = {
 			isa = PBXGroup;
 			children = (
 				840A643326BBBA6C00C9E03F /* GroupSearchBar.swift */,
 				840A643526BBBA8800C9E03F /* GroupSearchBar.xib */,
 			);
-			path = Custom;
+			path = CustomSearchBar;
 			sourceTree = "<group>";
 		};
 		843025FC26B9206C0085307C /* Controls */ = {
 			isa = PBXGroup;
 			children = (
 				843025FD26B920D60085307C /* LettersControl.swift */,
+				84CE42EB26B3F16400D80DE2 /* LikesControl.swift */,
 				F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */,
 			);
 			path = Controls;
@@ -216,8 +219,7 @@
 		84CE42ED26B3F18500D80DE2 /* PhotosFriends */ = {
 			isa = PBXGroup;
 			children = (
-				F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */,
-				84CE42EB26B3F16400D80DE2 /* LikesControl.swift */,
+				84E52ECF26E89941007C9341 /* Cell */,
 				F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */,
 				F408AFC826B75088004DBF67 /* FriendPhotoFullScreen.swift */,
 			);
@@ -233,14 +235,20 @@
 			path = SectionHeader;
 			sourceTree = "<group>";
 		};
-		F431C0C426B1F8010028827E /* Custom */ = {
+		84E52ECF26E89941007C9341 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				843025FC26B9206C0085307C /* Controls */,
-				84DB71CE26B82B4C00056C2D /* SectionHeader */,
+				F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F431C0C426B1F8010028827E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
 				F431C0C826B1FDAE0028827E /* AvatarView.swift */,
 			);
-			path = Custom;
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		F44E001E26D6B99A00BD976C /* Patterns */ = {
@@ -331,7 +339,7 @@
 		F4DDA0F326AAC926002DEAE8 /* UserGroups */ = {
 			isa = PBXGroup;
 			children = (
-				840A643226BBB9E000C9E03F /* Custom */,
+				840A643226BBB9E000C9E03F /* CustomSearchBar */,
 				F4DDA0F626AAC9BF002DEAE8 /* Cell */,
 				F4DDA0EA26A890A7002DEAE8 /* UserGroupsTableViewController.swift */,
 				84481BB226AED8DB002CBC86 /* AppendGroupsTableViewController.swift */,
@@ -343,8 +351,10 @@
 			isa = PBXGroup;
 			children = (
 				843BC42A26C3A7C000303CE7 /* Animation */,
+				843025FC26B9206C0085307C /* Controls */,
 				F4DDA0F226AAC8D3002DEAE8 /* Models */,
 				F4DDA0F526AAC99E002DEAE8 /* Login */,
+				84CE42ED26B3F18500D80DE2 /* PhotosFriends */,
 				F4F5B10F26AAE43400BD17EF /* UserFriends */,
 				84A0613126BC1AA700BC0937 /* UserNews */,
 				F4DDA0F326AAC926002DEAE8 /* UserGroups */,
@@ -372,7 +382,8 @@
 		F4F5B10F26AAE43400BD17EF /* UserFriends */ = {
 			isa = PBXGroup;
 			children = (
-				84CE42ED26B3F18500D80DE2 /* PhotosFriends */,
+				F431C0C426B1F8010028827E /* CustomView */,
+				84DB71CE26B82B4C00056C2D /* SectionHeader */,
 				F4F5B11326AAE47C00BD17EF /* Cell */,
 				F4DDA0E026A86436002DEAE8 /* FriendsViewController.swift */,
 			);
@@ -382,7 +393,6 @@
 		F4F5B11326AAE47C00BD17EF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F431C0C426B1F8010028827E /* Custom */,
 				F4F5B11426AAE4B500BD17EF /* FriendTableViewCell.swift */,
 			);
 			path = Cell;
@@ -406,6 +416,7 @@
 			name = vkontakteVS;
 			packageProductDependencies = (
 				F44E004526DC35D500BD976C /* Alamofire */,
+				8498843726E8EA10006E57DE /* Kingfisher */,
 			);
 			productName = vkontakteVS;
 			productReference = F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */;
@@ -480,6 +491,7 @@
 			mainGroup = F4B0C84826A5DBBB00B1853C;
 			packageReferences = (
 				F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8498843626E8EA10006E57DE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = F4B0C85226A5DBBB00B1853C /* Products */;
 			projectDirPath = "";
@@ -899,6 +911,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8498843626E8EA10006E57DE /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.1;
+			};
+		};
 		F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -910,6 +930,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8498843726E8EA10006E57DE /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8498843626E8EA10006E57DE /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		F44E004526DC35D500BD976C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */;

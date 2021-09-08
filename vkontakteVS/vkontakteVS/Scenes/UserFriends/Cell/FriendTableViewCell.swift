@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Alamofire
+import Kingfisher
 
 class FriendTableViewCell: UITableViewCell {
     //MARK: - Outlets
@@ -25,7 +25,10 @@ class FriendTableViewCell: UITableViewCell {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         friendName.text = currentFriend.fullName
         cityName.text = currentFriend.cityName
-        friendImage.image = currentFriend.imageAvatar
+        let url = currentFriend.urlAvatar
+        if  url != nil {
+            friendImage.kf.setImage(with: URL(string: url!))
+        }
 //        DispatchQueue.main.async {
 //            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
 //        }
