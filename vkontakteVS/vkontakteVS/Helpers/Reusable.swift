@@ -28,6 +28,10 @@ extension UITableView {
         self.register(Cell.nib, forCellReuseIdentifier: Cell.reuseIdentifire)
     }
     
+    func registerClass<Cell: UITableViewCell> (_:Cell.Type) {
+        self.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifire)
+    }
+    
     func dequeueReusableCell<Cell: UITableViewCell> (_:Cell.Type, for indexPath: IndexPath) -> Cell {
         guard let cell = self.dequeueReusableCell(withIdentifier: Cell.reuseIdentifire, for: indexPath) as? Cell
         else {

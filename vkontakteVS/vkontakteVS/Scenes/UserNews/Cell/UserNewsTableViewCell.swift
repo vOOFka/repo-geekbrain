@@ -7,7 +7,7 @@
 
 import UIKit
 protocol UserNewsTableViewCellDelegate: AnyObject {
-    func newHeightCell(for cell: UserNewsTableViewCell)
+   // func newHeightCell(for cell: UserNewsTableViewCell)
 }
 
 protocol NewsTableViewCellModel {
@@ -87,6 +87,6 @@ class UserNewsTableViewCell: UITableViewCell {
     // MARK: Actions
     @IBAction func tapMoreButton(_ sender: Any) {
         print("More text")
-        delegate?.newHeightCell(for: self)
+        //delegate?.newHeightCell(for: self)
     }
 }

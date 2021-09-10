@@ -43,8 +43,8 @@ class NetworkServiceInplimentation: NetworkService {
         let path = "newsfeed.get"
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
-                                      "filters" : "post"]//,
-                                    //  "count": "50"]
+                                      "filters" : "post",
+                                      "count": "5"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):

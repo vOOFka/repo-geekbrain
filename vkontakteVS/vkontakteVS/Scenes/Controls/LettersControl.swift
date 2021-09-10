@@ -36,7 +36,7 @@ class LettersControl: UIControl {
     }
    
     func setupControl(array letters:[String]) {
-        var letters = letters
+        //var letters = letters
         
         for letter in letters {
             let button = UIButton()

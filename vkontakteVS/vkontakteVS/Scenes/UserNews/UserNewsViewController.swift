@@ -12,6 +12,7 @@ class UserNewsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!    
     //MARK: - Var
     private var userNews = NewsFeed()
+    private var currentNews = News()
     private var newsWithFullText = [Int]()
     private let networkService = NetworkServiceInplimentation()
     
@@ -19,10 +20,14 @@ class UserNewsViewController: UIViewController {
         super.viewDidLoad()
         //register Header of cell
         tableView.register(NewsHeader.self)
-        //register cell
-        tableView.register(UserNewsTableViewCellSecond.self)
+        //register cells
+        //tableView.register(NewsTextCell.self)
+        tableView.registerClass(NewsTextCell.self)
+        tableView.registerClass(NewsImageCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+        self.tableView.rowHeight = UITableView.automaticDimension;
+        self.tableView.estimatedRowHeight = 0.0;
         view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
         //Show News from VK API
         updateNewsFromVKAPI()
@@ -47,25 +52,27 @@ extension UserNewsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(NewsHeader.self, viewForHeaderInSection: section)
-        let currentNews = userNews.items[section]
+        currentNews = userNews.items[section]
         let groupNews = userNews.groups.first(where: { $0.id == 0 - currentNews.sourceId })
         header.configuration(currentNews: currentNews, currentGroupNews: groupNews)
         return header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userNews.items[section].attachments?.count ?? 1
+        return 2//userNews.items[section].cellItems.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(UserNewsTableViewCellSecond.self, for: indexPath)
-        //let currentNews = userNews[indexPath.row]
-        //let groupNews = currentNews.groups?.firstIndex(where: { $0.id == 0 - currentNews.id })
-//        cell.tag = userNews[indexPath.row].id
-//        cell.configuration(currentNews: userNews[indexPath.row])
-        //cell.setNews(cellModel: userNews[indexPath.row] as! NewsTableViewCellModel)
-        return cell
-    }
+            let currentNews = userNews.items[indexPath.section]
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
+                cell.configuration(currentNews: currentNews)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
+                cell.configuration(currentNews: currentNews)
+                return cell
+            }
+        }
 }
 
 extension UserNewsViewController: UITableViewDelegate {
@@ -76,9 +83,10 @@ extension UserNewsViewController: UITableViewDelegate {
 }
 
 extension UserNewsViewController: UserNewsTableViewCellDelegate {
-    func newHeightCell(for cell: UserNewsTableViewCell) {
+   
+ //   func newHeightCell(for cell: UserNewsTableViewCell) {
 //        newsWithFullText.append(cell.tag)
 //        //userNews = UserActualNews.getNewsFromUserGroups(with: newsWithFullText)
 //        tableView.reloadData()
-    }
+ //   }
 }

@@ -32,7 +32,26 @@ class News: Decodable {
     var date: Int = 0
     var text: String = ""
     var attachments: [Attachments]?
-  //  var size: NewsCellSizes? {
+//    var cellItems: [NewsCellModel] {
+//        var array = [NewsCellModel]()
+//        let item = NewsCellModel(text: text, array: attachments)
+//        array.append(item)
+//        return array
+//    }
+//    var cellItems: [Any] {
+//        var array = [Any]()
+//        array.append(text)
+//        array.append(attachments as Any)
+//        return array
+//    }
+//    var fullName: String {
+//        var fio = [String]()
+//        fio.append(firstName)
+//        fio.append(nickName ?? "")
+//        fio.append(lastName)
+//        return fio.filter({ !$0.isEmpty }).joined(separator: " ")
+//    }
+    //  var size: NewsCellSizes? {
         //let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
   //      return NewsCellSizeCalculator().sizes(newsText: attachments?[0].description, newsImage: nil, showAllText: false)
   //  }
@@ -49,6 +68,16 @@ class News: Decodable {
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
         self.attachments = try? container.decode([Attachments].self, forKey: .attachments)
+    }
+}
+
+class NewsCellModel {
+    var text: String
+    var attachments: [Attachments]?
+
+    init(text: String ,array attachments: [Attachments]?) {
+        self.text = text
+        self.attachments = attachments
     }
 }
 
