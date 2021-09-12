@@ -21,13 +21,12 @@ class UserNewsViewController: UIViewController {
         //register Header of cell
         tableView.register(NewsHeader.self)
         //register cells
-        //tableView.register(NewsTextCell.self)
         tableView.registerClass(NewsTextCell.self)
         tableView.registerClass(NewsImageCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        self.tableView.rowHeight = UITableView.automaticDimension;
-        self.tableView.estimatedRowHeight = 0.0;
+       // tableView.estimatedRowHeight = 175
+      //  tableView.rowHeight = UITableView.automaticDimension
         view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
         //Show News from VK API
         updateNewsFromVKAPI()
@@ -59,27 +58,40 @@ extension UserNewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2//userNews.items[section].cellItems.count
+        let currentSection = userNews.items[section]
+        var count: Int = currentSection.countCellItems
+        if currentSection.text.isEmpty { count = count - 1 }
+        count = count + (currentSection.attachments?.count ?? 0)
+        return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let currentNews = userNews.items[indexPath.section]
-            if indexPath.row == 0 {
+        let currentNews = userNews.items[indexPath.section]
+        if indexPath.row == 0 && !currentNews.text.isEmpty {
                 let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
                 cell.configuration(currentNews: currentNews)
                 return cell
             } else {
+                guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
+                var indexAttachment = indexPath.row - 1
+                if indexAttachment < 0 { indexAttachment = 0 }
                 let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
-                cell.configuration(currentNews: currentNews)
+                //cell.configuration(currentAttachment: currentAttachment[indexAttachment])
                 return cell
             }
         }
 }
 
 extension UserNewsViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        //let cellViewModel = userNews[indexPath.row]
-//        return 250.0//cellViewModel.size?.hightCell ?? CGFloat(50.0)
-//    }
+  //  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.row == 0 {
+//            return CGFloat(50.0)
+//        } else {
+//            return CGFloat(150.0)
+//        }
+ //       return userNews.items[indexPath.row]
+       // if let news = self. .datasource?.item(indexPath) as? { }
+        
+  //  }
 }
 
 extension UserNewsViewController: UserNewsTableViewCellDelegate {

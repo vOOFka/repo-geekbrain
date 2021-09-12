@@ -32,11 +32,12 @@ class News: Decodable {
     var date: Int = 0
     var text: String = ""
     var attachments: [Attachments]?
-//    var cellItems: [NewsCellModel] {
-//        var array = [NewsCellModel]()
-//        let item = NewsCellModel(text: text, array: attachments)
-//        array.append(item)
-//        return array
+    var countCellItems: Int = 1 //{
+//        var count: Int = 1
+//        if text.isEmpty { count = count - 1 }
+//        count = count + (attachments?.count ?? 0)
+//        print(count)
+//        return count
 //    }
 //    var cellItems: [Any] {
 //        var array = [Any]()
