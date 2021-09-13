@@ -18,7 +18,7 @@ class RealmFriend: Object {
 //        fio.append(lastName)
 //        return fio.filter({ !$0.isEmpty }).joined(separator: " ")
 //    }
-//    @Persisted var category: String { return String(fullName.first ?? " ") }
+ //   @Persisted var category: String { return String(fullName.first ?? " ") }
     @Persisted var firstName: String = ""
     @Persisted var lastName: String = ""
     @Persisted var nickName: String?
@@ -28,8 +28,8 @@ class RealmFriend: Object {
     @Persisted var cityName: String?
     @Persisted var urlAvatar: String?
     
-    convenience override init() {
-        self.init()
+//    convenience override init(_ model: Friend) {
+//        self.init(model)
         
-    }
+//    }
 }

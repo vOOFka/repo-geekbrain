@@ -15,6 +15,7 @@ class UserNewsViewController: UIViewController {
     private var currentNews = News()
     private var newsWithFullText = [Int]()
     private let networkService = NetworkServiceInplimentation()
+    private var needMoreTextBtn = [IndexPath : Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,13 @@ extension UserNewsViewController: UITableViewDataSource {
         if indexPath.row == 0 && !currentNews.text.isEmpty {
                 let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
                 cell.configuration(currentNews: currentNews)
+            cell.delegate = self
+//
+//            if let mtb = needMoreTextBtn[indexPath] {
+//                cell.showMoreTextBtn = mtb
+//            }
+//            cell.showMoreTextBtn = { needMoreTextBtn[indexPath] = cell. }
+//
                 return cell
             } else {
                 guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
@@ -78,6 +86,8 @@ extension UserNewsViewController: UITableViewDataSource {
                 //cell.configuration(currentAttachment: currentAttachment[indexAttachment])
                 return cell
             }
+
+        
         }
 }
 
@@ -94,7 +104,11 @@ extension UserNewsViewController: UITableViewDelegate {
   //  }
 }
 
-extension UserNewsViewController: UserNewsTableViewCellDelegate {
+extension UserNewsViewController: NewsTextCellDelegate {
+    func newHeightCell(for cell: NewsTextCell) {
+        print("123")
+    }
+    
    
  //   func newHeightCell(for cell: UserNewsTableViewCell) {
 //        newsWithFullText.append(cell.tag)
