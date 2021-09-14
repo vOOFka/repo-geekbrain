@@ -14,7 +14,7 @@ class UserNewsViewController: UIViewController {
     private var userNews = NewsFeed()
     private var currentNews = News()
     private var newsWithFullText = [Int]()
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
     private var needMoreTextBtn = [IndexPath : Bool]()
     
     override func viewDidLoad() {

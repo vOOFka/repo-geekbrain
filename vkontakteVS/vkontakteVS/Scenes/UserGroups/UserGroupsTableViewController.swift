@@ -23,7 +23,8 @@ class UserGroupsTableViewController: UITableViewController {
     private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
     private let searchInNavigationBar = UISearchController(searchResultsController: nil)
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,14 @@ class UserGroupsTableViewController: UITableViewController {
         networkService.getGroups(completion: { [weak self] groupsItems in
             guard let self = self else { return }
             self.userGroups = groupsItems?.items ?? []
+            //Загрузка данных в БД Realm
+            let groupsItemsRealm = self.userGroups.map({ RealmGroup($0, image: nil) })
+            do {
+                let saveToDB = try self.realmService.save(groupsItemsRealm)
+                print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+            } catch (let error) {
+                print(error)
+            }
             self.filteredUserGroups = groupsItems?.items ?? []
             self.groupsTableView.reloadData()
         })

@@ -14,7 +14,7 @@ class FriendPhotoFullScreen: UIViewController {
     @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
     //MARK: - Prefirence
-    //private let networkService = NetworkServiceInplimentation()
+    //private let networkService = NetworkServiceImplimentation()
     private var image: (Photo?, Int)?
     private var photosItems = [Photo]()
     private var animator: UIViewPropertyAnimator!

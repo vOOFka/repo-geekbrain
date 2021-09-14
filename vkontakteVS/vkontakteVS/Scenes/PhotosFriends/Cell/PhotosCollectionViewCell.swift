@@ -13,7 +13,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var likesControl: LikesControl!
     //MARK: - Prefirence
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
     //MARK: - Functions
     func configuration(currentPhoto: Photo) {
         likesControl.setupLikesUI(countLikes: currentPhoto.likes ?? 0)

@@ -18,7 +18,7 @@ class GroupTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var groupName: UILabel!
     //MARK: - Prefirence
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
     //MARK: - Functions
     func configuration(currentGroup: Group) {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))

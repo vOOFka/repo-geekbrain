@@ -18,7 +18,8 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     var currentFriend = Friend()
     private var photosItems = [Photo]()
     private var selectedImage: (Photo?, Int)?
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,14 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         networkService.getPhotosAll(friendId: currentFriend.id, completion: { [weak self] photosItems in
             guard let self = self else { return }
             self.photosItems = photosItems?.items ?? [Photo]()
+            //Загрузка данных в БД Realm
+            let photosItemsRealm = self.photosItems.map({ RealmPhoto($0) })
+            do {
+                let saveToDB = try self.realmService.save(photosItemsRealm)
+                print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+            } catch (let error) {
+                print(error)
+            }
             self.collectionView.reloadData()
             })
     }

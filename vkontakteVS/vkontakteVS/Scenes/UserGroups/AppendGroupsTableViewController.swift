@@ -15,7 +15,7 @@ class AppendGroupsTableViewController: UITableViewController {
     var foundAppendGroups = [Group]()
     private var searching = false
     private let searchView = GroupSearchBar()
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()

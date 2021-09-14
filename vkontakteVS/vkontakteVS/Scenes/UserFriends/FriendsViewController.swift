@@ -18,7 +18,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
    // private var friendsCategoryDictionary = [String : [Friend]]()
    // private var friendsItems = [Friend]()
     //private let sectionHeaderID = "FriendsSectionTableViewHeader"
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,6 +69,14 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func extractFriends(friendsItems: Friends?) {
         let friendsItems = friendsItems?.items ?? []
+        //Загрузка данных в БД Realm
+        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+        do {
+            let saveToDB = try realmService.save(friendsItemsRealm)
+            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        } catch (let error) {
+            print(error)
+        }
         //Получение категорий через словарь
         let friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
         for (_, value) in friendsCategoryDictionary.enumerated() {

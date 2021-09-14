@@ -6,19 +6,13 @@
 //
 
 import Foundation
+import UIKit
 import RealmSwift
 
 class RealmFriend: Object {
     @Persisted var id: Int = 0
     @Persisted var fullName: String
-//        = { () -> <#Result#> in
-//     var fio = [String]()
-//        fio.append(firstName)
-//        fio.append(nickName ?? "")
-//        fio.append(lastName)
-//        return fio.filter({ !$0.isEmpty }).joined(separator: " ")
-//    }
- //   @Persisted var category: String { return String(fullName.first ?? " ") }
+    @Persisted var category: String
     @Persisted var firstName: String = ""
     @Persisted var lastName: String = ""
     @Persisted var nickName: String?
@@ -27,9 +21,22 @@ class RealmFriend: Object {
     @Persisted var canAccessClosed: Bool?
     @Persisted var cityName: String?
     @Persisted var urlAvatar: String?
+    @Persisted var imageAvatar: Data?
     
-//    convenience override init(_ model: Friend) {
-//        self.init(model)
-        
-//    }
+    convenience init(_ friendModel: Friend) {
+        self.init()
+        self.id = friendModel.id
+        self.fullName = {
+            var fio = [String]()
+            fio.append(friendModel.firstName)
+            fio.append(friendModel.nickName ?? "")
+            fio.append(friendModel.lastName)
+            return fio.filter({ !$0.isEmpty }).joined(separator: " ")
+        }()
+        self.category =  { return String(fullName.first ?? " ") }()
+        self.firstName = friendModel.firstName
+        self.lastName = friendModel.lastName
+        self.nickName = friendModel.nickName
+        self.deactivated = friendModel.deactivated
+    }
 }

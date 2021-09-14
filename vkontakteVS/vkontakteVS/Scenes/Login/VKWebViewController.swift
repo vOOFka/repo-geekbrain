@@ -18,7 +18,7 @@ class VKWebViewController: UIViewController {
     }
     
     //MARK: Properties
-    private let networkService = NetworkServiceInplimentation()
+    private let networkService = NetworkServiceImplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()

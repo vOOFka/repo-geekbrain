@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 protocol NetworkService {
     func getNewsfeed(completion: @escaping (NewsFeed?) -> Void)
@@ -19,13 +20,14 @@ protocol NetworkService {
     func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T?
 }
 
-class NetworkServiceInplimentation: NetworkService {
+class NetworkServiceImplimentation: NetworkService {
     //MARK: - Constans
     private struct Constans {
         static let host = "https://api.vk.com/method/"
         static let userId = UserSession.shared.userId
         static let accessToken = UserSession.shared.token
         static let versionAPI = "5.131"
+        //static let realmService: RealmService = RealmServiceImplimentation()
         
         static let session: Session = {
             let config = URLSessionConfiguration.default
@@ -33,7 +35,7 @@ class NetworkServiceInplimentation: NetworkService {
             return Session(configuration: config)
         }()
     }
-    func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T? {
+    func decodingData<T: Decodable> (type: T.Type, from data: Data?) -> T? {
         guard let data = data,
               let decoded = try? JSONDecoder().decode(type.self, from: data) else { return nil }
         return decoded
