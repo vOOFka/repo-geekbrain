@@ -32,7 +32,8 @@ class News: Decodable {
     var date: Int = 0
     var text: String = ""
     var attachments: [Attachments]?
-    var countCellItems: Int = 1 //{
+    var countCellItems: Int = 1
+    //{
 //        var count: Int = 1
 //        if text.isEmpty { count = count - 1 }
 //        count = count + (attachments?.count ?? 0)
@@ -44,14 +45,7 @@ class News: Decodable {
 //        array.append(text)
 //        array.append(attachments as Any)
 //        return array
-//    }
-//    var fullName: String {
-//        var fio = [String]()
-//        fio.append(firstName)
-//        fio.append(nickName ?? "")
-//        fio.append(lastName)
-//        return fio.filter({ !$0.isEmpty }).joined(separator: " ")
-//    }
+
     //  var size: NewsCellSizes? {
         //let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
   //      return NewsCellSizeCalculator().sizes(newsText: attachments?[0].description, newsImage: nil, showAllText: false)
@@ -72,15 +66,15 @@ class News: Decodable {
     }
 }
 
-class NewsCellModel {
-    var text: String
-    var attachments: [Attachments]?
-
-    init(text: String ,array attachments: [Attachments]?) {
-        self.text = text
-        self.attachments = attachments
-    }
-}
+//class NewsCellModel {
+//    var text: String
+//    var attachments: [Attachments]?
+//
+//    init(text: String ,array attachments: [Attachments]?) {
+//        self.text = text
+//        self.attachments = attachments
+//    }
+//}
 
 class Attachments: Decodable {
     var type: String = ""

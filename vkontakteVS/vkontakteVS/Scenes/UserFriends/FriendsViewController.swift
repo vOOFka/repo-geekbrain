@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UIViewController, UITableViewDelegate {
     
@@ -14,12 +15,14 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak private var tableView: UITableView!
     
     //MARK: - Var
-    private var friendsCategory = [FriendsCategory]()
+    //private var friendsCategory = [FriendsCategory]()
    // private var friendsCategoryDictionary = [String : [Friend]]()
    // private var friendsItems = [Friend]()
     //private let sectionHeaderID = "FriendsSectionTableViewHeader"
     private let networkService = NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
+    private var friendsList: Results<RealmFriend>!
+    private var friendsCategory = RealmFriendsCategory()
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -70,19 +73,24 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     fileprivate func extractFriends(friendsItems: Friends?) {
         let friendsItems = friendsItems?.items ?? []
         //Загрузка данных в БД Realm
-        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+        let friendsItemsRealm = friendsItems.map({ RealmFriend($0, image: nil) })
         do {
-            let saveToDB = try realmService.save(friendsItemsRealm)
+            //let saveToDB = try realmService.save(friendsItemsRealm)
+            let saveToDB = try realmService.update(friendsItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
         } catch (let error) {
             print(error)
         }
-        //Получение категорий через словарь
-        let friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
-        for (_, value) in friendsCategoryDictionary.enumerated() {
-            let category = FriendsCategory(category: value.key, array: value.value)
-            friendsCategory.append(category)
+        //Получение данных из БД
+        do {
+            friendsList = try realmService.get(RealmFriend.self)
+        } catch (let error) {
+            print(error)
         }
+        //Получение категорий через словарь
+        let friendsCategoryDictionary = Dictionary(grouping: friendsList) { $0.category }
+        //friendsCategoryDictionary.enumerated().forEach({ RealmFriendsCategory(category: $0.element.key, array: $0.element.value) })
+        let dfsdf = friendsCategoryDictionary.enumerated()
         friendsCategory.sort(by: { $0.category < $1.category })
         tableView.reloadData()
         //Update custom UIControl

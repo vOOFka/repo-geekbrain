@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class RealmPhoto: Object {
-    @Persisted var id: Int = 0
+    @Persisted(primaryKey: true) var id: Int = 0
     @Persisted var albumId: Int = 0
     @Persisted var ownerId: Int = 0
     @Persisted var text: String?
@@ -20,7 +20,7 @@ class RealmPhoto: Object {
     @Persisted var reposts: Int? = 0
     @Persisted var image: Data?
     
-    convenience init(_ photoModel: Photo) {
+    convenience init(_ photoModel: Photo, image: UIImage?) {
         self.init()
         self.id = photoModel.id
         self.albumId = photoModel.albumId
@@ -37,7 +37,7 @@ class RealmPhoto: Object {
         }()
         self.likes = photoModel.likes
         self.reposts = photoModel.reposts
-        self.image = photoModel.image?.jpegData(compressionQuality: 80.0)
+        self.image = image?.jpegData(compressionQuality: 80.0)
     }
 }
 

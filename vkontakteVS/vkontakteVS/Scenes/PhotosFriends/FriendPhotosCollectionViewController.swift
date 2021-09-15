@@ -38,7 +38,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
             guard let self = self else { return }
             self.photosItems = photosItems?.items ?? [Photo]()
             //Загрузка данных в БД Realm
-            let photosItemsRealm = self.photosItems.map({ RealmPhoto($0) })
+            let photosItemsRealm = self.photosItems.map({ RealmPhoto($0, image: nil) })
             do {
                 let saveToDB = try self.realmService.save(photosItemsRealm)
                 print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")

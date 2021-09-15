@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class RealmGroup: Object {
-    @Persisted var id: Int = 0
+    @Persisted(primaryKey: true) var id: Int = 0
     @Persisted var name: String = ""
     @Persisted var isMember: Int = 1
     @Persisted var urlPhoto: String = ""
