@@ -23,7 +23,8 @@ class UserGroupsTableViewController: UITableViewController {
     private var filteredUserGroups = [Group]()
     private var heightHeader: CGFloat = 0.0
     private let searchInNavigationBar = UISearchController(searchResultsController: nil)
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +54,18 @@ class UserGroupsTableViewController: UITableViewController {
     //MARK: - Functions
     fileprivate func updateGroupsFromVKAPI() {
         networkService.getGroups(completion: { [weak self] groupsItems in
-            self?.userGroups = groupsItems?.items ?? [Group]()
-            self?.filteredUserGroups = groupsItems?.items ?? [Group]()
-            self?.groupsTableView.reloadData()
+            guard let self = self else { return }
+            self.userGroups = groupsItems?.items ?? []
+            //Загрузка данных в БД Realm
+            let groupsItemsRealm = self.userGroups.map({ RealmGroup($0, image: nil) })
+            do {
+                let saveToDB = try self.realmService.save(groupsItemsRealm)
+                print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+            } catch (let error) {
+                print(error)
+            }
+            self.filteredUserGroups = groupsItems?.items ?? []
+            self.groupsTableView.reloadData()
         })
     }
     // MARK: - Actions
@@ -80,8 +90,8 @@ class UserGroupsTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let currentCellFGroup = filteredUserGroups[indexPath.row]
-        cell.configuration(currentGroup: currentCellFGroup)
+        let currentCellGroup = filteredUserGroups[indexPath.row]
+        cell.configuration(currentGroup: currentCellGroup)
         return cell
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

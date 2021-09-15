@@ -14,12 +14,12 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak private var tableView: UITableView!
     
     //MARK: - Var
-    private var friendsLetters = [String]()
     private var friendsCategory = [FriendsCategory]()
-    private var friendsCategoryDictionary = [String : [Friend]]()
-    private var friendsItems = [Friend]()
-    private let sectionHeaderID = "FriendsSectionTableViewHeader"
-    private let networkService = NetworkService()
+   // private var friendsCategoryDictionary = [String : [Friend]]()
+   // private var friendsItems = [Friend]()
+    //private let sectionHeaderID = "FriendsSectionTableViewHeader"
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -35,14 +35,14 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //register Header of cell
-        tableView.register(UINib(nibName: sectionHeaderID, bundle: nil), forHeaderFooterViewReuseIdentifier: sectionHeaderID)
+        tableView.register(FriendsSectionTableViewHeader.self)
         //watch press LettersControl
         lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
         //for custom animation transition
         self.navigationController?.delegate = self
         //Show friends from VK API
         updateFriendsFromVKAPI()
-     }
+    }
     
     @objc private func letterWasChange(_ control: LettersControl) {
         let letter = control.selectedLetter
@@ -62,22 +62,39 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func updateFriendsFromVKAPI() {
         networkService.getFriends(completion: { [weak self] friendsItems in
-            self?.friendsItems = friendsItems?.items ?? [Friend]()
-            //Получение категорий через метод
-            //self?.friendsCategory = (friendsItems?.getFriendsCategory(array: self!.friendsItems))!
-            //Получение категорий через словарь, как лучше?
-            self?.friendsCategoryDictionary = Dictionary(grouping: self!.friendsItems) { $0.category }
-            for (_, value) in self!.friendsCategoryDictionary.enumerated() {
-                let category = FriendsCategory(category: value.key, array: value.value)
-                self?.friendsCategory.append(category)
-            }
-            self?.friendsCategory.sort(by: { $0.category < $1.category })
-            
-            self?.friendsLetters = (friendsItems?.lettersFriends(array: self!.friendsItems))!
-            self?.tableView.reloadData()
-            //Update custom UIControl
-            self!.lettersControl.setupControl(array: self?.friendsLetters ?? [String]())
+            guard let self = self else { return }
+            self.extractFriends( friendsItems: friendsItems)
         })
+    }
+    
+    fileprivate func extractFriends(friendsItems: Friends?) {
+        let friendsItems = friendsItems?.items ?? []
+        //Загрузка данных в БД Realm
+        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+        do {
+            let saveToDB = try realmService.save(friendsItemsRealm)
+            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        } catch (let error) {
+            print(error)
+        }
+        //Получение категорий через словарь
+        let friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
+        for (_, value) in friendsCategoryDictionary.enumerated() {
+            let category = FriendsCategory(category: value.key, array: value.value)
+            friendsCategory.append(category)
+        }
+        friendsCategory.sort(by: { $0.category < $1.category })
+        tableView.reloadData()
+        //Update custom UIControl
+        let friendsLetters = lettersFriends(array: friendsItems)
+        lettersControl.setupControl(array: friendsLetters)
+    }
+    
+    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
+        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
+        var array = friendsNameArray.map({ String($0.first!) })
+        array = Array(Set(array))
+        return array.sorted()
     }
 }
 
@@ -87,9 +104,7 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderID) as? FriendsSectionTableViewHeader else {
-            fatalError("Message: Error in dequeue FriendsSectionTableViewHeader")
-        }
+        let header = tableView.dequeueReusableHeaderFooterView(FriendsSectionTableViewHeader.self, viewForHeaderInSection: section)
         header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
         header.contentView.alpha = 0.7
         header.letterLabel.text = friendsCategory[section].category

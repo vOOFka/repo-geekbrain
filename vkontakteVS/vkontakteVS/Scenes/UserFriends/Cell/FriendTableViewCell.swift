@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Alamofire
+import Kingfisher
 
 class FriendTableViewCell: UITableViewCell {
     //MARK: - Outlets
@@ -19,15 +19,19 @@ class FriendTableViewCell: UITableViewCell {
     @IBOutlet weak private var friendName: UILabel!
     @IBOutlet weak private var cityName: UILabel!
     //MARK: - Prefirence
-    private let networkService = NetworkService()
+    private let networkService = NetworkServiceImplimentation()
     //MARK: - Functions
     func configuration(currentFriend: Friend) {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         friendName.text = currentFriend.fullName
         cityName.text = currentFriend.cityName
-        DispatchQueue.main.async {
-            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
-        }      
+        let url = currentFriend.urlAvatar
+        if  url != nil {
+            friendImage.kf.setImage(with: URL(string: url!))
+        }
+//        DispatchQueue.main.async {
+//            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
+//        }
         friendImage.isUserInteractionEnabled = true
         friendImage.addGestureRecognizer(tapRecognazer)
     }
