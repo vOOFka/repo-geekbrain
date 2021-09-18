@@ -21,7 +21,7 @@ class FriendTableViewCell: UITableViewCell {
     //MARK: - Prefirence
     private let networkService = NetworkServiceImplimentation()
     //MARK: - Functions
-    func configuration(currentFriend: Friend) {
+    func configuration(currentFriend: RealmFriend) {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         friendName.text = currentFriend.fullName
         cityName.text = currentFriend.cityName
