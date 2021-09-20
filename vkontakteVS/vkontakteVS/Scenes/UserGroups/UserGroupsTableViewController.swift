@@ -59,7 +59,7 @@ class UserGroupsTableViewController: UITableViewController {
             //Загрузка данных в БД Realm
             let groupsItemsRealm = self.userGroups.map({ RealmGroup($0, image: nil) })
             do {
-                let saveToDB = try self.realmService.save(groupsItemsRealm)
+                let saveToDB = try self.realmService.update(groupsItemsRealm)
                 print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
             } catch (let error) {
                 print(error)

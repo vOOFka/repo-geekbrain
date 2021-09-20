@@ -47,7 +47,7 @@ class RealmAttachments: Object {
         self.title = attachmentsModel.title
         self.photo = {
             guard let attachPhoto = attachmentsModel.photo else { return nil}
-            let photoObj = RealmPhoto(attachPhoto, image: nil)
+            let photoObj = RealmPhoto(attachPhoto)
             return photoObj
         }()
     }

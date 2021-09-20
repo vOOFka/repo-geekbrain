@@ -20,7 +20,7 @@ class RealmPhoto: Object {
     @Persisted var reposts: Int? = 0
     @Persisted var image: Data?
     
-    convenience init(_ photoModel: Photo, image: UIImage?) {
+    convenience init(_ photoModel: Photo) {
         self.init()
         self.id = photoModel.id
         self.albumId = photoModel.albumId
@@ -37,7 +37,7 @@ class RealmPhoto: Object {
         }()
         self.likes = photoModel.likes
         self.reposts = photoModel.reposts
-        self.image = image?.jpegData(compressionQuality: 80.0)
+        self.image = photoModel.image?.jpegData(compressionQuality: 80.0)
     }
 }
 

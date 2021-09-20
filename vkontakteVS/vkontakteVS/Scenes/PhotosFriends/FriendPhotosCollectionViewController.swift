@@ -47,19 +47,17 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         //self.navigationController?.delegate = self
         //Get photos from VK API
         updatePhotosFromVKAPI()
-        //Pull data photos from RealmDB
-        pullFromRealm()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //Pull data photos from RealmDB
+        pullFromRealm()
     }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        var count: Int = 0
-//        if !Properties.photosList.isEmpty { count = Properties.photosList.count }
-        return Properties.photosList.count
+        return Properties.photosList?.count ?? 0
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,7 +87,7 @@ extension FriendPhotosCollectionViewController {
     fileprivate func pushToRealm(photosItems: Photos?) {
         guard let photosItems = photosItems?.items else { return }
         //Преобразование в Realm модель
-        let photosItemsRealm = photosItems.map({ RealmPhoto($0, image: nil) })
+        let photosItemsRealm = photosItems.map({ RealmPhoto($0) })
         //Загрузка
         do {
             //let saveToDB = try realmService.save(photosItemsRealm)
@@ -103,7 +101,8 @@ extension FriendPhotosCollectionViewController {
     //Получение данных из БД
     fileprivate func pullFromRealm() {
         do {
-            Properties.photosList = try Properties.realmService.get(RealmPhoto.self)
+            let friendPredicate = NSPredicate(format: "ownerId = %d", currentFriend)
+            Properties.photosList = try Properties.realmService.get(RealmPhoto.self).filter(friendPredicate)
         } catch (let error) {
             print(error)
         }

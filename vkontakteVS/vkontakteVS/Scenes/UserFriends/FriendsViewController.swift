@@ -26,7 +26,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let friendClick = Properties.friendsList[indexPath.row].id
+            let category = Properties.friendsList.filter("category == %@", Properties.sectionNames[indexPath.section])
+            let friendClick = category[indexPath.row].id
             let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
             currentFriendPhotosVC.currentFriend = friendClick
         }
@@ -43,13 +44,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.navigationController?.delegate = self
         //Get friends from VK API
         updateFriendsFromVKAPI()
-        //Pull data friends from RealmDB
-        pullFromRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // navigationController?.setNavigationBarHidden(true, animated: animated)
+        //Pull data friends from RealmDB
+        pullFromRealm()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,44 +87,47 @@ extension FriendsViewController: UITableViewDataSource {
 
 //MARK: - Functions
 extension FriendsViewController {
-        fileprivate func updateFriendsFromVKAPI() {
-            Properties.networkService.getFriends(completion: { [weak self] friendsItems in
-                guard let self = self else { return }
-                self.pushToRealm(friendsItems: friendsItems)
-            })
-        }
+    //Загрузка данных из VK
+    fileprivate func updateFriendsFromVKAPI() {
+        Properties.networkService.getFriends(completion: { [weak self] friendsItems in
+            guard let self = self else { return }
+            self.pushToRealm(friendsItems: friendsItems)
+        })
+        //Pull data friends from RealmDB
+        pullFromRealm()
+    }
     
-        //Загрузка данных в БД Realm
-        fileprivate func pushToRealm(friendsItems: Friends?) {
-            guard let friendsItems = friendsItems?.items else { return }
-            //Преобразование в Realm модель
-            let friendsItemsRealm = friendsItems.map({ RealmFriend($0, image: nil) })
-            //Загрузка
-            do {
-                //let saveToDB = try realmService.save(friendsItemsRealm)
-                let saveToDB = try Properties.realmService.update(friendsItemsRealm)
-                print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
-            } catch (let error) {
-                print(error)
-            }
+    //Загрузка данных в БД Realm
+    fileprivate func pushToRealm(friendsItems: Friends?) {
+        guard let friendsItems = friendsItems?.items else { return }
+        //Преобразование в Realm модель
+        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+        //Загрузка
+        do {
+            //let saveToDB = try Properties.realmService.save(friendsItemsRealm)
+            let saveToDB = try Properties.realmService.update(friendsItemsRealm)
+            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        } catch (let error) {
+            print(error)
         }
+    }
     
-        //Получение данных из БД
-        fileprivate func pullFromRealm() {
-            do {
-                Properties.friendsList = try Properties.realmService.get(RealmFriend.self)
-                //Получение категорий
-                let friendsCategory = Properties.friendsList.sorted(by: ["category", "fullName"])
-                Properties.sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
-            } catch (let error) {
-                print(error)
-            }
-            tableView.reloadData()
-            //Update custom UIControl
-    //        let friendsLetters = lettersFriends(array: friendsItems)
-    //        lettersControl.setupControl(array: friendsLetters)
+    //Получение данных из БД
+    fileprivate func pullFromRealm() {
+        do {
+            Properties.friendsList = try Properties.realmService.get(RealmFriend.self)
+            //Получение категорий
+            let friendsCategory = Properties.friendsList.sorted(by: ["category", "fullName"])
+            Properties.sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
+        } catch (let error) {
+            print(error)
         }
-        
+        tableView.reloadData()
+        //Update custom UIControl
+        //        let friendsLetters = lettersFriends(array: friendsItems)
+        //        lettersControl.setupControl(array: friendsLetters)
+    }
+    
     //    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
     //        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
     //        var array = friendsNameArray.map({ String($0.first!) })
@@ -137,7 +141,7 @@ extension FriendsViewController {
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
-    
+
 extension FriendsViewController: UINavigationControllerDelegate {
     //Animation NavigationController
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

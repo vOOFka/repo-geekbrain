@@ -23,7 +23,7 @@ class RealmFriend: Object {
     @Persisted var urlAvatar: String?
     @Persisted var imageAvatar: Data?
     
-    convenience init(_ friendModel: Friend, image: UIImage?) {
+    convenience init(_ friendModel: Friend) {
         self.init()
         self.id = friendModel.id
         self.fullName = {
@@ -42,7 +42,7 @@ class RealmFriend: Object {
         self.canAccessClosed = friendModel.canAccessClosed
         self.cityName = friendModel.cityName
         self.urlAvatar = friendModel.urlAvatar
-        self.imageAvatar = image?.jpegData(compressionQuality: 80.0)
+        self.imageAvatar = friendModel.imageAvatar?.jpegData(compressionQuality: 80.0)
     }
 }
 

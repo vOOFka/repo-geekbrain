@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class FriendTableViewCell: UITableViewCell {
     //MARK: - Outlets
@@ -18,22 +19,55 @@ class FriendTableViewCell: UITableViewCell {
     }
     @IBOutlet weak private var friendName: UILabel!
     @IBOutlet weak private var cityName: UILabel!
-    //MARK: - Prefirence
-    private let networkService = NetworkServiceImplimentation()
+    //MARK: - Properties
+    private struct Properties {
+        static let realmService: RealmService = RealmServiceImplimentation()
+        static var currentFriend = Friend()
+    }
     //MARK: - Functions
     func configuration(currentFriend: RealmFriend) {
         let tapRecognazer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         friendName.text = currentFriend.fullName
         cityName.text = currentFriend.cityName
-        let url = currentFriend.urlAvatar
-        if  url != nil {
-            friendImage.kf.setImage(with: URL(string: url!))
-        }
-//        DispatchQueue.main.async {
-//            self.networkService.getImageFromWeb(imageURL: currentFriend.urlAvatar ?? "", completion: { [weak self] imageAvatar in self?.friendImage.image = imageAvatar })
-//        }
+
         friendImage.isUserInteractionEnabled = true
         friendImage.addGestureRecognizer(tapRecognazer)
+        
+        guard let avatarFromDB = currentFriend.imageAvatar else {
+            guard let url = currentFriend.urlAvatar else { return }
+            print("Загрузка из сети")
+            friendImage.kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
+                switch result {
+                case .success(let image):
+                    let image = image.image as UIImage
+                    self?.pushToRealmDB(currentFriend: currentFriend, image: image)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            return
+        }
+        print("Загрузка из БД")
+        friendImage.image = UIImage(data: avatarFromDB)
+    }
+    //Загрузка в БД
+    fileprivate func pushToRealmDB(currentFriend: RealmFriend, image: UIImage) {
+        do {
+            Properties.currentFriend.id = currentFriend.id
+            Properties.currentFriend.firstName = currentFriend.firstName
+            Properties.currentFriend.lastName = currentFriend.lastName
+            Properties.currentFriend.nickName = currentFriend.nickName
+            Properties.currentFriend.deactivated = currentFriend.deactivated
+            Properties.currentFriend.isClosed = currentFriend.isClosed
+            Properties.currentFriend.canAccessClosed = currentFriend.canAccessClosed
+            Properties.currentFriend.cityName = currentFriend.cityName
+            Properties.currentFriend.urlAvatar = currentFriend.urlAvatar
+            Properties.currentFriend.imageAvatar = image
+            let saveToDB = try Properties.realmService.update(RealmFriend(Properties.currentFriend))
+            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        } catch (let error) {
+            print(error)
+        }
     }
 }
 
