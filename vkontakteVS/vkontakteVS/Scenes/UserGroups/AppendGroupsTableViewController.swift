@@ -6,41 +6,47 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AppendGroupsTableViewController: UITableViewController {
     //MARK: - Outlets
     @IBOutlet private var appendGroupsTableView: UITableView!
     //MARK: - Properties
-//    private var appendGroups = [Group]()
-    var foundAppendGroups = [Group]()
-    private var searching = false
-    private let searchView = GroupSearchBar()
-    private let networkService = NetworkServiceImplimentation()
-    
+    private struct Properties {
+        static let networkService = NetworkServiceImplimentation()
+        static let realmService: RealmService = RealmServiceImplimentation()
+        static var foundAppendGroups = [RealmGroup()]
+        static var searching = false
+        static let searchView = GroupSearchBar()
+    }
+
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchView.delegate = self
+        Properties.searchView.delegate = self
         appendGroupsTableView.separatorStyle = .none
     }
     //MARK: - Functions
     fileprivate func foundGroupsFromVKAPI(searchText: String) {
-        networkService.searchGroups(search: searchText, completion: { [weak self] groupsItems in
-            guard let self = self else { return }
-            self.foundAppendGroups = groupsItems?.items ?? []
+        Properties.networkService.searchGroups(search: searchText, completion: { [weak self] groupsItems in
+            guard let self = self,
+                  let foundAppendGroups = groupsItems?.items else { return }
+            //Преобразование в Realm модель
+            Properties.foundAppendGroups = foundAppendGroups.map({ RealmGroup($0) })
             self.appendGroupsTableView.reloadData()
         })
     }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching {
-            return foundAppendGroups.count
+        if Properties.searching {
+            return Properties.foundAppendGroups.count
         } else {
             return 0
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        cell.configuration(currentGroup: foundAppendGroups[indexPath.row])
+        cell.configuration(currentGroup: Properties.foundAppendGroups[indexPath.row])
         return cell
     }
 }
@@ -48,11 +54,11 @@ class AppendGroupsTableViewController: UITableViewController {
 extension AppendGroupsTableViewController:  UISearchBarDelegate  {
     func searchGroups(_ searchText: String) {
         if searchText != "" {
-            searching = true
+            Properties.searching = true
             foundGroupsFromVKAPI(searchText: searchText)
         } else {
-            searching = false
-            foundAppendGroups.removeAll()
+            Properties.searching = false
+            Properties.foundAppendGroups.removeAll()
             appendGroupsTableView.reloadData()
         }
     }

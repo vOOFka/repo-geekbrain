@@ -23,8 +23,9 @@ class NewsHeader: UITableViewHeaderFooterView {
         }()
         dateNewsLabel.text = dateFormater.string(from: date)
         //Other fields
-        guard let group = currentGroupNews else { return }
-        groupImageView.kf.setImage(with: URL(string: group.urlPhoto))
+        guard let group = currentGroupNews,
+              let url = group.urlPhoto else { return }
+        groupImageView.kf.setImage(with: URL(string: url))
         groupNameLabel.text = group.name
         
     }

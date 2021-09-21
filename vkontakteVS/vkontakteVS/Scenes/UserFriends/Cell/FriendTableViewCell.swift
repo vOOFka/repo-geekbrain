@@ -53,18 +53,36 @@ class FriendTableViewCell: UITableViewCell {
     //Загрузка в БД
     fileprivate func pushToRealmDB(currentFriend: RealmFriend, image: UIImage) {
         do {
-            Properties.currentFriend.id = currentFriend.id
-            Properties.currentFriend.firstName = currentFriend.firstName
-            Properties.currentFriend.lastName = currentFriend.lastName
-            Properties.currentFriend.nickName = currentFriend.nickName
-            Properties.currentFriend.deactivated = currentFriend.deactivated
-            Properties.currentFriend.isClosed = currentFriend.isClosed
-            Properties.currentFriend.canAccessClosed = currentFriend.canAccessClosed
-            Properties.currentFriend.cityName = currentFriend.cityName
-            Properties.currentFriend.urlAvatar = currentFriend.urlAvatar
-            Properties.currentFriend.imageAvatar = image
-            let saveToDB = try Properties.realmService.update(RealmFriend(Properties.currentFriend))
-            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+            //Первый метод
+//            let friend = RealmFriend()
+//            friend.id = currentFriend.id
+//            friend.firstName = currentFriend.firstName
+//            friend.lastName = currentFriend.lastName
+//            friend.nickName = currentFriend.nickName
+//            friend.deactivated = currentFriend.deactivated
+//            friend.isClosed = currentFriend.isClosed
+//            friend.canAccessClosed = currentFriend.canAccessClosed
+//            friend.cityName = currentFriend.cityName
+//            friend.urlAvatar = currentFriend.urlAvatar
+//            friend.imageAvatar = image.jpegData(compressionQuality: 80.0)
+//            let saveToDB = try Properties.realmService.update(friend.self) //update(friend)
+//            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+            //Второй метод
+            let realm = try Realm()
+            let allItems = realm.objects(RealmFriend.self).first(where: { $0.id == currentFriend.id })
+            let avatar = image.jpegData(compressionQuality: 80.0)
+            try! realm.write {
+                allItems!.setValue(avatar, forKey: "imageAvatar")
+            }
+            //Третий метод
+//            let friend = currentFriend
+//            let existItem = try Properties.realmService.get(RealmFriend.self, primaryKey: currentFriend.id)
+//            if (existItem != nil) && (existItem?.imageAvatar) != nil && friend.imageAvatar == existItem?.imageAvatar {
+//                friend.imageAvatar = existItem!.imageAvatar
+//            } else {
+//                friend.imageAvatar = image.jpegData(compressionQuality: 80.0)                
+//            }
+//            _ = try Properties.realmService.update(friend)
         } catch (let error) {
             print(error)
         }

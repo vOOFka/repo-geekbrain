@@ -9,10 +9,13 @@ import UIKit
 import RealmSwift
 
 class FriendPhotosCollectionViewController: UICollectionViewController {
-        
     //MARK: Outlets
     @IBOutlet private var friendPhotosCollectionView: UICollectionView!
-    
+    //MARK: - Actions
+    @IBAction func getDataFromWeb(_ sender: Any) {
+        //Get photos from VK API
+        updatePhotosFromVKAPI()
+    }
     //MARK: Properties
     private struct Properties {
         static let networkService = NetworkServiceImplimentation()
@@ -80,6 +83,8 @@ extension FriendPhotosCollectionViewController {
         Properties.networkService.getPhotosAll(friendId: currentFriend, completion: { [weak self] photosItems in
             guard let self = self else { return }
             self.pushToRealm(photosItems: photosItems)
+            //Pull data photos from RealmDB
+            self.pullFromRealm()
         })
     }
     
@@ -90,6 +95,11 @@ extension FriendPhotosCollectionViewController {
         let photosItemsRealm = photosItems.map({ RealmPhoto($0) })
         //Загрузка
         do {
+            let existItems = try Properties.realmService.get(RealmPhoto.self)
+            for item in photosItemsRealm {
+                guard let existImg = existItems.first(where: { $0.id == item.id })?.image else { break }
+                item.image = existImg
+            }
             //let saveToDB = try realmService.save(photosItemsRealm)
             let saveToDB = try Properties.realmService.update(photosItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")

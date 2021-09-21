@@ -407,6 +407,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Мои друзья" id="JOi-Lf-nOa">
                         <barButtonItem key="backBarButtonItem" title="К списку друзей" id="enJ-b6-uOh"/>
+                        <barButtonItem key="rightBarButtonItem" title="GetFromNet" image="arrow.clockwise.icloud" catalog="system" id="NmB-gB-erR">
+                            <connections>
+                                <action selector="getDataFromWeb:" destination="hww-oJ-L5e" id="BId-IO-d0y"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="lettersControl" destination="mrn-oz-gsD" id="cKo-lk-ZCV"/>
@@ -472,6 +477,11 @@
                     <tabBarItem key="tabBarItem" title="Item" id="7SY-sr-Ap6"/>
                     <navigationItem key="navigationItem" id="LuS-Ou-ilV">
                         <barButtonItem key="backBarButtonItem" title="Галлерея" id="TTr-Wg-2Km"/>
+                        <barButtonItem key="rightBarButtonItem" title="GetFromNet" image="arrow.clockwise.icloud" catalog="system" id="s8F-bg-ItI">
+                            <connections>
+                                <action selector="getDataFromWeb:" destination="7Ow-cE-bHL" id="PLE-Zt-um4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="friendPhotosCollectionView" destination="xFA-Yk-6fv" id="Oy4-Fa-3pM"/>
@@ -525,7 +535,9 @@
                             <constraint firstItem="p0m-Rd-WTb" firstAttribute="centerX" secondItem="KCp-VW-sgS" secondAttribute="centerX" id="gFI-Gs-evE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="zkI-Kf-gE7"/>
+                    <navigationItem key="navigationItem" id="zkI-Kf-gE7">
+                        <barButtonItem key="rightBarButtonItem" title="GetFromNet" image="arrow.clockwise.icloud" catalog="system" id="1BO-lG-R53"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="currentPhotoImageView" destination="orh-fm-OQa" id="5qJ-o6-ZMM"/>
                         <outlet property="nextPhotoImageView" destination="8aV-wi-iAP" id="vp0-N3-Y8d"/>
@@ -682,6 +694,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise.icloud" catalog="system" width="128" height="88"/>
         <image name="logo_vk" width="512" height="512"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="newspaper" catalog="system" width="128" height="108"/>

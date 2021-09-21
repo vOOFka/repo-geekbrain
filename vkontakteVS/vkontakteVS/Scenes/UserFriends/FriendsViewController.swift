@@ -13,7 +13,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     //MARK: - Outlets
     @IBOutlet weak private var lettersControl: LettersControl!
     @IBOutlet weak private var tableView: UITableView!
-    
+    //MARK: - Actions
+    @IBAction func getDataFromWeb(_ sender: Any) {
+        //Get friends from VK API
+        updateFriendsFromVKAPI()
+    }
     //MARK: - Properties
     private struct Properties {
         static let networkService = NetworkServiceImplimentation()
@@ -92,9 +96,9 @@ extension FriendsViewController {
         Properties.networkService.getFriends(completion: { [weak self] friendsItems in
             guard let self = self else { return }
             self.pushToRealm(friendsItems: friendsItems)
+            //Pull data friends from RealmDB
+            self.pullFromRealm()
         })
-        //Pull data friends from RealmDB
-        pullFromRealm()
     }
     
     //Загрузка данных в БД Realm
@@ -104,6 +108,11 @@ extension FriendsViewController {
         let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
         //Загрузка
         do {
+            let existItems = try Properties.realmService.get(RealmFriend.self)
+            for item in friendsItemsRealm {
+                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
+                item.imageAvatar = existImg
+            }
             //let saveToDB = try Properties.realmService.save(friendsItemsRealm)
             let saveToDB = try Properties.realmService.update(friendsItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")

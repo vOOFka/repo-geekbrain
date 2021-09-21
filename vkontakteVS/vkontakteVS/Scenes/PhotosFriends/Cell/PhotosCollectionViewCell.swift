@@ -42,16 +42,13 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }
     //Загрузка в БД
     fileprivate func pushToRealmDB(currentPhoto: RealmPhoto, image: UIImage) {
-        do {
-            Properties.currentPhoto.id = currentPhoto.id
-            Properties.currentPhoto.ownerId = currentPhoto.ownerId
-            Properties.currentPhoto.albumId = currentPhoto.albumId
-            Properties.currentPhoto.date = currentPhoto.date
-            Properties.currentPhoto.likes = currentPhoto.likes
-            Properties.currentPhoto.reposts = currentPhoto.reposts
-            Properties.currentPhoto.image = image
-            let saveToDB = try Properties.realmService.update(RealmPhoto(Properties.currentPhoto))
-            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        do {            
+            let realm = try Realm()
+            let allItems = realm.objects(RealmPhoto.self).first(where: { $0.id == currentPhoto.id })
+            let image = image.jpegData(compressionQuality: 80.0)
+            try! realm.write {
+                allItems!.setValue(image, forKey: "image")
+            }
         } catch (let error) {
             print(error)
         }
