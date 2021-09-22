@@ -22,27 +22,24 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         static let realmService: RealmService = RealmServiceImplimentation()
         static var photosList: Results<RealmPhoto>!
         static let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"
+        static var selectedImageId: Int = 0
+        //Choice size download photo
+        static let size = sizeTypeRealmEnum.mid
     }
     //MARK: Public properties
     public var currentFriend: Int = 0
-    //    private let reuseIdentifier = "PhotosCollectionViewCell"
-    //    private var photosItems = [Photo]()
-    //    private var selectedImage: (Photo?, Int)?
-    //    private let networkService = NetworkServiceImplimentation()
-    //    private let realmService: RealmService = RealmServiceImplimentation()
    
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == Properties.showFriendPhotoFullScreenVC {
-//            guard let fullScreenVC = segue.destination as? FriendPhotoFullScreen else {
-//                fatalError("Message: prepare for FriendPhotoFullScreen")
-//            }
-//         //   if selectedImage != nil {
-//             //   fullScreenVC.configuration(selectPhoto: selectedImage!, anotherPhoto: photosItems)
-//         //   }
-//        }
+        if segue.identifier == Properties.showFriendPhotoFullScreenVC {
+            guard let fullScreenVC = segue.destination as? FriendPhotoFullScreen else {
+                fatalError("Message: prepare for FriendPhotoFullScreen")
+            }
+            if Properties.selectedImageId != 0 {
+                fullScreenVC.configuration(selectPhotoId: Properties.selectedImageId, anotherPhoto: Properties.photosList)
+            }
+        }
     }
-    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +70,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-     //   selectedImage = (Properties.photosList[indexPath.row], indexPath.row)
+        Properties.selectedImageId = Properties.photosList[indexPath.row].id
         performSegue(withIdentifier: Properties.showFriendPhotoFullScreenVC, sender: nil)
     }
 }
@@ -97,8 +94,8 @@ extension FriendPhotosCollectionViewController {
         do {
             let existItems = try Properties.realmService.get(RealmPhoto.self)
             for item in photosItemsRealm {
-                guard let existImg = existItems.first(where: { $0.id == item.id })?.image else { break }
-                item.image = existImg
+                guard let existImg = existItems.first(where: { $0.id == item.id })?.sizes.first(where: { $0.type == Properties.size })?.image else { break }
+                item.sizes.first(where: { $0.type == Properties.size })?.image = existImg
             }
             //let saveToDB = try realmService.save(photosItemsRealm)
             let saveToDB = try Properties.realmService.update(photosItemsRealm)

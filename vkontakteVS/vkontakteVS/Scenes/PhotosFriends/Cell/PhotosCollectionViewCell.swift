@@ -17,14 +17,14 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     private struct Properties {
         static let realmService: RealmService = RealmServiceImplimentation()
         static var currentPhoto = Photo()
+        //Choice size download photo
+        static let size = sizeTypeRealmEnum.mid
     }
     //MARK: - Functions
     func configuration(currentPhoto: RealmPhoto) {
         likesControl.setupLikesUI(countLikes: currentPhoto.likes ?? 0)
-        guard let photoFromDB = currentPhoto.image else {
-            //Choice size download photo
-            let size = sizeTypeRealmEnum.mid
-            guard let url = currentPhoto.sizes.first(where: { $0.type == size })?.urlPhoto else { return }
+        guard let photoFromDB = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image else {
+            guard let url = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
             print("Загрузка из сети")
             photoImageView.kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
                 switch result {
@@ -44,10 +44,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     fileprivate func pushToRealmDB(currentPhoto: RealmPhoto, image: UIImage) {
         do {            
             let realm = try Realm()
-            let allItems = realm.objects(RealmPhoto.self).first(where: { $0.id == currentPhoto.id })
-            let image = image.jpegData(compressionQuality: 80.0)
-            try! realm.write {
-                allItems!.setValue(image, forKey: "image")
+            guard let allItems = realm.objects(RealmPhoto.self).first(where: { $0.id == currentPhoto.id }),
+                  let item =  allItems.sizes.first(where: { $0.type == Properties.size }),
+                  let image = image.jpegData(compressionQuality: 80.0) else { return }
+            try realm.write {
+                item.setValue(image, forKey: "image")
             }
         } catch (let error) {
             print(error)

@@ -18,7 +18,7 @@ class RealmPhoto: Object {
     @Persisted var sizes = List<RealmSizePhoto>()
     @Persisted var likes: Int? = 0
     @Persisted var reposts: Int? = 0
-    @Persisted var image: Data?
+   // @Persisted var image: Data?
     
     convenience init(_ photoModel: Photo) {
         self.init()
@@ -37,7 +37,7 @@ class RealmPhoto: Object {
         }()
         self.likes = photoModel.likes
         self.reposts = photoModel.reposts
-        self.image = photoModel.image?.jpegData(compressionQuality: 80.0)
+       // self.image = photoModel.image?.jpegData(compressionQuality: 80.0)
     }
 }
 
@@ -46,6 +46,7 @@ class RealmSizePhoto: Object {
     @Persisted var width: Int = 0
     @Persisted var type: sizeTypeRealmEnum?
     @Persisted var urlPhoto: String = ""
+    @Persisted var image: Data?
     
     convenience init(_ sizePhotoModel: sizePhoto) {
         self.init()
@@ -53,6 +54,7 @@ class RealmSizePhoto: Object {
         self.width = sizePhotoModel.width
         self.type = sizeTypeRealmEnum.init(rawValue: sizePhotoModel.type.rawValue)
         self.urlPhoto = sizePhotoModel.urlPhoto
+        self.image = sizePhotoModel.image?.jpegData(compressionQuality: 80.0)
     }
 }
 

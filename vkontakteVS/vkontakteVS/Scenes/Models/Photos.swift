@@ -86,6 +86,7 @@ class sizePhoto: Decodable {
     var width: Int = 0
     var type = sizeType.small
     var urlPhoto: String = ""
+    var image: UIImage?
     
     enum CodingKeys: String, CodingKey {
         case height
