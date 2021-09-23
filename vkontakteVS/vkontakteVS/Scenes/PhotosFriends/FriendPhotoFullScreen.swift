@@ -31,8 +31,7 @@ class FriendPhotoFullScreen: UIViewController {
         super.viewDidLoad()
         //Configuration
         nextPhotoImageView.alpha = 0
-        downloadPhotoFromWeb(currentPhotoIndex: Properties.image?.1 ?? 0, anotherPhoto: Properties.photosItems)
-        downloadAllPhotosFromWeb()
+        setPhoto(currentPhotoIndex: Properties.image?.1 ?? 0, anotherPhoto: Properties.photosItems)
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
@@ -59,48 +58,45 @@ class FriendPhotoFullScreen: UIViewController {
         }
     }
     
-    fileprivate func downloadPhotoFromWeb(currentPhotoIndex: Int, anotherPhoto: Results<RealmPhoto>!) {
+    fileprivate func setPhoto(currentPhotoIndex: Int, anotherPhoto: Results<RealmPhoto>!) {
         if (currentPhotoImageView != nil) {
+            //Забираем с БД
             let photoFromDB = anotherPhoto[currentPhotoIndex]
             let photoSizeFromDB = photoFromDB.sizes.first(where: { $0.type == Properties.size })?.image
             if photoSizeFromDB == nil {
-                guard let url = photoFromDB.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
+                //Если нет, качаем с инета
+                guard let url = photoFromDB.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else {
+                    currentPhotoImageView.image = UIImage(named: "NoImage")
+                    Properties.image = (UIImage(named: "NoImage"), 0)
+                    return
+                }
                 print("Загрузка из сети \(currentPhotoIndex)")
-                currentPhotoImageView.kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
+                _ = UIImageView().kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
+                    guard let self = self else { return }
                     switch result {
                     case .success(let image):
                         let image = image.image as UIImage
-                        self?.pushToRealmDB(currentPhoto: photoFromDB, image: image)
+                        self.pushToRealmDB(currentPhoto: photoFromDB, image: image)
+                        self.currentPhotoImageView.image = image
+                        Properties.image = (image, currentPhotoIndex)
                     case .failure(let error):
                         print(error)
                     }
-                })
-            }
-            print("Загрузка из БД")
-            guard let image = UIImage(data: photoSizeFromDB ?? Data()) else { return }
-            currentPhotoImageView.image = image
-            Properties.image = (image, currentPhotoIndex)
-            Properties.photosItems = anotherPhoto
-        }
-    }
-    
-    fileprivate func downloadAllPhotosFromWeb() {
-        for (i,item) in Properties.photosItems.enumerated() {
-            if (item.sizes.first(where: { $0.type == Properties.size })?.image) != nil {
-                let url = item.sizes.first(where: { $0.type == Properties.size })?.urlPhoto
-                if url != nil {
-                    print("Загрузка из сети \(i)")
-                    _ = UIImageView().kf.setImage(with: URL(string: url!), completionHandler: { [weak self] result in
-                        switch result {
-                        case .success(let image):
-                            let image = image.image as UIImage
-                            self?.pushToRealmDB(currentPhoto: item, image: image)
-                        case .failure(let error):
-                            print(error)
-                        }
-                    })
+                })} else {
+//                    print("Загрузка из БД")
+//                    currentPhotoImageView.image = UIImage(data: photoSizeFromDB!)
+//                    Properties.image = (UIImage(data: photoSizeFromDB!), currentPhotoIndex)
+                    print("Загрузка из БД")
+                    do {
+                        let imgFromRealm = try Properties.realmService.get(RealmPhoto.self, primaryKey: photoFromDB.id)
+                        let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == Properties.size })
+                        guard let imageData = imgSizeFromRealm?.image else { return }
+                        currentPhotoImageView.image = UIImage(data: imageData)
+                        Properties.image = (UIImage(data: imageData), currentPhotoIndex)
+                    } catch (let error) {
+                        print(error)
+                    }
                 }
-            }
         }
     }
     
@@ -160,17 +156,14 @@ class FriendPhotoFullScreen: UIViewController {
             //print("ended")
             if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
-                let currentImgSize = Properties.photosItems[indexNextPhoto].sizes.first(where: { $0.type == Properties.size })
-                let currentImgData = currentImgSize?.image
-                Properties.image = (UIImage(data: currentImgData ?? Data()), indexNextPhoto)
-                if Properties.image?.0 == nil {
-                    downloadPhotoFromWeb(currentPhotoIndex: indexNextPhoto, anotherPhoto: Properties.photosItems)
-                }
+              //  let currentImgSize = Properties.photosItems[indexNextPhoto].sizes.first(where: { $0.type == Properties.size })
+             //   let currentImgData = currentImgSize?.image
+             //   if currentImgData != nil {
+              //      Properties.image = (UIImage(data: currentImgData!), indexNextPhoto)
+              //  } else {
+                    setPhoto(currentPhotoIndex: indexNextPhoto, anotherPhoto: Properties.photosItems)
+              //  }
                 toView.image = Properties.image!.0
-//                DispatchQueue.main.async {
-//                    let url = currentImgSize.urlPhoto
-//                    toView.kf.setImage(with: URL(string: url))
-//                }
                 Properties.animator.continueAnimation(withTimingParameters: nil, durationFactor: 2)
                 UIView.animate(withDuration: 0.8, delay: 0.5,
                                options: .curveEaseOut, animations: {

@@ -16,17 +16,18 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     //MARK: - Properties
     private struct Properties {
         static let realmService: RealmService = RealmServiceImplimentation()
-        static var currentPhoto = Photo()
+        static var currentPhoto = RealmPhoto()
         //Choice size download photo
         static let size = sizeTypeRealmEnum.mid
     }
     //MARK: - Functions
     func configuration(currentPhoto: RealmPhoto) {
+        Properties.currentPhoto = currentPhoto
         likesControl.setupLikesUI(countLikes: currentPhoto.likes ?? 0)
-        guard let photoFromDB = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image else {
+        guard (currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image) != nil else {
             guard let url = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
             print("Загрузка из сети")
-            photoImageView.kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
+            _ = UIImageView().kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
                 switch result {
                 case .success(let image):
                     let image = image.image as UIImage
@@ -38,7 +39,14 @@ class PhotosCollectionViewCell: UICollectionViewCell {
             return
         }
         print("Загрузка из БД")
-        photoImageView.image = UIImage(data: photoFromDB)
+        do {
+            let imgFromRealm = try Properties.realmService.get(RealmPhoto.self, primaryKey: currentPhoto.id)
+            let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == Properties.size })
+            guard let imageData = imgSizeFromRealm?.image else { return }
+            photoImageView.image = UIImage(data: imageData)
+        } catch (let error) {
+            print(error)
+        }        
     }
     //Загрузка в БД
     fileprivate func pushToRealmDB(currentPhoto: RealmPhoto, image: UIImage) {
