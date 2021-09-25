@@ -92,21 +92,16 @@ extension FriendPhotosCollectionViewController {
         let photosItemsRealm = photosItems.map({ RealmPhoto($0) })
         //Загрузка
         do {
-//            let realm = try Realm()
             let existItems = try Properties.realmService.get(RealmPhoto.self)
             for item in photosItemsRealm {
                 guard let existImg = existItems.first(where: { $0.id == item.id })?.sizes.first(where: { $0.type == Properties.size })?.image else { break }
                 item.sizes.first(where: { $0.type == Properties.size })?.image = existImg
-                
-//                try realm.write {
-//                    item.setValue(image, forKey: "image")
-//                }
             }
             //let saveToDB = try realmService.save(photosItemsRealm)
             let saveToDB = try Properties.realmService.update(photosItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
         } catch (let error) {
-            print(error)
+            showError(error)
         }
     }
     
@@ -116,7 +111,7 @@ extension FriendPhotosCollectionViewController {
             let friendPredicate = NSPredicate(format: "ownerId = %d", currentFriend)
             Properties.photosList = try Properties.realmService.get(RealmPhoto.self).filter(friendPredicate)
         } catch (let error) {
-            print(error)
+            showError(error)
         }
         collectionView.reloadData()
     }

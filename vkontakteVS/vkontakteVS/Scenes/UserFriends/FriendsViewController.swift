@@ -117,7 +117,7 @@ extension FriendsViewController {
             let saveToDB = try Properties.realmService.update(friendsItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
         } catch (let error) {
-            print(error)
+            showError(error)
         }
     }
     
@@ -129,7 +129,7 @@ extension FriendsViewController {
             let friendsCategory = Properties.friendsList.sorted(by: ["category", "fullName"])
             Properties.sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
         } catch (let error) {
-            print(error)
+            showError(error)
         }
         tableView.reloadData()
         //Update custom UIControl

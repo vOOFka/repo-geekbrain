@@ -49,6 +49,30 @@ class AppendGroupsTableViewController: UITableViewController {
         cell.configuration(currentGroup: Properties.foundAppendGroups[indexPath.row])
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectGroup = Properties.foundAppendGroups[indexPath.row]
+        //print("push to Realm: \(selectGroup)")
+        pushToRealm(selectGroup: selectGroup)
+    }
+}
+
+//MARK: - Functions
+extension AppendGroupsTableViewController {
+    //Загрузка данных в БД Realm
+    fileprivate func pushToRealm(selectGroup: RealmGroup) {
+        //Загрузка
+        do {
+//            let existItems = try Properties.realmService.get(RealmGroup.self)
+//            let appendExistGroup = existItems.first(where: { $0.id == selectGroup.id })
+//            if appendExistGroup != nil {
+//                print("Такая группа уже есть")
+//            }
+            _ = try Properties.realmService.update(selectGroup)
+        } catch (let error) {
+            showError(error)
+        }
+    }
 }
 
 extension AppendGroupsTableViewController:  UISearchBarDelegate  {

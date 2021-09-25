@@ -15,18 +15,10 @@ protocol RealmService {
     func update<T: Object>(_ item: T) throws -> Realm
     func objectExists<T: Object> (_ type: T.Type, id: Int) throws -> Bool
     func update<T: Object, KeyType> (_ item: T, primaryKey: KeyType) throws -> Realm
+    func delete<T: Object> (_ item: T) throws
 }
 
 class RealmServiceImplimentation: RealmService {
-    //Save some objects in Realm DB
-//    func save<T: Object>(_ items: [T]) throws -> Realm {
-//        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-//        let realm = try Realm(configuration: config)
-//        realm.beginWrite()
-//        realm.add(items)
-//        try realm.commitWrite()
-//        return realm
-//    }
     //Update or save some objects in Realm DB
     func update<T: Object>(_ items: [T]) throws -> Realm {
         let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
@@ -68,5 +60,12 @@ class RealmServiceImplimentation: RealmService {
     func objectExists<T: Object> (_ type: T.Type, id: Int) throws -> Bool {
         let realm = try Realm()
         return realm.object(ofType: T.self, forPrimaryKey: id) != nil
+    }
+    //Delete some object from Realm DB
+    func delete<T: Object> (_ item: T) throws {
+        let realm = try Realm()
+        try realm.write {
+            realm.delete(item)
+        }
     }
 }

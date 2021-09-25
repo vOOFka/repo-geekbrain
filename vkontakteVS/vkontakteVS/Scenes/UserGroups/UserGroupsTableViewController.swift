@@ -23,16 +23,29 @@ class UserGroupsTableViewController: UITableViewController {
         static let networkService = NetworkServiceImplimentation()
         static let realmService: RealmService = RealmServiceImplimentation()
         static var userGroups: Results<RealmGroup>!
-        static var filteredUserGroups = [RealmGroup()]
+        //static var filteredUserGroups = [RealmGroup()]
         //   static var userGroups = [Group]()
         //   static var filteredUserGroups = [Group]()
         static var heightHeader: CGFloat = 0.0
         static let searchInNavigationBar = UISearchController(searchResultsController: nil)
+        static var notificationToken: NotificationToken?
+        static var sectionsForUpdate = [0]
     }
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        Properties.notificationToken = Properties.userGroups?.observe({ [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .error(let error):
+                self.showError(error)
+            case .initial: break
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: Properties.sectionsForUpdate)
+                //Return to default
+                Properties.sectionsForUpdate = [0]
+            }
+        })
         tableView.tableHeaderView = nil
         tableView.addSubview(groupsHeaderView)
         groupsHeaderView.clipsToBounds = true
@@ -52,6 +65,10 @@ class UserGroupsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         //Pull data groups from RealmDB
         pullFromRealm()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Properties.notificationToken?.invalidate()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -87,6 +104,14 @@ class UserGroupsTableViewController: UITableViewController {
         switch editingStyle {
         case .delete:
             //Properties.userGroups.remove(at: indexPath.row)
+            Properties.sectionsForUpdate.append(indexPath.section)
+            let currentItem = Properties.userGroups[indexPath.row]
+            do {
+                guard let itemFromDB = try Properties.realmService.get(RealmGroup.self, primaryKey: currentItem.id) else { return }
+                try Properties.realmService.delete(itemFromDB)
+            } catch (let error) {
+                showError(error)
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             return
@@ -120,7 +145,7 @@ extension UserGroupsTableViewController {
             }
             _ = try Properties.realmService.update(groupsItemsRealm)
         } catch (let error) {
-            print(error)
+            showError(error)
         }
     }
     
@@ -129,7 +154,7 @@ extension UserGroupsTableViewController {
         do {
             Properties.userGroups = try Properties.realmService.get(RealmGroup.self)
         } catch (let error) {
-            print(error)
+            showError(error)
         }
         groupsTableView.reloadData()
     }

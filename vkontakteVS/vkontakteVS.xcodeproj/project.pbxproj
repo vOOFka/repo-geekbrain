@@ -31,6 +31,8 @@
 		F408AFCE26B76E51004DBF67 /* FriendsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F408AFCD26B76E51004DBF67 /* FriendsCategory.swift */; };
 		F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F431C0C826B1FDAE0028827E /* AvatarView.swift */; };
 		F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */; };
+		F44C164B26FF2C23001CDF06 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C164A26FF2C23001CDF06 /* UIViewController+Ext.swift */; };
+		F44C164D26FF33E4001CDF06 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C164C26FF33E4001CDF06 /* UITableView+Ext.swift */; };
 		F44E001A26D42D6000BD976C /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001926D42D6000BD976C /* Reusable.swift */; };
 		F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E001F26D6BA1E00BD976C /* UserSession.swift */; };
 		F44E002F26D95ACD00BD976C /* VKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E002E26D95ACD00BD976C /* VKWebViewController.swift */; };
@@ -111,6 +113,8 @@
 		F408AFCD26B76E51004DBF67 /* FriendsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCategory.swift; sourceTree = "<group>"; };
 		F431C0C826B1FDAE0028827E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		F439420626AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		F44C164A26FF2C23001CDF06 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		F44C164C26FF33E4001CDF06 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		F44E001926D42D6000BD976C /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F44E001F26D6BA1E00BD976C /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		F44E002E26D95ACD00BD976C /* VKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKWebViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 				847AEF0E26CE8D9700746CB6 /* CustomSegue.swift */,
 				847AEF1026CE997D00746CB6 /* CustomPush+PopAnimators.swift */,
 				F44E001926D42D6000BD976C /* Reusable.swift */,
+				F44C164A26FF2C23001CDF06 /* UIViewController+Ext.swift */,
+				F44C164C26FF33E4001CDF06 /* UITableView+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */,
 				843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */,
 				F4DE1B5326F1086D00B78717 /* RealmGroup.swift in Sources */,
+				F44C164B26FF2C23001CDF06 /* UIViewController+Ext.swift in Sources */,
 				F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */,
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
 				847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */,
@@ -636,6 +643,7 @@
 				F4EC67D626E94A6000CDE46A /* NewsHeader.swift in Sources */,
 				847AEF0D26CE855600746CB6 /* CustomNavigationController.swift in Sources */,
 				F4EC67E926E951F100CDE46A /* NewsFooter.swift in Sources */,
+				F44C164D26FF33E4001CDF06 /* UITableView+Ext.swift in Sources */,
 				847AEF0B26CE760F00746CB6 /* AnimationController.swift in Sources */,
 				F4DE1B2B26EFB14500B78717 /* RealmService.swift in Sources */,
 				84A5895E26CBB84B00FC9F9F /* ExtensionPanRecognizer.swift in Sources */,
