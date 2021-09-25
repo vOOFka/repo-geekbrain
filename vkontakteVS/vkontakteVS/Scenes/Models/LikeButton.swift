@@ -28,7 +28,7 @@ class LikeButton: UIButton {
         shapeLayer.lineWidth = 2
         shapeLayer.fillColor = color.cgColor
         shapeLayer.strokeColor = UIColor.red.cgColor
-        if likeState != true {
+        if likeState == true {
             color = UIColor.red
         } else {
             color = UIColor.white

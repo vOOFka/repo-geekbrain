@@ -24,6 +24,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         static let realmService: RealmService = RealmServiceImplimentation()
         static var friendsList: Results<RealmFriend>!
         static var sectionNames = [String]()
+        static var notificationToken: NotificationToken?
+        static var sectionsForUpdate = [0]
     }
     
     //MARK: - Navigation
@@ -48,6 +50,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.navigationController?.delegate = self
         //Get friends from VK API
         updateFriendsFromVKAPI()
+        //Наблюдение за изменениями
+        watchingForChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +64,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
        // navigationController?.setNavigationBarHidden(false, animated: animated)
+        Properties.notificationToken?.invalidate()
     }
 }
 
@@ -100,7 +105,6 @@ extension FriendsViewController {
             self.pullFromRealm()
         })
     }
-    
     //Загрузка данных в БД Realm
     fileprivate func pushToRealm(friendsItems: Friends?) {
         guard let friendsItems = friendsItems?.items else { return }
@@ -120,7 +124,6 @@ extension FriendsViewController {
             showError(error)
         }
     }
-    
     //Получение данных из БД
     fileprivate func pullFromRealm() {
         do {
@@ -136,18 +139,31 @@ extension FriendsViewController {
         //        let friendsLetters = lettersFriends(array: friendsItems)
         //        lettersControl.setupControl(array: friendsLetters)
     }
-    
     //    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
     //        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
     //        var array = friendsNameArray.map({ String($0.first!) })
     //        array = Array(Set(array))
     //        return array.sorted()
     //    }
-    
     @objc private func letterWasChange(_ control: LettersControl) {
         let letter = control.selectedLetter
         let indexPath = IndexPath(item: 0, section: letter.0)
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    //Наблюдение за изменениями
+    fileprivate func watchingForChanges() {
+        Properties.notificationToken = Properties.friendsList?.observe({ [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .error(let error):
+                self.showError(error)
+            case .initial: break
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                self.tableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: Properties.sectionsForUpdate)
+                //Return to default
+                Properties.sectionsForUpdate = [0]
+            }
+        })
     }
 }
 

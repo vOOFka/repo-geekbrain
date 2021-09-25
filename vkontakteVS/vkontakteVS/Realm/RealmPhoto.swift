@@ -17,6 +17,7 @@ class RealmPhoto: Object {
     @Persisted var date: Int = 0
     @Persisted var sizes = List<RealmSizePhoto>()
     @Persisted var likes: Int? = 0
+    @Persisted var likeState: Bool = false
     @Persisted var reposts: Int? = 0
    // @Persisted var image: Data?
     

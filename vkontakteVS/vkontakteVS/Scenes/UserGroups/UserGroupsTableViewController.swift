@@ -34,18 +34,7 @@ class UserGroupsTableViewController: UITableViewController {
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        Properties.notificationToken = Properties.userGroups?.observe({ [weak self] change in
-            guard let self = self else { return }
-            switch change {
-            case .error(let error):
-                self.showError(error)
-            case .initial: break
-            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: Properties.sectionsForUpdate)
-                //Return to default
-                Properties.sectionsForUpdate = [0]
-            }
-        })
+        watchingForChanges()
         tableView.tableHeaderView = nil
         tableView.addSubview(groupsHeaderView)
         groupsHeaderView.clipsToBounds = true
@@ -157,6 +146,21 @@ extension UserGroupsTableViewController {
             showError(error)
         }
         groupsTableView.reloadData()
+    }
+    //Наблюдение за изменениями
+    fileprivate func watchingForChanges() {
+        Properties.notificationToken = Properties.userGroups?.observe({ [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .error(let error):
+                self.showError(error)
+            case .initial: break
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: Properties.sectionsForUpdate)
+                //Return to default
+                Properties.sectionsForUpdate = [0]
+            }
+        })
     }
 }
 

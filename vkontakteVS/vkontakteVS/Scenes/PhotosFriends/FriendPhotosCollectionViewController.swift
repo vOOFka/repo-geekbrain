@@ -25,6 +25,8 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         static var selectedImageId: Int = 0
         //Choice size download photo
         static let size = sizeTypeRealmEnum.mid
+        static var notificationToken: NotificationToken?
+       // static var selectedHearts = [IndexPath : Bool]()
     }
     //MARK: Public properties
     public var currentFriend: Int = 0
@@ -54,6 +56,11 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         //Pull data photos from RealmDB
         pullFromRealm()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Properties.notificationToken?.invalidate()
+    }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,7 +71,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
         if !Properties.photosList.isEmpty {
             let photo = Properties.photosList[indexPath.row]
-            cell.configuration(currentPhoto: photo)
+            cell.configuration(currentPhoto: photo, delegate: self)
         }
         return cell
     }
@@ -104,7 +111,6 @@ extension FriendPhotosCollectionViewController {
             showError(error)
         }
     }
-    
     //Получение данных из БД
     fileprivate func pullFromRealm() {
         do {
@@ -114,5 +120,41 @@ extension FriendPhotosCollectionViewController {
             showError(error)
         }
         collectionView.reloadData()
+        //Наблюдение за изменениями
+        watchingForChanges()
+    }
+    //Наблюдение за изменениями
+    fileprivate func watchingForChanges() {
+        Properties.notificationToken = Properties.photosList?.observe({ [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .error(let error):
+                self.showError(error)
+            case .initial: break
+            case .update:
+                self.collectionView.reloadData()
+              //  self.collectionView.reloadItems(at: <#T##[IndexPath]#>)
+            }
+        })
+    }
+}
+
+extension FriendPhotosCollectionViewController: LikesControlDelegate {
+    func likeWasTap(at controlId: Int) {
+        //print("Like! \(controlId)")
+        do {
+            guard let item = try Properties.realmService.get(RealmPhoto.self, primaryKey: controlId) else { return }
+            let realm = try Realm()
+            try? realm.write {
+                item.likeState = !item.likeState
+                if item.likeState == true {
+                    item.likes! += 1
+                } else {
+                    item.likes! -= 1
+                }
+            }
+        } catch (let error) {
+            showError(error)
+        }
     }
 }

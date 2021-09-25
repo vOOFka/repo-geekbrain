@@ -8,22 +8,25 @@
 import UIKit
 
 //@IBDesignable
+protocol LikesControlDelegate: AnyObject {
+   func likeWasTap(at controlId: Int)
+}
+
 class LikesControl: UIControl {
     
     // MARK: Vars
     private var stackView = UIStackView()
     private var likeButton = LikeButton()
     private var likesLabel = UILabel()
+    private var likesControlId: Int?
+    weak var delegate: LikesControlDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLikesUI(countLikes: 0)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLikesUI(countLikes: 0)
-        //fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -31,12 +34,15 @@ class LikesControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupLikesUI(countLikes: Int) {
+    func setupLikesUI(currentPhoto: RealmPhoto) {
+        self.likesControlId = currentPhoto.id
         likeButton.addTarget(self, action: #selector(clickLikes(_:)), for: .touchUpInside)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
+        likeButton.likeState = currentPhoto.likeState
         
-        likesLabel.text = String(countLikes)
+        
+        likesLabel.text = String(currentPhoto.likes!)
         likesLabel.textColor = UIColor.black
         likesLabel.textAlignment = .center
 
@@ -50,15 +56,7 @@ class LikesControl: UIControl {
     }
     
     @objc private func clickLikes(_ sender: UIButton) {
-        var likes = Int(likesLabel.text ?? "0")
-        
-        if likeButton.likeState == false {
-            likes! = likes! + 1
-        } else {
-            likes! = likes! - 1
-        }
-        likeButton.likeState = !likeButton.likeState
-        likesLabel.text = String(likes!)
+        delegate?.likeWasTap(at: likesControlId!)
     }
 
 }

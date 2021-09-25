@@ -21,9 +21,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         static let size = sizeTypeRealmEnum.mid
     }
     //MARK: - Functions
-    func configuration(currentPhoto: RealmPhoto) {
+    func configuration(currentPhoto: RealmPhoto, delegate: AnyObject) {
         Properties.currentPhoto = currentPhoto
-        likesControl.setupLikesUI(countLikes: currentPhoto.likes ?? 0)
+        likesControl.setupLikesUI(currentPhoto: Properties.currentPhoto)
+        likesControl.delegate = delegate as? LikesControlDelegate
         guard (currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image) != nil else {
             guard let url = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
             print("Загрузка из сети")
