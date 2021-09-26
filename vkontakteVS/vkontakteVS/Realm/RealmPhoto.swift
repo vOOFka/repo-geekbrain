@@ -19,7 +19,6 @@ class RealmPhoto: Object {
     @Persisted var likes: Int? = 0
     @Persisted var likeState: Bool = false
     @Persisted var reposts: Int? = 0
-   // @Persisted var image: Data?
     
     convenience init(_ photoModel: Photo) {
         self.init()

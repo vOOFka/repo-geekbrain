@@ -12,8 +12,8 @@ extension UITableView {
         for section in sections {
         beginUpdates()
             deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .fade)
-            insertRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .fade)
-            reloadRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+            insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .fade)
+            reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
         endUpdates()
         }
     }

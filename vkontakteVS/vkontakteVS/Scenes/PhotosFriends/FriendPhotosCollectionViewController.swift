@@ -26,8 +26,9 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         //Choice size download photo
         static let size = sizeTypeRealmEnum.mid
         static var notificationToken: NotificationToken?
-       // static var selectedHearts = [IndexPath : Bool]()
     }
+   // private var selectedHearts = [IndexPath : Bool]()
+    private var selectedHearts = [Int]()
     //MARK: Public properties
     public var currentFriend: Int = 0
    
@@ -71,7 +72,14 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
         if !Properties.photosList.isEmpty {
             let photo = Properties.photosList[indexPath.row]
-            cell.configuration(currentPhoto: photo, delegate: self)
+            let heartState = selectedHearts.contains(where: { $0 == photo.id }) ? true : false
+//            if let state = selectedHearts[indexPath] {
+//                cell.likeBtnState = state
+//            }
+//            cell.heartWasPressed = { [weak self] in
+//                self?.selectedHearts[indexPath] = cell.likeBtnState
+//            }
+            cell.configuration(currentPhoto: photo, delegate: self, heartState: heartState)
         }
         return cell
     }
@@ -132,7 +140,9 @@ extension FriendPhotosCollectionViewController {
                 self.showError(error)
             case .initial: break
             case .update:
-                self.collectionView.reloadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self.collectionView.reloadData()
+                }
               //  self.collectionView.reloadItems(at: <#T##[IndexPath]#>)
             }
         })
@@ -149,8 +159,10 @@ extension FriendPhotosCollectionViewController: LikesControlDelegate {
                 item.likeState = !item.likeState
                 if item.likeState == true {
                     item.likes! += 1
+                    selectedHearts.append(controlId)
                 } else {
                     item.likes! -= 1
+                    selectedHearts.removeAll(where: { $0 == controlId })
                 }
             }
         } catch (let error) {

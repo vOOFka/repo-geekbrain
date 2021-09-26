@@ -11,8 +11,8 @@ import RealmSwift
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     //MARK: - Outlets
-    @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var likesControl: LikesControl!
+    @IBOutlet weak private var photoImageView: UIImageView!
+    @IBOutlet weak private var likesControl: LikesControl!
     //MARK: - Properties
     private struct Properties {
         static let realmService: RealmService = RealmServiceImplimentation()
@@ -20,11 +20,18 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         //Choice size download photo
         static let size = sizeTypeRealmEnum.mid
     }
+//    public var heartWasPressed = { }
+//    public var likeBtnState = false {
+//        didSet {
+//            likesControl.likeButton.likeState = likeBtnState
+//        }
+//    }
     //MARK: - Functions
-    func configuration(currentPhoto: RealmPhoto, delegate: AnyObject) {
+    func configuration(currentPhoto: RealmPhoto, delegate: AnyObject, heartState: Bool) {
         Properties.currentPhoto = currentPhoto
-        likesControl.setupLikesUI(currentPhoto: Properties.currentPhoto)
-        likesControl.delegate = delegate as? LikesControlDelegate
+        likesControl.setupLikesUI(currentPhoto: Properties.currentPhoto, heartState: heartState)
+        guard let delegate = delegate as? LikesControlDelegate else { return }
+        likesControl.delegate = delegate
         guard (currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image) != nil else {
             guard let url = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
             print("Загрузка из сети")

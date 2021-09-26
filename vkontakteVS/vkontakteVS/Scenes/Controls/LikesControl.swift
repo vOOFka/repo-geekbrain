@@ -34,12 +34,12 @@ class LikesControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupLikesUI(currentPhoto: RealmPhoto) {
+    func setupLikesUI(currentPhoto: RealmPhoto, heartState: Bool) {
         self.likesControlId = currentPhoto.id
         likeButton.addTarget(self, action: #selector(clickLikes(_:)), for: .touchUpInside)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
-        likeButton.likeState = currentPhoto.likeState
+        likeButton.likeState = heartState
         
         
         likesLabel.text = String(currentPhoto.likes!)
@@ -57,6 +57,15 @@ class LikesControl: UIControl {
     
     @objc private func clickLikes(_ sender: UIButton) {
         delegate?.likeWasTap(at: likesControlId!)
+        //print("aaa \(String(describing: likesControlId))")
+        //Animation for tap like
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
+        animation.fillMode = .forwards
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.5
+        animation.fromValue = layer.transform
+        animation.toValue = CATransform3DMakeRotation(.pi, 0, 1, 0)
+        likeButton.layer.add(animation, forKey: nil)
     }
 
 }
