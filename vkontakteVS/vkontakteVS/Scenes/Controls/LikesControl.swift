@@ -16,10 +16,11 @@ class LikesControl: UIControl {
     
     // MARK: Vars
     private var stackView = UIStackView()
-    private var likeButton = LikeButton()
+    var likeButton = LikeButton()
     private var likesLabel = UILabel()
     private var likesControlId: Int?
     weak var delegate: LikesControlDelegate?
+    public var heartWasPressed = { }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,13 +35,11 @@ class LikesControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupLikesUI(currentPhoto: RealmPhoto, heartState: Bool) {
+    func setupLikesUI(currentPhoto: RealmPhoto) {
         self.likesControlId = currentPhoto.id
         likeButton.addTarget(self, action: #selector(clickLikes(_:)), for: .touchUpInside)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
-        likeButton.likeState = heartState
-        
         
         likesLabel.text = String(currentPhoto.likes!)
         likesLabel.textColor = UIColor.black
@@ -57,7 +56,8 @@ class LikesControl: UIControl {
     
     @objc private func clickLikes(_ sender: UIButton) {
         delegate?.likeWasTap(at: likesControlId!)
-        //print("aaa \(String(describing: likesControlId))")
+        likeButton.likeState.toggle()
+        heartWasPressed()
         //Animation for tap like
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
         animation.fillMode = .forwards
