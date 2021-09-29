@@ -13,11 +13,7 @@ class LikeButton: UIButton {
             setNeedsDisplay()
         }
     }
-    private var color = UIColor.white {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+    private var color = UIColor.white
     private let path = Like.shape
     
     override func draw(_ rect: CGRect) {
@@ -28,20 +24,11 @@ class LikeButton: UIButton {
         shapeLayer.lineWidth = 2
         shapeLayer.fillColor = color.cgColor
         shapeLayer.strokeColor = UIColor.red.cgColor
-        if likeState != true {
+        if likeState == true {
             color = UIColor.red
         } else {
             color = UIColor.white
-        }
-        //Animation for tap like
-        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
-        animation.fillMode = .forwards
-        animation.timingFunction = CAMediaTimingFunction(name: .linear)
-        animation.duration = 0.5
-        animation.fromValue = layer.transform
-        animation.toValue = CATransform3DMakeRotation(.pi, 0, 1, 0)
-        layer.add(animation, forKey: nil)
-        
+        }        
         shapeLayer.path = path.cgPath
         layer.addSublayer(shapeLayer)
     }

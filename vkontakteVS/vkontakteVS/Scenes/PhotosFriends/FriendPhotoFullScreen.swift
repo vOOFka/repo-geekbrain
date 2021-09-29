@@ -7,63 +7,109 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class FriendPhotoFullScreen: UIViewController {
     //MARK: - Outlets
     @IBOutlet weak private var currentPhotoImageView: UIImageView!
     @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
-    //MARK: - Prefirence
-    //private let networkService = NetworkServiceImplimentation()
-    private var image: (Photo?, Int)?
-    private var photosItems = [Photo]()
-    private var animator: UIViewPropertyAnimator!
-    private let recognazer = UIPanGestureRecognizer()
-    private var isChange = false
-    
+    //MARK: Properties
+    private struct Properties {
+        static let networkService = NetworkServiceImplimentation()
+        static let realmService: RealmService = RealmServiceImplimentation()
+        //Choice size download photo
+        static let size = sizeTypeRealmEnum.max
+        static var photosItems: Results<RealmPhoto>!
+        static var image: (UIImage?, Int)?
+        static var animator: UIViewPropertyAnimator!
+        static let recognazer = UIPanGestureRecognizer()
+        static var isChange = false
+    }
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //Configuration
         nextPhotoImageView.alpha = 0
-        downloadPhotoFromWeb()
+        setPhoto(currentPhotoIndex: Properties.image?.1 ?? 0, anotherPhoto: Properties.photosItems, forView: currentPhotoImageView)
         // Configuration for zooming photo
         setupPhotoFullScreenScrollView()
         // Configuration for listing photo
         setupPanRecognizer()
     }
     //MARK: - Functions
-    func configuration(selectPhoto: (Photo?, Int), anotherPhoto: [Photo]) {
-        image = selectPhoto
-        photosItems = anotherPhoto
-//        DispatchQueue.main.async {
-//            Choice size download photo
-//            let size = sizeType.max
-//            let url = selectPhoto.0!.sizes.first(where: { $0.type == size })!.urlPhoto
-//             self.networkService.getImageFromWeb(imageURL: url, completion: { [weak self] photo in self?.currentPhotoImageView.image = photo })
-//        }
+    func configuration(selectPhotoId: Int, anotherPhoto: Results<RealmPhoto>!) {
+        guard let currentPhotoIndex = anotherPhoto.firstIndex(where: { $0.id == selectPhotoId }) else { return }
+        Properties.image = (nil, currentPhotoIndex)
+        Properties.photosItems = anotherPhoto
+    }
+    //Загрузка в БД
+    fileprivate func pushToRealmDB(currentPhoto: RealmPhoto, image: UIImage) {
+        do {
+            let realm = try Realm()
+            guard let allItems = realm.objects(RealmPhoto.self).first(where: { $0.id == currentPhoto.id }),
+                  let item =  allItems.sizes.first(where: { $0.type == Properties.size }),
+                  let image = image.jpegData(compressionQuality: 80.0) else { return }
+            try realm.write {
+                item.setValue(image, forKey: "image")
+            }
+        } catch (let error) {
+            showError(error)
+        }
     }
     
-    fileprivate func downloadPhotoFromWeb() {
-        //Download photo
-        let size = sizeType.max
-        let url = image?.0!.sizes.first(where: { $0.type == size })!.urlPhoto
-        if (currentPhotoImageView != nil) && (image != nil) {
-            currentPhotoImageView.kf.setImage(with: URL(string: url!))}
+    fileprivate func setPhoto(currentPhotoIndex: Int, anotherPhoto: Results<RealmPhoto>!, forView: UIImageView?) {
+        if (forView != nil) {
+            //Забираем с БД
+            let photoFromDB = anotherPhoto[currentPhotoIndex]
+            let photoSizeFromDB = photoFromDB.sizes.first(where: { $0.type == Properties.size })?.image
+            if photoSizeFromDB == nil {
+                //Если нет, качаем с инета
+                guard let url = photoFromDB.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else {
+                    forView!.image = UIImage(named: "NoImage")
+                    Properties.image = (UIImage(named: "NoImage"), 0)
+                    return
+                }
+                print("Загрузка из сети \(currentPhotoIndex)")
+                _ = UIImageView().kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let image):
+                        let image = image.image as UIImage
+                        self.pushToRealmDB(currentPhoto: photoFromDB, image: image)
+                        forView!.image = image
+                        Properties.image = (image, currentPhotoIndex)
+                    case .failure(let error):
+                        self.showError(error)
+                    }
+                })} else {
+                    print("Загрузка из БД")
+                    do {
+                        let imgFromRealm = try Properties.realmService.get(RealmPhoto.self, primaryKey: photoFromDB.id)
+                        let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == Properties.size })
+                        guard let imageData = imgSizeFromRealm?.image else { return }
+                        forView!.image = UIImage(data: imageData)
+                        Properties.image = (UIImage(data: imageData), currentPhotoIndex)
+                    } catch (let error) {
+                        showError(error)
+                    }
+                }
+        }
     }
-    
+
     fileprivate func setupPanRecognizer() {
-        self.view.addGestureRecognizer(recognazer)
-        recognazer.addTarget(self, action: #selector(onPan(_:)))
+        self.view.addGestureRecognizer(Properties.recognazer)
+        Properties.recognazer.addTarget(self, action: #selector(onPan(_:)))
     }
     
-    @objc func onPan(_ sender: UIPanGestureRecognizer) {
-        let indexOfCurrentPhoto = image!.1
+    @objc private func onPan(_ sender: UIPanGestureRecognizer) {
+        let indexOfCurrentPhoto = Properties.image!.1
         var indexNextPhoto = 0
 
-        let fromView = isChange ? nextPhotoImageView! : currentPhotoImageView!
-        let toView = isChange ? currentPhotoImageView! : nextPhotoImageView!
+        let fromView = Properties.isChange ? nextPhotoImageView! : currentPhotoImageView!
+        let toView = Properties.isChange ? currentPhotoImageView! : nextPhotoImageView!
 
-        let translation = recognazer.translation(in: view)
+        let translation = Properties.recognazer.translation(in: view)
         let scaleOut = CGAffineTransform(scaleX: 0.5, y: 0.5)
         let scaleIn = CGAffineTransform(scaleX: 1, y: 1)
         
@@ -85,7 +131,7 @@ class FriendPhotoFullScreen: UIViewController {
             }
             toView.transform = CGAffineTransform(translationX: offsetXToView, y: 0).concatenating(scaleOut)
             
-            animator = UIViewPropertyAnimator(duration: 0.6, curve: .easeInOut, animations: {
+            Properties.animator = UIViewPropertyAnimator(duration: 0.6, curve: .easeInOut, animations: {
                 if sender.direction == .right {
                     fromView.transform = CGAffineTransform(translationX: offsetXFromView, y: 0).concatenating(scaleOut)
                     toView.transform = CGAffineTransform(translationX: 0, y: 0).concatenating(scaleIn)
@@ -95,36 +141,29 @@ class FriendPhotoFullScreen: UIViewController {
                     toView.transform = CGAffineTransform(translationX: 0, y: 0).concatenating(scaleIn)
                 }
             })
-            animator.startAnimation()
-            animator.pauseAnimation()
+            Properties.animator.startAnimation()
+            Properties.animator.pauseAnimation()
         case .changed:
             // print("changed")
             let percent = abs(translation.x / 100)
             let animationPercent = min(1, max(0, percent))
-            animator.fractionComplete = animationPercent
+            Properties.animator.fractionComplete = animationPercent
             //print("translation.x: \(translation.x), percent: \(percent), animationPercent: \(animationPercent)")
         case .ended:
             //print("ended")
             if translation.x < -20 || translation.x > 10 {
                 indexNextPhoto = whatNextIndexOfPhoto(index: indexOfCurrentPhoto, direction: sender.direction!)
-                image = (photosItems[indexNextPhoto], indexNextPhoto)
-                DispatchQueue.main.async {
-                    //Choice size download photo
-                    let size = sizeType.max
-                    let url = self.photosItems[indexNextPhoto].sizes.first(where: { $0.type == size })!.urlPhoto
-                    toView.kf.setImage(with: URL(string: url))
-                    //self.networkService.getImageFromWeb(imageURL: url, completion: { photo in toView.image = photo })
-                }
-                animator.continueAnimation(withTimingParameters: nil, durationFactor: 2)
+                setPhoto(currentPhotoIndex: indexNextPhoto, anotherPhoto: Properties.photosItems, forView: toView)
+                Properties.animator.continueAnimation(withTimingParameters: nil, durationFactor: 2)
                 UIView.animate(withDuration: 0.8, delay: 0.5,
                                options: .curveEaseOut, animations: {
                                 toView.alpha = 1
                                 fromView.alpha = 0
                                })
-                isChange = !isChange
+                Properties.isChange = !Properties.isChange
             } else {
-                animator.isReversed = true
-                animator.startAnimation()
+                Properties.animator.isReversed = true
+                Properties.animator.startAnimation()
             }
         default:
             break
@@ -140,10 +179,10 @@ class FriendPhotoFullScreen: UIViewController {
             i = i + 1
         }
         
-        if i > (photosItems.count - 1) {
+        if i > (Properties.photosItems.count - 1) {
             i = 0
         } else if i < 0 {
-            i = photosItems.count - 1
+            i = Properties.photosItems.count - 1
         }
         return i
     }
@@ -158,7 +197,7 @@ class FriendPhotoFullScreen: UIViewController {
 }
 
 extension FriendPhotoFullScreen: UIScrollViewDelegate {
-    internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        isChange ? nextPhotoImageView! : currentPhotoImageView!
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        Properties.isChange ? nextPhotoImageView! : currentPhotoImageView!
     }
 }

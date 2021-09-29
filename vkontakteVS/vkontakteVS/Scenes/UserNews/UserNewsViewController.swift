@@ -10,7 +10,7 @@ import UIKit
 class UserNewsViewController: UIViewController {
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!    
-    //MARK: - Var
+    //MARK: - Properties
     private var userNews = NewsFeed()
     private var currentNews = News()
     private var newsWithFullText = [Int]()
