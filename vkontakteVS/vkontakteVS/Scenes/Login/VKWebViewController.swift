@@ -16,7 +16,28 @@ class VKWebViewController: UIViewController {
             webView.navigationDelegate = self
         }
     }
-    
+    //MARK: - Navigation
+    @IBAction func logout (with segue: UIStoryboardSegue) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "oauth.vk.com"
+        urlComponents.path = "/logout"
+//        urlComponents.queryItems = [
+//            URLQueryItem(name: "client_id", value: "7937212"),
+//            URLQueryItem(name: "display", value: "mobile"),
+//            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
+//            URLQueryItem(name: "scope", value: "friends,photos,groups,wall"),
+//            URLQueryItem(name: "response_type", value: "token"),
+//            URLQueryItem(name: "v", value: "5.131")
+//        ]
+        
+        let request = URLRequest(url: urlComponents.url!)
+        webView.load(request)
+        
+        UserSession.shared.token = ""
+        UserSession.shared.userId = 0
+        UserSession.shared.userName = ""
+    }
     //MARK: Properties
     private let networkService = NetworkServiceImplimentation()
     
