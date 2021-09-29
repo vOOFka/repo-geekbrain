@@ -12,7 +12,7 @@ import RealmSwift
 class PhotosCollectionViewCell: UICollectionViewCell {
     //MARK: - Outlets
     @IBOutlet weak private var photoImageView: UIImageView!
-    @IBOutlet weak var likesControl: LikesControl!
+    @IBOutlet weak private var likesControl: LikesControl!
     //MARK: - Properties
     private struct Properties {
         static let realmService: RealmService = RealmServiceImplimentation()
@@ -20,11 +20,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         //Choice size download photo
         static let size = sizeTypeRealmEnum.mid
     }
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        likesControl.likeButton.likeState = false
-    }
-    
     //MARK: - Functions
     func configuration(currentPhoto: RealmPhoto, delegate: AnyObject) {
         Properties.currentPhoto = currentPhoto

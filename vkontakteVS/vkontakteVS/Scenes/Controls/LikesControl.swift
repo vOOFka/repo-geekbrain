@@ -16,11 +16,11 @@ class LikesControl: UIControl {
     
     // MARK: Vars
     private var stackView = UIStackView()
-    var likeButton = LikeButton()
+    private var likeButton = LikeButton()
     private var likesLabel = UILabel()
     private var likesControlId: Int?
     weak var delegate: LikesControlDelegate?
-    public var heartWasPressed = { }
+    private var heartWasPressed = { }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +57,6 @@ class LikesControl: UIControl {
     @objc private func clickLikes(_ sender: UIButton) {
         delegate?.likeWasTap(at: likesControlId!)
         likeButton.likeState.toggle()
-        heartWasPressed()
         //Animation for tap like
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
         animation.fillMode = .forwards

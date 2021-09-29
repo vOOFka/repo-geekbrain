@@ -13,11 +13,7 @@ class LikeButton: UIButton {
             setNeedsDisplay()
         }
     }
-    private var color = UIColor.white {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+    private var color = UIColor.white
     private let path = Like.shape
     
     override func draw(_ rect: CGRect) {

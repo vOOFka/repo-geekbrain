@@ -27,8 +27,6 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         static let size = sizeTypeRealmEnum.mid
         static var notificationToken: NotificationToken?
     }
-    private var selectedHearts = [IndexPath : Bool]()
-    //private var selectedHearts = [Int]()
     //MARK: Public properties
     public var currentFriend: Int = 0
    
@@ -72,15 +70,6 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(PhotosCollectionViewCell.self, for: indexPath)
         if !Properties.photosList.isEmpty {
             let photo = Properties.photosList[indexPath.row]
- //           let heartState = selectedHearts.contains(where: { $0 == photo.id }) ? true : false
-            if let state = selectedHearts[indexPath] {
-                cell.likesControl.likeButton.likeState = state
-                print("\(selectedHearts) \(indexPath) \(state)")
-            }
-            cell.likesControl.heartWasPressed = { [weak self] in
-                self?.selectedHearts[indexPath] = cell.likesControl.likeButton.likeState
-                print(indexPath)
-            }
             cell.configuration(currentPhoto: photo, delegate: self)
         }
         return cell
@@ -111,7 +100,7 @@ extension FriendPhotosCollectionViewController {
         do {
             let existItems = try Properties.realmService.get(RealmPhoto.self)
             for item in photosItemsRealm {
-                guard let existImg = existItems.first(where: { $0.id == item.id })?.sizes.first(where: { $0.type == Properties.size })?.image else { break }
+                guard let existImg = existItems.first(where: { ($0.id == item.id) && ($0.ownerId == item.ownerId) })?.sizes.first(where: { $0.type == Properties.size })?.image else { continue }
                 item.sizes.first(where: { $0.type == Properties.size })?.image = existImg
             }
             //let saveToDB = try realmService.save(photosItemsRealm)
@@ -143,10 +132,9 @@ extension FriendPhotosCollectionViewController {
             case .initial: break
             case .update:
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                //    self.collectionView.reloadData()
-                    let myKeys: [IndexPath] = self.selectedHearts.map{ $0.key }
-                    self.collectionView.reloadItems(at: myKeys )
-                    
+                    self.collectionView.reloadData()
+                 //   let updateKeys: [IndexPath] = self.selectedHearts.map{ $0.key }
+                //    self.collectionView.reloadItems(at: updateKeys )
                 }
             }
         })
@@ -163,10 +151,8 @@ extension FriendPhotosCollectionViewController: LikesControlDelegate {
                 item.likeState = !item.likeState
                 if item.likeState == true {
                     item.likes! += 1
-                   // selectedHearts.append(controlId)
                 } else {
                     item.likes! -= 1
-                 //   selectedHearts.removeAll(where: { $0 == controlId })
                 }
             }
         } catch (let error) {
