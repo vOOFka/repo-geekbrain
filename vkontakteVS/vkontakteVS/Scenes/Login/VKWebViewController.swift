@@ -18,25 +18,8 @@ class VKWebViewController: UIViewController {
     }
     //MARK: - Navigation
     @IBAction func logout (with segue: UIStoryboardSegue) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "oauth.vk.com"
-        urlComponents.path = "/logout"
-//        urlComponents.queryItems = [
-//            URLQueryItem(name: "client_id", value: "7937212"),
-//            URLQueryItem(name: "display", value: "mobile"),
-//            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-//            URLQueryItem(name: "scope", value: "friends,photos,groups,wall"),
-//            URLQueryItem(name: "response_type", value: "token"),
-//            URLQueryItem(name: "v", value: "5.131")
-//        ]
-        
-        let request = URLRequest(url: urlComponents.url!)
-        webView.load(request)
-        
-        UserSession.shared.token = ""
-        UserSession.shared.userId = 0
-        UserSession.shared.userName = ""
+        webView.cleanAllCookies()
+        configurationWebView()
     }
     //MARK: Properties
     private let networkService = NetworkServiceImplimentation()
@@ -117,5 +100,24 @@ extension VKWebViewController: WKNavigationDelegate {
             performSegue(withIdentifier: "showMainScreenID", sender: self)
         }
         decisionHandler(.cancel)
+    }
+}
+
+extension WKWebView {
+
+    func cleanAllCookies() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        print("All cookies deleted")
+
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                print("Cookie ::: \(record) deleted")
+            }
+        }
+    }
+
+    func refreshCookies() {
+        self.configuration.processPool = WKProcessPool()
     }
 }
