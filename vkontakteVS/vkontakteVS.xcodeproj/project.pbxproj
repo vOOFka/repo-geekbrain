@@ -67,6 +67,8 @@
 		F4DE1B5326F1086D00B78717 /* RealmGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE1B5226F1086D00B78717 /* RealmGroup.swift */; };
 		F4DE1B5526F10E3D00B78717 /* RealmPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE1B5426F10E3D00B78717 /* RealmPhoto.swift */; };
 		F4DE1B5726F289E500B78717 /* RealmNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE1B5626F289E500B78717 /* RealmNews.swift */; };
+		F4E637AF2706633A00BAE804 /* UserFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E637AE2706633900BAE804 /* UserFirebase.swift */; };
+		F4E637B1270666A200BAE804 /* GroupFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E637B0270666A200BAE804 /* GroupFirebase.swift */; };
 		F4EC67D626E94A6000CDE46A /* NewsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC67D526E94A6000CDE46A /* NewsHeader.swift */; };
 		F4EC67DB26E94A7900CDE46A /* NewsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4EC67DA26E94A7900CDE46A /* NewsHeader.xib */; };
 		F4EC67E926E951F100CDE46A /* NewsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC67E826E951F100CDE46A /* NewsFooter.swift */; };
@@ -162,6 +164,8 @@
 		F4DE1B5226F1086D00B78717 /* RealmGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmGroup.swift; sourceTree = "<group>"; };
 		F4DE1B5426F10E3D00B78717 /* RealmPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPhoto.swift; sourceTree = "<group>"; };
 		F4DE1B5626F289E500B78717 /* RealmNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNews.swift; sourceTree = "<group>"; };
+		F4E637AE2706633900BAE804 /* UserFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFirebase.swift; sourceTree = "<group>"; };
+		F4E637B0270666A200BAE804 /* GroupFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFirebase.swift; sourceTree = "<group>"; };
 		F4EC67D526E94A6000CDE46A /* NewsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeader.swift; sourceTree = "<group>"; };
 		F4EC67DA26E94A7900CDE46A /* NewsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsHeader.xib; sourceTree = "<group>"; };
 		F4EC67E826E951F100CDE46A /* NewsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFooter.swift; sourceTree = "<group>"; };
@@ -368,6 +372,7 @@
 		F4B0C85326A5DBBB00B1853C /* vkontakteVS */ = {
 			isa = PBXGroup;
 			children = (
+				F4E637AD270662AD00BAE804 /* Firebase */,
 				F4DE1B2926EFB0C700B78717 /* Realm */,
 				F44E002A26D9596800BD976C /* Network */,
 				F44E001E26D6B99A00BD976C /* Patterns */,
@@ -469,6 +474,15 @@
 				F4DE1B5626F289E500B78717 /* RealmNews.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		F4E637AD270662AD00BAE804 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				F4E637AE2706633900BAE804 /* UserFirebase.swift */,
+				F4E637B0270666A200BAE804 /* GroupFirebase.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		F4EC67D426E949E900CDE46A /* SectionHeader */ = {
@@ -774,6 +788,7 @@
 				F4DE1B5526F10E3D00B78717 /* RealmPhoto.swift in Sources */,
 				84481BB326AED8DB002CBC86 /* AppendGroupsTableViewController.swift in Sources */,
 				F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */,
+				F4E637B1270666A200BAE804 /* GroupFirebase.swift in Sources */,
 				F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */,
 				843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */,
 				F4DE1B5326F1086D00B78717 /* RealmGroup.swift in Sources */,
@@ -791,6 +806,7 @@
 				F4DE1B5726F289E500B78717 /* RealmNews.swift in Sources */,
 				F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */,
 				F431C0C926B1FDAE0028827E /* AvatarView.swift in Sources */,
+				F4E637AF2706633A00BAE804 /* UserFirebase.swift in Sources */,
 				F4B0C85726A5DBBB00B1853C /* SceneDelegate.swift in Sources */,
 				F4EC67D626E94A6000CDE46A /* NewsHeader.swift in Sources */,
 				847AEF0D26CE855600746CB6 /* CustomNavigationController.swift in Sources */,
@@ -917,7 +933,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -972,7 +988,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

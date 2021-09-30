@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class AppendGroupsTableViewController: UITableViewController {
     //MARK: - Outlets
@@ -18,6 +19,7 @@ class AppendGroupsTableViewController: UITableViewController {
         static var foundAppendGroups = [RealmGroup()]
         static var searching = false
         static let searchView = GroupSearchBar()
+        static let ref = Database.database().reference(withPath: "users")
     }
 
     //MARK: - Life cycle
@@ -52,8 +54,12 @@ class AppendGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectGroup = Properties.foundAppendGroups[indexPath.row]
-        //print("push to Realm: \(selectGroup)")
         pushToRealm(selectGroup: selectGroup)
+        //Загрузка данных в Firebase
+        let selectGroupFirebase = GroupFirebase(id: selectGroup.id, name: selectGroup.name)
+        let databaseRef = Properties.ref.child(String(UserSession.shared.userId)).child("groups").child(String(selectGroupFirebase.id))
+        
+        databaseRef.setValue(selectGroupFirebase.toAnyObject())        
     }
 }
 
