@@ -71,37 +71,3 @@ class Attachments: Decodable {
         self.photo = try? container.decode(Photo.self, forKey: .photo)
     }
 }
-
-//struct UserActualNews: NewsTableViewCellModel {
-//    var id: Int
-//    var date: String
-//    var text: String?
-//    var image: UIImage?
-//    var likes: String
-//    var comments: String
-//    var repost: String
-//    var views: String
-//    var size: NewsCellSizes
-//
-//    static func getNewsFromUserGroups(with newsWithFullText: [Int]) -> [NewsTableViewCellModel] {
-//        let actualUserNewsArray = [NewsTableViewCellModel]()
-//        let someNews = News.someNews
-//
-//        for news in someNews {
-//            let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == news.newsId }
-//            let sizes = NewsCellSizeCalculator().sizes(newsText: news.text, newsImage: news.image, showAllText: showAllText)
-//            let actualUserNews = UserActualNews(
-//                newsId: news.newsId,
-//                date:   "11 августа 2021",
-//                text:   news.text ?? nil,
-//                image:  news.image ?? nil,
-//                likes:  String(news.likes ?? 0),
-//                comments: String(news.comments ?? 0),
-//                repost: String(news.repost ?? 0),
-//                views:  String(news.views ?? 0),
-//                size:   sizes)
-//            actualUserNewsArray.append(actualUserNews)
-//        }
-//        return actualUserNewsArray
-//    }
-//}

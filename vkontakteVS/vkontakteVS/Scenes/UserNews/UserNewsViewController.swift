@@ -24,6 +24,10 @@ class UserNewsViewController: UIViewController {
         //register cells
         tableView.registerClass(NewsTextCell.self)
         tableView.registerClass(NewsImageCell.self)
+        tableView.register(NewsImgGalleryTableViewCell.self)
+        //register Footer of cell
+        tableView.register(NewsFooter.self)
+        
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.estimatedRowHeight = 200
@@ -49,6 +53,7 @@ class UserNewsViewController: UIViewController {
 extension UserNewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { userNews.items.count }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 80.0 }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { 80.0 }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(NewsHeader.self, viewForHeaderInSection: section)
@@ -58,11 +63,19 @@ extension UserNewsViewController: UITableViewDataSource {
         return header
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = tableView.dequeueReusableHeaderFooterView(NewsFooter.self, viewForHeaderInSection: section)
+        currentNews = userNews.items[section]
+        //footer.configuration(currentNews: currentNews, currentGroupNews: groupNews)
+        return footer
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let currentSection = userNews.items[section]
         var count: Int = currentSection.countCellItems
         if currentSection.text.isEmpty { count = count - 1 }
-        count = count + (currentSection.attachments?.count ?? 0)
+        //count = count + (currentSection.attachments?.count ?? 0)
+        count = count + 1
         return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,9 +89,15 @@ extension UserNewsViewController: UITableViewDataSource {
             guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
             var indexAttachment = indexPath.row - 1
             if indexAttachment < 0 { indexAttachment = 0 }
-            let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
-            cell.configuration(currentAttachment: currentAttachment[indexAttachment])
-            return cell
+            if currentAttachment.count == 1 {
+                let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
+                cell.configuration(currentAttachment: currentAttachment[indexAttachment])
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(NewsImgGalleryTableViewCell.self, for: indexPath)
+                cell.configure(with: currentAttachment)
+                return cell
+            }
         }
     }
 }
@@ -90,7 +109,8 @@ extension UserNewsViewController: UITableViewDelegate {
             let height = NewsCellSizeCalculator().hightTextCell(newsText: currentNews.text)
             return height
         } else {
-            return UITableView.automaticDimension
+            return 300.0
+            //return UITableView.automaticDimension
         }        
     }
 }
