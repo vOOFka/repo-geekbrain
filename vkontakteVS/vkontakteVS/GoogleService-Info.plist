@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>232728689487-r92uk2a9kb96708aentsgm5sijg5i2ra.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.232728689487-r92uk2a9kb96708aentsgm5sijg5i2ra</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB3ug2mDccNwCjyZRxd-FsowAkSAvvd_rs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>232728689487</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ru.exit551.vkontakteVS</string>
+	<key>PROJECT_ID</key>
+	<string>vkontaktevs-9b605</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vkontaktevs-9b605.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:232728689487:ios:0f95fe92c7ce5f0ea9633a</string>
+</dict>
+</plist>

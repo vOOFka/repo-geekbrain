@@ -68,45 +68,47 @@ extension UserNewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentNews = userNews.items[indexPath.section]
         if indexPath.row == 0 && !currentNews.text.isEmpty {
-                let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
-                cell.configuration(currentNews: currentNews)
+            let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
+            cell.configuration(currentNews: currentNews)
             cell.delegate = self
-//
-//            if let mtb = needMoreTextBtn[indexPath] {
-//                cell.showMoreTextBtn = mtb
-//            }
-//            cell.showMoreTextBtn = { needMoreTextBtn[indexPath] = cell. }
-//
-                return cell
-            } else {
-                guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
-                var indexAttachment = indexPath.row - 1
-                if indexAttachment < 0 { indexAttachment = 0 }
-                let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
-                //cell.configuration(currentAttachment: currentAttachment[indexAttachment])
-                return cell
-            }
-
-        
+            
+            //            if let mtb = needMoreTextBtn[indexPath] {
+            //                cell.showMoreTextBtn = mtb
+            //            }
+            //            cell.showMoreTextBtn = { needMoreTextBtn[indexPath] = cell. }
+            //
+            return cell
+        } else {
+            guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
+            var indexAttachment = indexPath.row - 1
+            if indexAttachment < 0 { indexAttachment = 0 }
+            let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
+           // cell.configuration(currentAttachment: currentAttachment[indexAttachment])
+            return cell
         }
+        
+        
+    }
 }
 
 extension UserNewsViewController: UITableViewDelegate {
-  //  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        if indexPath.row == 0 {
 //            return CGFloat(50.0)
 //        } else {
 //            return CGFloat(150.0)
 //        }
- //       return userNews.items[indexPath.row]
-       // if let news = self. .datasource?.item(indexPath) as? { }
-        
-  //  }
+//        return userNews.items[indexPath.row]
+//        if let news = self.datasource?.item(indexPath) as? { }
+        return CGFloat(150.0)
+    }
 }
 
 extension UserNewsViewController: NewsTextCellDelegate {
+  
     func newHeightCell(for cell: NewsTextCell) {
         print("123")
+        
     }
     
    

@@ -16,7 +16,11 @@ class VKWebViewController: UIViewController {
             webView.navigationDelegate = self
         }
     }
-    
+    //MARK: - Navigation
+    @IBAction func logout (with segue: UIStoryboardSegue) {
+        webView.cleanAllCookies()
+        configurationWebView()
+    }
     //MARK: Properties
     private let networkService = NetworkServiceImplimentation()
     
@@ -96,5 +100,24 @@ extension VKWebViewController: WKNavigationDelegate {
             performSegue(withIdentifier: "showMainScreenID", sender: self)
         }
         decisionHandler(.cancel)
+    }
+}
+
+extension WKWebView {
+
+    func cleanAllCookies() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        print("All cookies deleted")
+
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                print("Cookie ::: \(record) deleted")
+            }
+        }
+    }
+
+    func refreshCookies() {
+        self.configuration.processPool = WKProcessPool()
     }
 }

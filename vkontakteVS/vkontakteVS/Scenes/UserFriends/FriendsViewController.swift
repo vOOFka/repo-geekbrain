@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class FriendsViewController: UIViewController, UITableViewDelegate {
     
@@ -26,6 +27,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         static var sectionNames = [String]()
         static var notificationToken: NotificationToken?
         static var sectionsForUpdate = [0]
+        static let ref = Database.database().reference(withPath: "users")
     }
     
     //MARK: - Navigation
@@ -52,6 +54,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         updateFriendsFromVKAPI()
         //Наблюдение за изменениями
         watchingForChanges()
+        //Передаем данные в Firebase
+        pullDataToFirebase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +100,13 @@ extension FriendsViewController: UITableViewDataSource {
 
 //MARK: - Functions
 extension FriendsViewController {
+    //Загрузка данных в Firebase
+    fileprivate func pullDataToFirebase() {
+        let user = UserFirebase(userId: UserSession.shared.userId, userName: UserSession.shared.userName)
+        let userRef = Properties.ref.child(String(user.userId))
+        
+        userRef.setValue(user.toAnyObject())
+    }
     //Загрузка данных из VK
     fileprivate func updateFriendsFromVKAPI() {
         Properties.networkService.getFriends(completion: { [weak self] friendsItems in

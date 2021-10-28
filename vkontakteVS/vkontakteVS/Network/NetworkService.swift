@@ -46,7 +46,7 @@ class NetworkServiceImplimentation: NetworkService {
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
                                       "filters" : "post",
-                                      "count": "10"]
+                                      "count": "20"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
