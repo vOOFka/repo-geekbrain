@@ -26,7 +26,7 @@ class UserNewsViewController: UIViewController {
         tableView.registerClass(NewsImageCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-       // tableView.estimatedRowHeight = 175
+        tableView.estimatedRowHeight = 200
       //  tableView.rowHeight = UITableView.automaticDimension
         view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
         //Show News from VK API
@@ -71,36 +71,27 @@ extension UserNewsViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
             cell.configuration(currentNews: currentNews)
             cell.delegate = self
-            
-            //            if let mtb = needMoreTextBtn[indexPath] {
-            //                cell.showMoreTextBtn = mtb
-            //            }
-            //            cell.showMoreTextBtn = { needMoreTextBtn[indexPath] = cell. }
-            //
             return cell
         } else {
             guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
             var indexAttachment = indexPath.row - 1
             if indexAttachment < 0 { indexAttachment = 0 }
             let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
-           // cell.configuration(currentAttachment: currentAttachment[indexAttachment])
+            cell.configuration(currentAttachment: currentAttachment[indexAttachment])
             return cell
         }
-        
-        
     }
 }
 
 extension UserNewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return CGFloat(50.0)
-//        } else {
-//            return CGFloat(150.0)
-//        }
-//        return userNews.items[indexPath.row]
-//        if let news = self.datasource?.item(indexPath) as? { }
-        return CGFloat(150.0)
+        let currentNews = userNews.items[indexPath.section]
+        if indexPath.row == 0 && !currentNews.text.isEmpty {
+            let height = NewsCellSizeCalculator().hightTextCell(newsText: currentNews.text)
+            return height
+        } else {
+            return UITableView.automaticDimension
+        }        
     }
 }
 

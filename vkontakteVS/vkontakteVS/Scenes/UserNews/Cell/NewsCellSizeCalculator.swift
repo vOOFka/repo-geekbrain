@@ -16,12 +16,12 @@ struct Size: NewsCellSizes {
 
 struct Constrains {
     static let cellViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    static let hightCellView: CGFloat = 175 //defalt cell hight
-    static let newsTextLabel = UIEdgeInsets(top: 80, left: 10, bottom: 10, right: 10)
-    static let newsTextLabelFont = UIFont.systemFont(ofSize: 15)
+    static let hightCellView: CGFloat = 20 //defalt cell hight
+    static let newsTextLabel = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    static let newsTextLabelFont = UIFont.systemFont(ofSize: 17)
     static let newsImage = UIEdgeInsets(top: 110, left: 10, bottom: 10, right: 10)
-    static let minimumNewsTextLabelLines: CGFloat = 5
-    static let moreTextButton = UIEdgeInsets(top: 100, left: 10, bottom: 0, right: 0)
+    static let minimumNewsTextLabelLines: CGFloat = 3
+    static let moreTextButton = UIEdgeInsets(top: 100, left: 10, bottom: 20, right: 0)
 }
 
 final class NewsCellSizeCalculator {
@@ -29,6 +29,19 @@ final class NewsCellSizeCalculator {
     
     init() {
         self.screenMinSize = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+    }
+    
+    func hightTextCell(newsText: String?) -> CGFloat {
+        let cellViewWidth = screenMinSize - Constrains.cellViewInsets.left - Constrains.cellViewInsets.right
+        var cellHight = Constrains.hightCellView //20
+        
+        if newsText != nil, newsText != "" {
+            let width = cellViewWidth - Constrains.newsTextLabel.left - Constrains.newsTextLabel.right
+            let height = newsText!.height(width: width, font: Constrains.newsTextLabelFont)
+
+            cellHight = cellHight + height
+        }
+        return cellHight
     }
 
     func sizes(newsText: String?, newsImage: UIImage?, showAllText: Bool) -> NewsCellSizes {
@@ -44,7 +57,7 @@ final class NewsCellSizeCalculator {
                                                        y: Constrains.moreTextButton.top),
                                                        size: CGSize.zero)
         var showMoreTextButton = false
-        var cellHight = Constrains.hightCellView //175
+        var cellHight = Constrains.hightCellView //20
         
         if newsText != nil, newsText != "" {
             let width = cellViewWidth - Constrains.newsTextLabel.left - Constrains.newsTextLabel.right
@@ -60,7 +73,7 @@ final class NewsCellSizeCalculator {
         }
         
         if showMoreTextButton {
-            moreTextButtonFrame = CGRect(origin: CGPoint(x: Constrains.moreTextButton.left, y: newsLabelFrame.maxY), size: CGSize(width: 150, height: 15))
+            moreTextButtonFrame = CGRect(origin: CGPoint(x: Constrains.moreTextButton.left, y: newsLabelFrame.maxY), size: CGSize(width: 180, height: 20))
         }
         
         if newsImage != nil {
