@@ -88,7 +88,10 @@ class Attachments: Decodable {
     var description: String? = ""
     var photo: Photo?
     enum CodingKeys: String, CodingKey {
-        case type,title,description,photo
+        case type,title,description,photo,link
+    }
+    enum LinkKeys: String, CodingKey {
+        case title,description,photo
     }
     init() {}
     required init(from decoder: Decoder) throws {
@@ -97,5 +100,12 @@ class Attachments: Decodable {
         self.title = try? container.decode(String.self, forKey: .title)
         self.description = try? container.decode(String.self, forKey: .description)
         self.photo = try? container.decode(Photo.self, forKey: .photo)
+        // For Link type posts
+        if self.type == "link" {
+            let linkContainer = try container.nestedContainer(keyedBy: LinkKeys.self, forKey: .link)
+            self.title = try? linkContainer.decode(String.self, forKey: .title)
+            self.description = try? linkContainer.decode(String.self, forKey: .description)
+            self.photo = try? linkContainer.decode(Photo.self, forKey: .photo)
+        }
     }
 }

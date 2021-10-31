@@ -20,7 +20,7 @@ class NewsImageCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configuration(currentAttachment: Attachments) {
+    public func configuration(currentAttachment: Attachments) {      
         newsImageView.image = nil
         newsImageView.contentMode = .scaleAspectFit
         newsImageView.translatesAutoresizingMaskIntoConstraints = false
