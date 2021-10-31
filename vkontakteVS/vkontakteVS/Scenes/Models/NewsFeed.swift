@@ -33,6 +33,10 @@ class News: Decodable {
     var text: String = ""
     var attachments: [Attachments]?
     var countCellItems: Int = 1
+    var comments: Int = 0
+    var likes: Int = 0
+    var reposts: Int = 0
+    var views: Int = 0
     
     var sizes: NewsCellSizes? {
         //  let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
@@ -41,7 +45,19 @@ class News: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id = "post_id", sourceId = "source_id"
-        case date,text,attachments
+        case date,text,attachments,comments,likes,reposts,views
+    }
+    enum CommentsKeys: String, CodingKey {
+        case comments = "count"
+    }
+    enum LikesKeys: String, CodingKey {
+        case likes = "count"
+    }
+    enum RepostsKeys: String, CodingKey {
+        case reposts = "count"
+    }
+    enum ViewsKeys: String, CodingKey {
+        case views = "count"
     }
     init() {}
     required init(from decoder: Decoder) throws {
@@ -51,6 +67,18 @@ class News: Decodable {
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
         self.attachments = try? container.decode([Attachments].self, forKey: .attachments)
+        //Comments
+        let commentsContainer = try container.nestedContainer(keyedBy: CommentsKeys.self, forKey: .comments)
+        self.comments = try commentsContainer.decode(Int.self, forKey: .comments)
+        //Likes
+        let likesContainer = try container.nestedContainer(keyedBy: LikesKeys.self, forKey: .likes)
+        self.likes = try likesContainer.decode(Int.self, forKey: .likes)
+        //Reposts
+        let repostsContainer = try container.nestedContainer(keyedBy: RepostsKeys.self, forKey: .reposts)
+        self.reposts = try repostsContainer.decode(Int.self, forKey: .reposts)
+        //Views
+        let viewsContainer = try container.nestedContainer(keyedBy: ViewsKeys.self, forKey: .views)
+        self.views = try viewsContainer.decode(Int.self, forKey: .views)
     }
 }
 
