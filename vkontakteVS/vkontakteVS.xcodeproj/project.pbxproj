@@ -73,6 +73,10 @@
 		F4EC67DB26E94A7900CDE46A /* NewsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4EC67DA26E94A7900CDE46A /* NewsHeader.xib */; };
 		F4EC67E926E951F100CDE46A /* NewsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC67E826E951F100CDE46A /* NewsFooter.swift */; };
 		F4EC67EE26E9521000CDE46A /* NewsFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4EC67ED26E9521000CDE46A /* NewsFooter.xib */; };
+		F4EE7FC2272AB6D500EE9745 /* NewsImgGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EE7FC0272AB6D500EE9745 /* NewsImgGalleryTableViewCell.swift */; };
+		F4EE7FC3272AB6D500EE9745 /* NewsImgGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4EE7FC1272AB6D500EE9745 /* NewsImgGalleryTableViewCell.xib */; };
+		F4EE7FC6272AB73900EE9745 /* NewsImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EE7FC4272AB73900EE9745 /* NewsImgCollectionViewCell.swift */; };
+		F4EE7FC7272AB73900EE9745 /* NewsImgCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4EE7FC5272AB73900EE9745 /* NewsImgCollectionViewCell.xib */; };
 		F4F5B10626AAE06900BD17EF /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5B10526AAE06900BD17EF /* Groups.swift */; };
 		F4F5B10B26AAE3D200BD17EF /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5B10A26AAE3D200BD17EF /* Friends.swift */; };
 		F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5B11426AAE4B500BD17EF /* FriendTableViewCell.swift */; };
@@ -170,6 +174,10 @@
 		F4EC67DA26E94A7900CDE46A /* NewsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsHeader.xib; sourceTree = "<group>"; };
 		F4EC67E826E951F100CDE46A /* NewsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFooter.swift; sourceTree = "<group>"; };
 		F4EC67ED26E9521000CDE46A /* NewsFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFooter.xib; sourceTree = "<group>"; };
+		F4EE7FC0272AB6D500EE9745 /* NewsImgGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImgGalleryTableViewCell.swift; sourceTree = "<group>"; };
+		F4EE7FC1272AB6D500EE9745 /* NewsImgGalleryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsImgGalleryTableViewCell.xib; sourceTree = "<group>"; };
+		F4EE7FC4272AB73900EE9745 /* NewsImgCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImgCollectionViewCell.swift; sourceTree = "<group>"; };
+		F4EE7FC5272AB73900EE9745 /* NewsImgCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsImgCollectionViewCell.xib; sourceTree = "<group>"; };
 		F4F5B10526AAE06900BD17EF /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		F4F5B10A26AAE3D200BD17EF /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		F4F5B11426AAE4B500BD17EF /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -249,11 +257,14 @@
 		84A0613426BC1DDF00BC0937 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */,
-				84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */,
+				F4EE7FBF272AB66400EE9745 /* Old */,
 				F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */,
 				84F8922126EA04F00034FF09 /* NewsTextCell.swift */,
 				84FB717E26EB460B0003ED68 /* NewsImageCell.swift */,
+				F4EE7FC0272AB6D500EE9745 /* NewsImgGalleryTableViewCell.swift */,
+				F4EE7FC1272AB6D500EE9745 /* NewsImgGalleryTableViewCell.xib */,
+				F4EE7FC4272AB73900EE9745 /* NewsImgCollectionViewCell.swift */,
+				F4EE7FC5272AB73900EE9745 /* NewsImgCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -503,6 +514,15 @@
 			path = SectionFooter;
 			sourceTree = "<group>";
 		};
+		F4EE7FBF272AB66400EE9745 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				84A0613626BC1E1B00BC0937 /* UserNewsTableViewCell.xib */,
+				84A0613526BC1E1B00BC0937 /* UserNewsTableViewCell.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
 		F4F5B10F26AAE43400BD17EF /* UserFriends */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,9 +664,11 @@
 				F4B0C86126A5DBBE00B1853C /* LaunchScreen.storyboard in Resources */,
 				F4B0C85E26A5DBBE00B1853C /* Assets.xcassets in Resources */,
 				F4AC82472704FDC60057500E /* GoogleService-Info.plist in Resources */,
+				F4EE7FC3272AB6D500EE9745 /* NewsImgGalleryTableViewCell.xib in Resources */,
 				84CE038226B82CF1008F6E98 /* FriendsSectionTableViewHeader.xib in Resources */,
 				F4EC67EE26E9521000CDE46A /* NewsFooter.xib in Resources */,
 				84A0613826BC1E1B00BC0937 /* UserNewsTableViewCell.xib in Resources */,
+				F4EE7FC7272AB73900EE9745 /* NewsImgCollectionViewCell.xib in Resources */,
 				840A643626BBBA8800C9E03F /* GroupSearchBar.xib in Resources */,
 				F4B0C85C26A5DBBB00B1853C /* Main.storyboard in Resources */,
 				F4EC67DB26E94A7900CDE46A /* NewsHeader.xib in Resources */,
@@ -796,8 +818,10 @@
 				F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */,
 				843025FE26B920D60085307C /* LettersControl.swift in Sources */,
 				847AEF0F26CE8D9700746CB6 /* CustomSegue.swift in Sources */,
+				F4EE7FC2272AB6D500EE9745 /* NewsImgGalleryTableViewCell.swift in Sources */,
 				F4F5B11526AAE4B500BD17EF /* FriendTableViewCell.swift in Sources */,
 				F44E003426D95EAD00BD976C /* NetworkService.swift in Sources */,
+				F4EE7FC6272AB73900EE9745 /* NewsImgCollectionViewCell.swift in Sources */,
 				F44E002026D6BA1E00BD976C /* UserSession.swift in Sources */,
 				F439420726AE2F7D0037DBE5 /* PhotosCollectionViewCell.swift in Sources */,
 				84F8922226EA04F00034FF09 /* NewsTextCell.swift in Sources */,

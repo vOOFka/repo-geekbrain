@@ -33,27 +33,31 @@ class News: Decodable {
     var text: String = ""
     var attachments: [Attachments]?
     var countCellItems: Int = 1
-    //{
-//        var count: Int = 1
-//        if text.isEmpty { count = count - 1 }
-//        count = count + (attachments?.count ?? 0)
-//        print(count)
-//        return count
-//    }
-//    var cellItems: [Any] {
-//        var array = [Any]()
-//        array.append(text)
-//        array.append(attachments as Any)
-//        return array
-
-    //  var size: NewsCellSizes? {
-        //let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
-  //      return NewsCellSizeCalculator().sizes(newsText: attachments?[0].description, newsImage: nil, showAllText: false)
-  //  }
+    var comments: Int = 0
+    var likes: Int = 0
+    var reposts: Int = 0
+    var views: Int = 0
+    
+    var sizes: NewsCellSizes? {
+        //  let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
+        return NewsCellSizeCalculator().sizes(newsText: text, newsImage: nil, showAllText: false)
+    }
     
     enum CodingKeys: String, CodingKey {
         case id = "post_id", sourceId = "source_id"
-        case date,text,attachments
+        case date,text,attachments,comments,likes,reposts,views
+    }
+    enum CommentsKeys: String, CodingKey {
+        case comments = "count"
+    }
+    enum LikesKeys: String, CodingKey {
+        case likes = "count"
+    }
+    enum RepostsKeys: String, CodingKey {
+        case reposts = "count"
+    }
+    enum ViewsKeys: String, CodingKey {
+        case views = "count"
     }
     init() {}
     required init(from decoder: Decoder) throws {
@@ -63,18 +67,20 @@ class News: Decodable {
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
         self.attachments = try? container.decode([Attachments].self, forKey: .attachments)
+        //Comments
+        let commentsContainer = try container.nestedContainer(keyedBy: CommentsKeys.self, forKey: .comments)
+        self.comments = try commentsContainer.decode(Int.self, forKey: .comments)
+        //Likes
+        let likesContainer = try container.nestedContainer(keyedBy: LikesKeys.self, forKey: .likes)
+        self.likes = try likesContainer.decode(Int.self, forKey: .likes)
+        //Reposts
+        let repostsContainer = try container.nestedContainer(keyedBy: RepostsKeys.self, forKey: .reposts)
+        self.reposts = try repostsContainer.decode(Int.self, forKey: .reposts)
+        //Views
+        let viewsContainer = try container.nestedContainer(keyedBy: ViewsKeys.self, forKey: .views)
+        self.views = try viewsContainer.decode(Int.self, forKey: .views)
     }
 }
-
-//class NewsCellModel {
-//    var text: String
-//    var attachments: [Attachments]?
-//
-//    init(text: String ,array attachments: [Attachments]?) {
-//        self.text = text
-//        self.attachments = attachments
-//    }
-//}
 
 class Attachments: Decodable {
     var type: String = ""
@@ -82,7 +88,10 @@ class Attachments: Decodable {
     var description: String? = ""
     var photo: Photo?
     enum CodingKeys: String, CodingKey {
-        case type,title,description,photo
+        case type,title,description,photo,link
+    }
+    enum LinkKeys: String, CodingKey {
+        case title,description,photo
     }
     init() {}
     required init(from decoder: Decoder) throws {
@@ -91,39 +100,12 @@ class Attachments: Decodable {
         self.title = try? container.decode(String.self, forKey: .title)
         self.description = try? container.decode(String.self, forKey: .description)
         self.photo = try? container.decode(Photo.self, forKey: .photo)
+        // For Link type posts
+        if self.type == "link" {
+            let linkContainer = try container.nestedContainer(keyedBy: LinkKeys.self, forKey: .link)
+            self.title = try? linkContainer.decode(String.self, forKey: .title)
+            self.description = try? linkContainer.decode(String.self, forKey: .description)
+            self.photo = try? linkContainer.decode(Photo.self, forKey: .photo)
+        }
     }
 }
-
-//struct UserActualNews: NewsTableViewCellModel {
-//    var id: Int
-//    var date: String
-//    var text: String?
-//    var image: UIImage?
-//    var likes: String
-//    var comments: String
-//    var repost: String
-//    var views: String
-//    var size: NewsCellSizes
-//
-//    static func getNewsFromUserGroups(with newsWithFullText: [Int]) -> [NewsTableViewCellModel] {
-//        let actualUserNewsArray = [NewsTableViewCellModel]()
-//        let someNews = News.someNews
-//
-//        for news in someNews {
-//            let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == news.newsId }
-//            let sizes = NewsCellSizeCalculator().sizes(newsText: news.text, newsImage: news.image, showAllText: showAllText)
-//            let actualUserNews = UserActualNews(
-//                newsId: news.newsId,
-//                date:   "11 августа 2021",
-//                text:   news.text ?? nil,
-//                image:  news.image ?? nil,
-//                likes:  String(news.likes ?? 0),
-//                comments: String(news.comments ?? 0),
-//                repost: String(news.repost ?? 0),
-//                views:  String(news.views ?? 0),
-//                size:   sizes)
-//            actualUserNewsArray.append(actualUserNews)
-//        }
-//        return actualUserNewsArray
-//    }
-//}

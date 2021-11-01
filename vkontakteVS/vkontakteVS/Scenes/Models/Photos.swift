@@ -76,6 +76,7 @@ enum sizeType: String, Decodable {
     case p = "p"
     case q = "q"
     case r = "r"
+    case l = "l"
     case xmax = "y"
     case xxmax = "z"
     case xxxmax = "w"
@@ -99,7 +100,7 @@ class sizePhoto: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.height = try container.decode(Int.self, forKey: .height)
         self.width = try container.decode(Int.self, forKey: .width)
-        self.type = sizeType(rawValue: try container.decode(sizeType.RawValue.self, forKey: .type))!
+        self.type = sizeType(rawValue: try container.decode(sizeType.RawValue.self, forKey: .type)) ?? sizeType.max
         self.urlPhoto = try container.decode(String.self, forKey: .urlPhoto)
     }
 }

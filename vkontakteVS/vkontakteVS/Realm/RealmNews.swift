@@ -16,6 +16,10 @@ class RealmNews: Object {
     @Persisted var text: String = ""
     @Persisted var attachments = List<RealmAttachments>()
     @Persisted var countCellItems: Int = 1
+    @Persisted var comments: Int = 0
+    @Persisted var likes: Int = 0
+    @Persisted var reposts: Int = 0
+    @Persisted var views: Int = 0
     
     convenience init(_ newsModel: News) {
         self.init()
@@ -33,6 +37,10 @@ class RealmNews: Object {
             return attachList
         }()
         self.countCellItems = newsModel.countCellItems
+        self.comments = newsModel.comments
+        self.likes = newsModel.likes
+        self.reposts = newsModel.reposts
+        self.views = newsModel.views
     }
 }
 

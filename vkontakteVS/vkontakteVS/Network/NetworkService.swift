@@ -46,14 +46,19 @@ class NetworkServiceImplimentation: NetworkService {
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
                                       "filters" : "post",
-                                      "count": "20"]
+                                      "count": "50"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
                 print(error)
                 completion(nil)
             case .success(let data):
-                completion(self.decodingData(type: NewsFeed.self, from: data))
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let decodingData = self.decodingData(type: NewsFeed.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(decodingData)
+                    }
+                }
             }
         }
     }
