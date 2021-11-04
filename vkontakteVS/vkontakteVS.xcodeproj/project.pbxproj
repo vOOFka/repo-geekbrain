@@ -45,6 +45,7 @@
 		F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DA926B6B38300822B6A /* LikeShape.swift */; };
 		F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DAE26B6D32A00822B6A /* LikeButton.swift */; };
 		F4A4D65526AE12A1001BE376 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photos.swift */; };
+		F4A70A872733E50500D01D3F /* PullFriendsFromRealmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */; };
 		F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */; };
 		F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */; };
 		F4AC82472704FDC60057500E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AC82462704FDC60057500E /* GoogleService-Info.plist */; };
@@ -146,6 +147,7 @@
 		F46D1DA926B6B38300822B6A /* LikeShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeShape.swift; sourceTree = "<group>"; };
 		F46D1DAE26B6D32A00822B6A /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		F4A4D65426AE12A1001BE376 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
+		F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullFriendsFromRealmOperation.swift; sourceTree = "<group>"; };
 		F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderLetterControl.swift; sourceTree = "<group>"; };
 		F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellSizeCalculator.swift; sourceTree = "<group>"; };
 		F4AC82462704FDC60057500E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				F4EE7FCB2732DA1F00EE9745 /* AFGetDataOperation.swift */,
 				F4EE7FCD2732DDDD00EE9745 /* DataParsingOperation.swift */,
 				F4EE7FCF2732F3BD00EE9745 /* PushFriendsToRealmOperation.swift */,
+				F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */,
 				F4A4D65526AE12A1001BE376 /* Photos.swift in Sources */,
 				F4DDA0F826AACA04002DEAE8 /* GroupTableViewCell.swift in Sources */,
+				F4A70A872733E50500D01D3F /* PullFriendsFromRealmOperation.swift in Sources */,
 				F4DE1B5526F10E3D00B78717 /* RealmPhoto.swift in Sources */,
 				84481BB326AED8DB002CBC86 /* AppendGroupsTableViewController.swift in Sources */,
 				F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */,

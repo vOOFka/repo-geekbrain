@@ -67,7 +67,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         super.viewWillAppear(animated)
         // navigationController?.setNavigationBarHidden(true, animated: animated)
         //Pull data friends from RealmDB
-        pullFromRealm()
+        //pullFromRealm()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,13 +118,21 @@ extension FriendsViewController {
         let getData = AFGetDataOperation(request: request)
         let parseData = DataParsingOperation<Friends>()
         let pushToRealm = PushFriendsToRealmOperation<Friends>()
+        let pullFromRealm = PullFriendsFromRealmOperation(friends: self)
+        let completionOperation = BlockOperation {
+            self.tableView.reloadData()
+        }
 
         parseData.addDependency(getData)
         pushToRealm.addDependency(parseData)
+        pullFromRealm.addDependency(pushToRealm)
+        completionOperation.addDependency(pullFromRealm)
 
         operationQueue.addOperation(getData)
         operationQueue.addOperation(parseData)
-        OperationQueue.main.addOperation(pushToRealm)
+        operationQueue.addOperation(pushToRealm)
+        OperationQueue.main.addOperation(pullFromRealm)
+        OperationQueue.main.addOperation(completionOperation)
         
 //        networkService.getFriends(completion: { [weak self] friendsItems in
 //            guard let self = self else { return }
