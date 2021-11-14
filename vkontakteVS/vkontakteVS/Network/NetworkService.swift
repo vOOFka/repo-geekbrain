@@ -46,7 +46,7 @@ class NetworkServiceImplimentation: NetworkService {
         let path = "newsfeed.get"
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
-                                      "filters" : "post",
+                                      "filters" : "post, photo",
                                       "count": "50"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
