@@ -32,7 +32,9 @@ class RealmNews: Object {
             guard let newsArray = newsModel.attachments else { return attachList }
             for news in newsArray {
                 let attachObj = RealmAttachments.init(news)
-                attachList.append(attachObj)
+                if (attachObj.type == "photo" || attachObj.type == "link") {
+                    attachList.append(attachObj)
+                }
             }
             return attachList
         }()

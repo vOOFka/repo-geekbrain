@@ -18,6 +18,7 @@ protocol NetworkService {
     //Helpers
     //func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void)
     func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T?
+    func getFriendsRequest() -> DataRequest
 }
 
 class NetworkServiceImplimentation: NetworkService {
@@ -45,7 +46,7 @@ class NetworkServiceImplimentation: NetworkService {
         let path = "newsfeed.get"
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
-                                      "filters" : "post",
+                                      "filters" : "post, photo",
                                       "count": "50"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
@@ -98,6 +99,15 @@ class NetworkServiceImplimentation: NetworkService {
                 completion(self.decodingData(type: Groups.self, from: data))
             }
         }
+    }
+    
+    func getFriendsRequest() -> DataRequest {
+        let path = "friends.get"
+        let parameters: Parameters = ["user_id" : Constans.userId,
+                                      "access_token" : Constans.accessToken,
+                                      "v" : Constans.versionAPI,
+                                      "fields" : "nickname, domain, sex, bdate, city, photo_100"]
+        return Constans.session.request(Constans.host + path, method: .get, parameters: parameters)
     }
     
     func getFriends(completion: @escaping (Friends?) -> Void) {
