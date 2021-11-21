@@ -83,11 +83,12 @@ enum sizeType: String, Decodable {
 }
 
 class sizePhoto: Decodable {
-    var height: Int = 0
-    var width: Int = 0
+    var height: Int = 1
+    var width: Int = 1
     var type = sizeType.small
     var urlPhoto: String = ""
     var image: UIImage?
+    var ratio: CGFloat { CGFloat(self.height)/CGFloat(self.width) }
     
     enum CodingKeys: String, CodingKey {
         case height

@@ -153,7 +153,7 @@ extension FriendsViewController {
                 guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
                 item.imageAvatar = existImg
             }
-            //let saveToDB = try Properties.realmService.save(friendsItemsRealm)
+            //let saveToDB = try realmService.save(friendsItemsRealm)
             let saveToDB = try realmService.update(friendsItemsRealm)
             print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
         } catch (let error) {

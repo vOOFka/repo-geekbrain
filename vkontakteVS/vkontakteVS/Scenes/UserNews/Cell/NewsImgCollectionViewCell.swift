@@ -10,22 +10,16 @@ import Kingfisher
 
 class NewsImgCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var newsImageView: UIImageView!
-    @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
+    @IBOutlet private var newsImageView: UIImageView!
+    @IBOutlet weak private var loadIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    public func configure(with currentAttachment: Attachments) {
+    public func configuration(for urlString: String) {
         newsImageView.image = nil
-        
-        //Choice size download photo
-        let size = sizeType.max
-        guard let urlString = currentAttachment.photo?.sizes.first(where: { $0.type == size })!.urlPhoto,
-              let urlImg =  URL(string: urlString) else { return }
-        //self.newsImageView.kf.setImage(with: URL(string: url))
-        
+        guard let urlImg =  URL(string: urlString) else { return }
+        //self.newsImageView.kf.setImage(with: URL(string: urlString))        
         loadIndicator.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {
             let imgFromUrl = try? Data(contentsOf: urlImg)
@@ -38,5 +32,4 @@ class NewsImgCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-
 }

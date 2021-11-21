@@ -46,14 +46,11 @@ class UserGroupsTableViewController: UITableViewController {
         calculateHeightHeader()
         
         //Show groups from VK API
-        //updateGroupsFromVKAPI()
         promiseUpdateGroupsFromVKAPI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //Pull data groups from RealmDB
-        //pullFromRealm()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -72,10 +69,10 @@ class UserGroupsTableViewController: UITableViewController {
 //        guard let appendVC = segue.source as? AppendGroupsTableViewController,
 //              let indexPath = appendVC.tableView.indexPathForSelectedRow else { return }
 //        let newUserGroupe = appendVC.foundAppendGroups[indexPath.row]
-//        guard !Properties.userGroups.contains(where: { group -> Bool in
+//        guard !userGroups.contains(where: { group -> Bool in
 //            group.name == newUserGroupe.name
 //        }) else { return }
-//    Properties.userGroups.append(newUserGroupe)
+//    userGroups.append(newUserGroupe)
 //        userGroups = filteredUserGroups
 //        groupsTableView.reloadData()
     }
@@ -92,7 +89,6 @@ class UserGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            //Properties.userGroups.remove(at: indexPath.row)
             sectionsForUpdate.append(indexPath.section)
             let currentItem = userGroups[indexPath.row]
             do {
@@ -158,40 +154,7 @@ extension UserGroupsTableViewController {
                 result.reject(InternalErrors.ErrorReadFromRealmDB)
             }}
     }
-/*    fileprivate func updateGroupsFromVKAPI() {
-        networkService.getGroups(completion: { [weak self] groupsItems in
-            guard let self = self else { return }
-            self.pushToRealm(groupsItems: groupsItems)
-            //Pull data groups from RealmDB
-            self.pullFromRealm()
-        })
-    }
-    //Загрузка данных в БД Realm
-    fileprivate func pushToRealm(groupsItems: Groups?) {
-        guard let groupsItems = groupsItems?.items else { return }
-        //Преобразование в Realm модель
-        let groupsItemsRealm = groupsItems.map({ RealmGroup($0) })
-        //Загрузка
-        do {
-            let existItems = try realmService.get(RealmGroup.self)
-            for item in groupsItemsRealm {
-                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
-                item.imageAvatar = existImg
-            }
-            _ = try realmService.update(groupsItemsRealm)
-        } catch (let error) {
-            showError(error)
-        }
-    }
-    //Получение данных из БД
-    fileprivate func pullFromRealm() {
-        do {
-            userGroups = try realmService.get(RealmGroup.self)
-        } catch (let error) {
-            showError(error)
-        }
-        groupsTableView.reloadData()
-    }*/
+
     //Наблюдение за изменениями
     fileprivate func watchingForChanges() {
         notificationToken = userGroups?.observe({ [weak self] change in

@@ -7,7 +7,6 @@
 
 
 import UIKit
-import SwiftUI
 
 protocol NewsTextCellDelegate: AnyObject {
     func newHeightCell(for cell: NewsTextCell)
@@ -21,23 +20,21 @@ class NewsTextCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        setup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configuration(currentNews: News) {
-        newsTextLabel.numberOfLines = 0
+    override func prepareForReuse() {
         newsTextLabel.text = ""
-        guard currentNews.text != "" else { return }
-        newsTextLabel.text = currentNews.text
-              
-        contentView.addSubview(newsTextLabel)
-        let height = NewsCellSizeCalculator().hightTextCell(newsText: currentNews.text)
-        newsTextLabel.frame = CGRect(x:10, y: 10, width: contentView.frame.size.width - 20, height: height)
-        
-  //      configMoreTextButton(currentNews: currentNews)
+    }
+    
+    public func configuration(for currentNewsText: String) {
+        newsTextLabel.text = currentNewsText
+        //configMoreTextButton(currentNews: currentNews)
     }
     
     // MARK: Actions
@@ -57,5 +54,25 @@ class NewsTextCell: UITableViewCell {
         moreTextButton.frame = currentNews.sizes!.moreTextButton
    
         contentView.addSubview(moreTextButton)
+    }
+    
+    private func setup() {
+        contentView.addSubview(newsTextLabel)
+        newsTextLabel.backgroundColor = .white
+        newsTextLabel.numberOfLines = 0
+        newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: topAnchor, constant: -10),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 30),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            newsTextLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            newsTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            newsTextLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            newsTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
     }
 }

@@ -30,14 +30,14 @@ class UserNewsViewController: UIViewController {
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-      //  tableView.estimatedRowHeight = 200
-      //  tableView.rowHeight = UITableView.automaticDimension
         view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
         //Show News from VK API
         updateNewsFromVKAPI()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        //Show News from VK API
+        updateNewsFromVKAPI()
     }
     
     //MARK: - Functions
@@ -52,8 +52,8 @@ class UserNewsViewController: UIViewController {
 
 extension UserNewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { userNews.items.count }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 80.0 }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { 80.0 }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 90.0 }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { 90.0 }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(NewsHeader.self, viewForHeaderInSection: section)
@@ -82,20 +82,20 @@ extension UserNewsViewController: UITableViewDataSource {
         let currentNews = userNews.items[indexPath.section]
         if indexPath.row == 0 && !currentNews.text.isEmpty {
             let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
-            cell.configuration(currentNews: currentNews)
+            cell.configuration(for: currentNews.text)
             cell.delegate = self
             return cell
         } else {
-            guard let currentAttachment = currentNews.attachments else { return UITableViewCell.init(style: .default, reuseIdentifier: "")}
-            var indexAttachment = indexPath.row - 1
-            if indexAttachment < 0 { indexAttachment = 0 }
-            if currentAttachment.count == 1 {
+            guard let urls = currentNews.photosURLs,
+                  let ratios = currentNews.ratios
+            else { return UITableViewCell() }
+            if urls.count == 1 {
                 let cell = tableView.dequeueReusableCell(NewsImageCell.self, for: indexPath)
-                cell.configuration(currentAttachment: currentAttachment[indexAttachment])
+                cell.configuration(for: urls[0])
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(NewsImgGalleryTableViewCell.self, for: indexPath)
-                cell.configure(with: currentAttachment)
+                cell.configuration(for: urls, with: ratios)
                 return cell
             }
         }
@@ -109,8 +109,16 @@ extension UserNewsViewController: UITableViewDelegate {
             let height = NewsCellSizeCalculator().hightTextCell(newsText: currentNews.text)
             return height
         } else {
-            return 300.0
-            //return UITableView.automaticDimension
+            guard let urls = currentNews.photosURLs,
+                  let ratios = currentNews.ratios,
+                  !(urls.isEmpty && ratios.isEmpty) else { return 0 }
+            if urls.count == 1 {
+                let height = ratios[0] * view.frame.width
+                return height
+            } else {
+                let height = ratios[0] * view.frame.width
+                return height
+            }
         }        
     }
 }
