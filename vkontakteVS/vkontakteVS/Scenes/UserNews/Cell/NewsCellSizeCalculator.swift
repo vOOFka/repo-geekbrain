@@ -14,6 +14,11 @@ struct Size: NewsCellSizes {
     var moreTextButton: CGRect
 }
 
+struct CellParam: NewsTextCellSizes {
+    var hightCell: CGFloat
+    var moreTextButton: Bool
+}
+
 struct Constrains {
     static let cellViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     static let hightCellView: CGFloat = 20 //defalt cell hight
@@ -31,17 +36,24 @@ final class NewsCellSizeCalculator {
         self.screenMinSize = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     }
     
-    func hightTextCell(newsText: String?) -> CGFloat {
+    func hightTextCell(newsText: String?, showAllText: Bool) -> NewsTextCellSizes {
         let cellViewWidth = screenMinSize - Constrains.cellViewInsets.left - Constrains.cellViewInsets.right
         var cellHight = Constrains.hightCellView //20
+        var showMoreTextButton = showAllText
         
         if newsText != nil, newsText != "" {
             let width = cellViewWidth - Constrains.newsTextLabel.left - Constrains.newsTextLabel.right
-            let height = newsText!.height(width: width, font: Constrains.newsTextLabelFont)
+            var height = newsText!.height(width: width, font: Constrains.newsTextLabelFont)
+            let limitHeightLines = Constrains.newsTextLabelFont.lineHeight * Constrains.minimumNewsTextLabelLines
+            
+            if height > limitHeightLines && showAllText != true {
+                height = Constrains.newsTextLabelFont.lineHeight * Constrains.minimumNewsTextLabelLines
+                showMoreTextButton = true
+            }
 
             cellHight = cellHight + height
         }
-        return cellHight
+        return CellParam(hightCell: cellHight, moreTextButton: showMoreTextButton)
     }
 
     func sizes(newsText: String?, newsImage: UIImage?, showAllText: Bool) -> NewsCellSizes {

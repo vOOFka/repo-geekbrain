@@ -13,6 +13,11 @@ protocol NewsTextCellDelegate: AnyObject {
    // func didTapButton(with title: String)
 }
 
+protocol NewsTextCellSizes {
+    var hightCell: CGFloat { get }
+    var moreTextButton: Bool { get }
+}
+
 class NewsTextCell: UITableViewCell {
     private let newsTextLabel = UILabel()
     weak var delegate: NewsTextCellDelegate?
@@ -32,9 +37,10 @@ class NewsTextCell: UITableViewCell {
         newsTextLabel.text = ""
     }
     
-    public func configuration(for currentNewsText: String) {
+    public func configuration(for currentNewsText: String, with cellParams: NewsTextCellSizes?) {
         newsTextLabel.text = currentNewsText
-        //configMoreTextButton(currentNews: currentNews)
+        guard let cellParams = cellParams else { return }
+        //configMoreTextButton(cellParams) 
     }
     
     // MARK: Actions
@@ -42,7 +48,7 @@ class NewsTextCell: UITableViewCell {
         delegate?.newHeightCell(for: self)
     }
     
-    fileprivate func configMoreTextButton(currentNews: News) {
+    fileprivate func configMoreTextButton(_ cellParams: NewsTextCellSizes) {
         let moreTextButton = UIButton()
         moreTextButton.isUserInteractionEnabled = true
         moreTextButton.setTitle("Показать больше...", for: .normal)
@@ -51,9 +57,13 @@ class NewsTextCell: UITableViewCell {
         moreTextButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         moreTextButton.addTarget(self, action: #selector(tapMoreTextButton), for: .touchUpInside)
         moreTextButton.backgroundColor = .orange
-        moreTextButton.frame = currentNews.sizes!.moreTextButton
-   
         contentView.addSubview(moreTextButton)
+        NSLayoutConstraint.activate([
+            moreTextButton.topAnchor.constraint(equalTo: newsTextLabel.topAnchor, constant: 10),
+            moreTextButton.leadingAnchor.constraint(equalTo: newsTextLabel.leadingAnchor, constant: 10),
+            moreTextButton.bottomAnchor.constraint(equalTo: newsTextLabel.bottomAnchor, constant: -10),
+            moreTextButton.trailingAnchor.constraint(equalTo: newsTextLabel.trailingAnchor, constant: -10)
+        ])
     }
     
     private func setup() {

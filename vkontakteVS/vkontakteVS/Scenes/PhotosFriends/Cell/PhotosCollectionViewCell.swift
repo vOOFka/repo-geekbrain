@@ -27,7 +27,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         likesControl.delegate = delegate
         guard (currentPhoto.sizes.first(where: { $0.type == size })?.image) != nil else {
             guard let url = currentPhoto.sizes.first(where: { $0.type == size })?.urlPhoto else { return }
-            print("Загрузка из сети")
+            //print("Загрузка из сети")
             _ = UIImageView().kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
                 switch result {
                 case .success(let image):
@@ -39,7 +39,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
             })
             return
         }
-        print("Загрузка из БД")
+        //print("Загрузка из БД")
         do {
             let imgFromRealm = try realmService.get(RealmPhoto.self, primaryKey: currentPhoto.id)
             let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == size })

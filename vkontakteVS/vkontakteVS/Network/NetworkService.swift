@@ -22,6 +22,8 @@ protocol NetworkService {
     //Future, Promise conception
     func getGroups() -> Promise<Data>
     func getParsingGroups(_ data: Data) -> Promise<Groups>
+    //
+    func getNewsfeedRequest(_ timeInterval1970: String?, nextFrom: String) -> DataRequest
 }
 
 class NetworkServiceImplimentation: NetworkService {
@@ -55,7 +57,7 @@ class NetworkServiceImplimentation: NetworkService {
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
                                       "filters" : "post",
-                                      "count": "20"]
+                                      "count": "10"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
@@ -70,6 +72,20 @@ class NetworkServiceImplimentation: NetworkService {
                 }
             }
         }
+    }
+    
+    func getNewsfeedRequest(_ timeInterval1970: String?, nextFrom: String = "") -> DataRequest {
+        let path = "newsfeed.get"
+        var parameters: Parameters = ["access_token" : Constans.accessToken,
+                                      "v" : Constans.versionAPI,
+                                      "filters" : "post",
+                                      "count": "5",
+                                      "start_from": nextFrom]
+        if timeInterval1970 != nil {
+            parameters["start_time"] = timeInterval1970
+        }
+        print(nextFrom)
+        return Constans.session.request(Constans.host + path, method: .get, parameters: parameters)
     }
     
     func getGroups(completion: @escaping (Groups?) -> Void) {

@@ -10,12 +10,13 @@ import UIKit
 class NewsFeed: Decodable {
     var items: [News] = []
     var groups: [Group] = []
+    var nextFrom: String?
     
     enum CodingKeys: String, CodingKey {
         case response
     }
     enum ItemsKeys: String, CodingKey {
-        case items, groups
+        case items, groups, next_from
     }
     init() {}
     required init(from decoder: Decoder) throws {
@@ -23,6 +24,7 @@ class NewsFeed: Decodable {
         let itemsContainer = try container.nestedContainer(keyedBy: ItemsKeys.self, forKey: .response)
         self.items = try itemsContainer.decode([News].self, forKey: .items)
         self.groups = try itemsContainer.decode([Group].self, forKey: .groups)
+        self.nextFrom = try? itemsContainer.decode(String.self, forKey: .next_from)
     }
 }
 
@@ -57,8 +59,8 @@ class News: Decodable {
             return ratios
         }
     }
-    var sizes: NewsCellSizes? {
-        return NewsCellSizeCalculator().sizes(newsText: text, newsImage: nil, showAllText: false)
+    var sizes: NewsTextCellSizes? {
+        return NewsCellSizeCalculator().hightTextCell(newsText: text, showAllText: false)
     }
     
     enum CodingKeys: String, CodingKey {
