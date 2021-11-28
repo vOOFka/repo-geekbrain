@@ -13,7 +13,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ic-wX-7bW">
-                    <rect key="frame" x="10" y="10" width="244" height="80"/>
+                    <rect key="frame" x="10" y="10" width="244" height="90"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name group" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPa-pF-24x">
                             <rect key="frame" x="80" y="10" width="154" height="19.5"/>
@@ -41,13 +41,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="WLs-PH-6uM" secondAttribute="bottom" constant="10" id="Jnd-oa-Mo2"/>
+                        <constraint firstAttribute="bottom" secondItem="WLs-PH-6uM" secondAttribute="bottom" constant="20" id="Jnd-oa-Mo2"/>
                         <constraint firstItem="PRb-Br-qSc" firstAttribute="leading" secondItem="WLs-PH-6uM" secondAttribute="trailing" constant="10" id="Ytg-LV-TS1"/>
                         <constraint firstItem="WLs-PH-6uM" firstAttribute="leading" secondItem="2ic-wX-7bW" secondAttribute="leading" constant="10" id="fN5-SJ-igP"/>
                         <constraint firstItem="WLs-PH-6uM" firstAttribute="top" secondItem="2ic-wX-7bW" secondAttribute="top" constant="10" id="gyI-VS-hxN"/>
                         <constraint firstAttribute="trailing" secondItem="gPa-pF-24x" secondAttribute="trailing" constant="10" id="hXi-xf-e2q"/>
                         <constraint firstItem="gPa-pF-24x" firstAttribute="leading" secondItem="WLs-PH-6uM" secondAttribute="trailing" constant="10" id="iIh-fo-Cyq"/>
-                        <constraint firstAttribute="bottom" secondItem="PRb-Br-qSc" secondAttribute="bottom" constant="10" id="oBJ-IL-RtH"/>
+                        <constraint firstAttribute="bottom" secondItem="PRb-Br-qSc" secondAttribute="bottom" constant="20" id="oBJ-IL-RtH"/>
                         <constraint firstItem="gPa-pF-24x" firstAttribute="top" secondItem="2ic-wX-7bW" secondAttribute="top" constant="10" id="swo-4e-gqx"/>
                         <constraint firstAttribute="trailing" secondItem="PRb-Br-qSc" secondAttribute="trailing" constant="10" id="wZe-8T-zbI"/>
                     </constraints>
@@ -56,7 +56,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2ic-wX-7bW" secondAttribute="trailing" constant="10" id="MnG-Tw-yln"/>
-                <constraint firstAttribute="bottom" secondItem="2ic-wX-7bW" secondAttribute="bottom" id="rPA-W9-pde"/>
+                <constraint firstAttribute="bottom" secondItem="2ic-wX-7bW" secondAttribute="bottom" constant="-10" id="rPA-W9-pde"/>
                 <constraint firstItem="2ic-wX-7bW" firstAttribute="leading" secondItem="ILo-a9-cgr" secondAttribute="leading" constant="10" id="vvP-M2-Wpl"/>
                 <constraint firstItem="2ic-wX-7bW" firstAttribute="top" secondItem="ILo-a9-cgr" secondAttribute="top" constant="10" id="zLu-Jp-e0T"/>
             </constraints>

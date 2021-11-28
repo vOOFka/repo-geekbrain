@@ -15,7 +15,6 @@ class UserNewsViewController: UIViewController {
     private var currentNews = News()
     private var newsWithFullText = [Int]()
     private let networkService = NetworkServiceImplimentation()
-    private var needMoreTextBtn = [IndexPath : Bool]()
     private let operationQueue: OperationQueue = {
     let operationQueue = OperationQueue()
         operationQueue.name = "com.AsyncOperation.UserNewsViewController"
@@ -24,6 +23,7 @@ class UserNewsViewController: UIViewController {
     }()
     private var isLoading = false
     private var nextFrom = ""
+    private var fullTextPosts = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +163,11 @@ extension UserNewsViewController: UITableViewDataSource {
         let currentNews = userNews.items[indexPath.section]
         if indexPath.row == 0 && !currentNews.text.isEmpty {
             let cell = tableView.dequeueReusableCell(NewsTextCell.self, for: indexPath)
+            if !fullTextPosts.contains(indexPath.section) {
+                cell.moreTextButton.setTitle("Показать больше...", for: .normal)
+            } else {
+                cell.moreTextButton.setTitle("Свернуть...", for: .normal)
+            }
             cell.configuration(for: currentNews.text, with: currentNews.sizes)
             cell.delegate = self
             return cell
@@ -188,8 +193,10 @@ extension UserNewsViewController: UITableViewDelegate {
         let currentNews = userNews.items[indexPath.section]
         if indexPath.row == 0 && !currentNews.text.isEmpty {
             guard let cellparam = currentNews.sizes else { return CGFloat(0) }
-            //NewsCellSizeCalculator().hightTextCell(newsText: currentNews.text, showAllText: false)
-            return cellparam.hightCell
+            if fullTextPosts.contains(indexPath.section) {
+                return cellparam.hightFullCell
+            }
+            return cellparam.hightSmallCell
         } else {
             guard let urls = currentNews.photosURLs,
                   let ratios = currentNews.ratios,
@@ -207,13 +214,12 @@ extension UserNewsViewController: UITableViewDelegate {
 
 extension UserNewsViewController: NewsTextCellDelegate {  
     func newHeightCell(for cell: NewsTextCell) {
-        print("123")
-        
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if !fullTextPosts.contains(indexPath.section) {
+            fullTextPosts.append(indexPath.section)
+        } else {
+            fullTextPosts.removeAll(where: { $0 == indexPath.section })
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
-   
- //   func newHeightCell(for cell: UserNewsTableViewCell) {
-//        newsWithFullText.append(cell.tag)
-//        //userNews = UserActualNews.getNewsFromUserGroups(with: newsWithFullText)
-//        tableView.reloadData()
- //   }
 }

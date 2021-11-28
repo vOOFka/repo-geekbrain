@@ -16,7 +16,6 @@ class NewsHeader: UITableViewHeaderFooterView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        headerView.backgroundColor = .white
         headerView.layer.cornerRadius = 10
         headerView.clipsToBounds = true
     }
