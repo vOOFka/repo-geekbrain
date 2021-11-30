@@ -13,6 +13,10 @@
 		F45CC2202756A1D300ACE855 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F45CC21E2756A1D300ACE855 /* Main.storyboard */; };
 		F45CC2222756A1D400ACE855 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F45CC2212756A1D400ACE855 /* Assets.xcassets */; };
 		F45CC2252756A1D400ACE855 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F45CC2232756A1D400ACE855 /* LaunchScreen.storyboard */; };
+		F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC22C2756A6E000ACE855 /* Question+Answer.swift */; };
+		F45CC2302756B93900ACE855 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC22F2756B93800ACE855 /* Reusable.swift */; };
+		F45CC2332756BBC700ACE855 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2322756BBC700ACE855 /* TableViewCell.swift */; };
+		F45CC2382756C16F00ACE855 /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2372756C16F00ACE855 /* MainMenuVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		F45CC2212756A1D400ACE855 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F45CC2242756A1D400ACE855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F45CC2262756A1D400ACE855 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F45CC22C2756A6E000ACE855 /* Question+Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+Answer.swift"; sourceTree = "<group>"; };
+		F45CC22F2756B93800ACE855 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		F45CC2322756BBC700ACE855 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		F45CC2372756C16F00ACE855 /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,59 @@
 		F45CC2172756A1D300ACE855 /* MillionVS */ = {
 			isa = PBXGroup;
 			children = (
+				F45CC22E2756A6E800ACE855 /* Models */,
+				F45CC2342756C0E500ACE855 /* Scence */,
+				F45CC2312756B94B00ACE855 /* Helpers */,
 				F45CC2182756A1D300ACE855 /* AppDelegate.swift */,
 				F45CC21A2756A1D300ACE855 /* SceneDelegate.swift */,
 				F45CC21C2756A1D300ACE855 /* ViewController.swift */,
+				F45CC2322756BBC700ACE855 /* TableViewCell.swift */,
 				F45CC21E2756A1D300ACE855 /* Main.storyboard */,
 				F45CC2212756A1D400ACE855 /* Assets.xcassets */,
 				F45CC2232756A1D400ACE855 /* LaunchScreen.storyboard */,
 				F45CC2262756A1D400ACE855 /* Info.plist */,
 			);
 			path = MillionVS;
+			sourceTree = "<group>";
+		};
+		F45CC22E2756A6E800ACE855 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F45CC22C2756A6E000ACE855 /* Question+Answer.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F45CC2312756B94B00ACE855 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F45CC22F2756B93800ACE855 /* Reusable.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F45CC2342756C0E500ACE855 /* Scence */ = {
+			isa = PBXGroup;
+			children = (
+				F45CC2352756C10400ACE855 /* MainMenu */,
+				F45CC2362756C11B00ACE855 /* Game */,
+			);
+			path = Scence;
+			sourceTree = "<group>";
+		};
+		F45CC2352756C10400ACE855 /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				F45CC2372756C16F00ACE855 /* MainMenuVC.swift */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
+		F45CC2362756C11B00ACE855 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +190,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45CC2382756C16F00ACE855 /* MainMenuVC.swift in Sources */,
 				F45CC21D2756A1D300ACE855 /* ViewController.swift in Sources */,
+				F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */,
 				F45CC2192756A1D300ACE855 /* AppDelegate.swift in Sources */,
+				F45CC2332756BBC700ACE855 /* TableViewCell.swift in Sources */,
 				F45CC21B2756A1D300ACE855 /* SceneDelegate.swift in Sources */,
+				F45CC2302756B93900ACE855 /* Reusable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MKND3P237Y;
@@ -315,6 +372,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MKND3P237Y;
