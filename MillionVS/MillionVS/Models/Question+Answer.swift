@@ -1,5 +1,5 @@
 //
-//  Question.swift
+//  Question+Answer.swift
 //  MillionVS
 //
 //  Created by Home on 30.11.2021.
@@ -57,7 +57,12 @@ struct Question {
                      answers: [Answer(answer: "Людвиг", type: .correct),
                                Answer(answer: "Фридрих", type: .wrong),
                                Answer(answer: "Иоган", type: .wrong),
-                               Answer(answer: "Генрих", type: .wrong)].shuffled())
+                               Answer(answer: "Генрих", type: .wrong)].shuffled()),
+            Question(question: "Чего не может торнадо?",
+                     answers: [Answer(answer: "Стоять на месте", type: .correct),
+                               Answer(answer: "Поднять в воздух автомобиль", type: .wrong),
+                               Answer(answer: "Вырвать с корнями дерево", type: .wrong),
+                               Answer(answer: "Разрушить здание", type: .wrong)].shuffled())
         ]
         return simpleQuestions.shuffled()
     }
