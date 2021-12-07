@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j5v-SC-umC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Gg-Kb-uId">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,7 +45,7 @@
                                     <fontDescription key="titleFontDescription" name="Futura-Medium" family="Futura" pointSize="60"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="2iU-V6-EPs" kind="presentation" id="5E3-IU-Nfp"/>
+                                    <segue destination="2iU-V6-EPs" kind="show" id="5E3-IU-Nfp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -61,6 +62,16 @@
                             <constraint firstItem="jnm-qC-fcX" firstAttribute="centerX" secondItem="hdu-Mx-5Rc" secondAttribute="centerX" id="sGx-ud-lGH"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="xaZ-66-Nhu">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="ns9-HC-6Hg"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="CFr-Fr-2Lk">
+                            <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="jdN-WA-cfa" kind="show" id="z4m-1B-QMX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="playBtn" destination="jnm-qC-fcX" id="CfD-N2-Wa9"/>
                         <outlet property="topScoresBtn" destination="PTT-C3-xrT" id="jsL-yJ-yoS"/>
@@ -68,16 +79,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="onr-Hn-XQU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-714.49275362318849" y="116.51785714285714"/>
+            <point key="canvasLocation" x="1105.7971014492755" y="116.51785714285714"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="TZR-K0-MMO">
+            <objects>
+                <viewController id="jdN-WA-cfa" customClass="SettingsViewController" customModule="MillionVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yzZ-nQ-eNn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hyN-4q-jOH">
+                                <rect key="frame" x="106.5" y="432.5" width="201" height="32"/>
+                                <segments>
+                                    <segment title="In order" width="100"/>
+                                    <segment title="Random" width="100"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didSelectedDifficulty:" destination="jdN-WA-cfa" eventType="valueChanged" id="Ow6-CC-FCK"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kmg-oQ-jUm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hyN-4q-jOH" firstAttribute="centerY" secondItem="yzZ-nQ-eNn" secondAttribute="centerY" id="8M9-LA-JS4"/>
+                            <constraint firstItem="hyN-4q-jOH" firstAttribute="centerX" secondItem="yzZ-nQ-eNn" secondAttribute="centerX" id="DGN-xd-ccn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vNZ-bg-4nn"/>
+                    <connections>
+                        <outlet property="difficultySegmentControl" destination="hyN-4q-jOH" id="QXT-nj-JZ4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5R0-bL-FnG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2138" y="-534"/>
         </scene>
         <!--Game Table View Controller-->
         <scene sceneID="BB3-px-grh">
             <objects>
                 <tableViewController id="0Aa-JW-pBr" customClass="GameTableViewController" customModule="MillionVS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="J8F-Cj-mk8">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="J8F-Cj-mk8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="tc3-Gc-xlC">
                                 <cells>
@@ -172,6 +217,16 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="300" id="jMN-4z-Ijv">
+                                        <rect key="frame" x="0.0" y="634.5" width="414" height="300"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jMN-4z-Ijv" id="rfa-p6-JKa">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -180,6 +235,9 @@
                             <outlet property="delegate" destination="0Aa-JW-pBr" id="63Y-rC-XYN"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="answersControl" destination="pZn-i8-pvL" id="X3c-IP-fBe"/>
                         <outlet property="numberOfQuestionLabel" destination="dw6-zg-3wO" id="Mrq-KK-qbj"/>
@@ -189,14 +247,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MrS-Fz-4lO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
+            <point key="canvasLocation" x="2137.68115942029" y="132.58928571428572"/>
         </scene>
         <!--Top Scores Table View Controller-->
         <scene sceneID="Dpc-Bl-cX6">
             <objects>
                 <tableViewController id="2iU-V6-EPs" customClass="TopScoresTableViewController" customModule="MillionVS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="jS5-zD-Zbf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -214,18 +272,34 @@
                             <outlet property="delegate" destination="2iU-V6-EPs" id="R9i-7V-Gqp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Ikr-ce-hHV">
-                        <barButtonItem key="rightBarButtonItem" title="Exit" image="house.fill" catalog="system" id="dqL-E0-09G"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Ikr-ce-hHV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHL-Rm-HRU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="844"/>
+            <point key="canvasLocation" x="1106" y="838"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qFY-qm-Ch3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Gg-Kb-uId" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="43S-zY-Fsh">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="j5v-SC-umC" kind="relationship" relationship="rootViewController" id="2WR-ku-Jg0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HAd-t7-YEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="195.6521739130435" y="116.51785714285714"/>
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="girl-holding-money" width="426.66665649414062" height="284.33334350585938"/>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

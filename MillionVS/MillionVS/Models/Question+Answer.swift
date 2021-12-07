@@ -64,7 +64,7 @@ struct Question {
                                Answer(answer: "Вырвать с корнями дерево", type: .wrong),
                                Answer(answer: "Разрушить здание", type: .wrong)].shuffled())
         ]
-        return simpleQuestions.shuffled()
+        return simpleQuestions
     }
 }
 

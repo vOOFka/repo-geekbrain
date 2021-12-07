@@ -16,6 +16,7 @@ class Game {
         }
     }
     private let gameSessionCaretaker = GameSessionCaretaker()
+    var selectedDifficulty: Difficulty = .easy
     
     private init() {
         self.topScores = self.gameSessionCaretaker.retrieveRecords()

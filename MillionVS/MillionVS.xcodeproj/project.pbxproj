@@ -13,6 +13,8 @@
 		F45CAB46275D5465000D32A9 /* TopScoresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CAB44275D5465000D32A9 /* TopScoresCell.swift */; };
 		F45CAB47275D5465000D32A9 /* TopScoresCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45CAB45275D5465000D32A9 /* TopScoresCell.xib */; };
 		F45CAB49275D6D0C000D32A9 /* GameSessionCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CAB48275D6D0C000D32A9 /* GameSessionCaretaker.swift */; };
+		F45CAB4C275FDFE4000D32A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CAB4B275FDFE4000D32A9 /* SettingsViewController.swift */; };
+		F45CAB4E275FE10D000D32A9 /* DifficultyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CAB4D275FE10C000D32A9 /* DifficultyStrategy.swift */; };
 		F45CC2192756A1D300ACE855 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2182756A1D300ACE855 /* AppDelegate.swift */; };
 		F45CC21B2756A1D300ACE855 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC21A2756A1D300ACE855 /* SceneDelegate.swift */; };
 		F45CC21D2756A1D300ACE855 /* GameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC21C2756A1D300ACE855 /* GameTableViewController.swift */; };
@@ -31,6 +33,8 @@
 		F45CAB44275D5465000D32A9 /* TopScoresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScoresCell.swift; sourceTree = "<group>"; };
 		F45CAB45275D5465000D32A9 /* TopScoresCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopScoresCell.xib; sourceTree = "<group>"; };
 		F45CAB48275D6D0C000D32A9 /* GameSessionCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSessionCaretaker.swift; sourceTree = "<group>"; };
+		F45CAB4B275FDFE4000D32A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F45CAB4D275FE10C000D32A9 /* DifficultyStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyStrategy.swift; sourceTree = "<group>"; };
 		F45CC2152756A1D300ACE855 /* MillionVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MillionVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45CC2182756A1D300ACE855 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F45CC21A2756A1D300ACE855 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +77,14 @@
 			path = TopScores;
 			sourceTree = "<group>";
 		};
+		F45CAB4A275FDF77000D32A9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F45CAB4B275FDFE4000D32A9 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		F45CC20C2756A1D200ACE855 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +123,7 @@
 				F45CC22C2756A6E000ACE855 /* Question+Answer.swift */,
 				F45CAB3F275D2E8E000D32A9 /* Game+GameSession.swift */,
 				F45CAB48275D6D0C000D32A9 /* GameSessionCaretaker.swift */,
+				F45CAB4D275FE10C000D32A9 /* DifficultyStrategy.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -126,6 +139,7 @@
 		F45CC2342756C0E500ACE855 /* Scence */ = {
 			isa = PBXGroup;
 			children = (
+				F45CAB4A275FDF77000D32A9 /* Settings */,
 				F45CC2352756C10400ACE855 /* MainMenu */,
 				F45CC2362756C11B00ACE855 /* Game */,
 				F45CAB41275D4C70000D32A9 /* TopScores */,
@@ -226,6 +240,7 @@
 				F45CC21D2756A1D300ACE855 /* GameTableViewController.swift in Sources */,
 				F45CAB46275D5465000D32A9 /* TopScoresCell.swift in Sources */,
 				F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */,
+				F45CAB4E275FE10D000D32A9 /* DifficultyStrategy.swift in Sources */,
 				F453FD41275AB19400E65833 /* AnswersControl.swift in Sources */,
 				F45CAB49275D6D0C000D32A9 /* GameSessionCaretaker.swift in Sources */,
 				F45CAB43275D4CDE000D32A9 /* TopScoresTableViewController.swift in Sources */,
@@ -233,6 +248,7 @@
 				F45CC21B2756A1D300ACE855 /* SceneDelegate.swift in Sources */,
 				F45CC2302756B93900ACE855 /* Reusable.swift in Sources */,
 				F45CAB40275D2E8E000D32A9 /* Game+GameSession.swift in Sources */,
+				F45CAB4C275FDFE4000D32A9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
