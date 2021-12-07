@@ -64,13 +64,21 @@
                     </view>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="xaZ-66-Nhu">
                         <barButtonItem key="backBarButtonItem" title="Back" id="ns9-HC-6Hg"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="CFr-Fr-2Lk">
-                            <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <segue destination="jdN-WA-cfa" kind="show" id="z4m-1B-QMX"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="CFr-Fr-2Lk">
+                                <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="jdN-WA-cfa" kind="show" id="z4m-1B-QMX"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="plus" catalog="system" id="Ud1-cB-u1F">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="mIa-iG-kpT" kind="show" id="t4q-ye-IBD"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="playBtn" destination="jnm-qC-fcX" id="CfD-N2-Wa9"/>
@@ -81,7 +89,123 @@
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="116.51785714285714"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Add Question-->
+        <scene sceneID="KTb-BH-eag">
+            <objects>
+                <viewController id="mIa-iG-kpT" customClass="AddQuestionViewController" customModule="MillionVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SND-Gv-hT6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zw1-pw-1Hp">
+                                <rect key="frame" x="20" y="148.5" width="374" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="ox0-2m-ICU"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat?</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You question:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYZ-e4-Mz5">
+                                <rect key="frame" x="20" y="108" width="103.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="0RJ-Zx-RJH">
+                                <rect key="frame" x="20" y="368.5" width="374" height="281"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibq-kA-Zvb">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yDd-lt-Sej">
+                                        <rect key="frame" x="0.0" y="29.5" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mj-U8-IFK">
+                                        <rect key="frame" x="0.0" y="72.5" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XdC-3L-PiN">
+                                        <rect key="frame" x="0.0" y="102" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FS4-dW-B5X">
+                                        <rect key="frame" x="0.0" y="145" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PFf-xO-iu3">
+                                        <rect key="frame" x="0.0" y="174.5" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lv3-if-evF">
+                                        <rect key="frame" x="0.0" y="217.5" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3bB-nX-Wgp">
+                                        <rect key="frame" x="0.0" y="247" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hln-5V-ctg">
+                                <rect key="frame" x="20" y="679.5" width="374" height="31"/>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Append"/>
+                                <connections>
+                                    <action selector="tapAppendButton:" destination="mIa-iG-kpT" eventType="touchUpInside" id="DIl-Xz-R7o"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Mg-yD-ELT"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstItem="0RJ-Zx-RJH" firstAttribute="leading" secondItem="4Mg-yD-ELT" secondAttribute="leading" constant="20" id="3er-7m-4Jb"/>
+                            <constraint firstItem="4Mg-yD-ELT" firstAttribute="trailing" secondItem="zw1-pw-1Hp" secondAttribute="trailing" constant="20" id="8x7-qn-kDr"/>
+                            <constraint firstItem="4Mg-yD-ELT" firstAttribute="trailing" secondItem="hln-5V-ctg" secondAttribute="trailing" constant="20" id="ZBJ-x7-3Qa"/>
+                            <constraint firstItem="bYZ-e4-Mz5" firstAttribute="leading" secondItem="4Mg-yD-ELT" secondAttribute="leading" constant="20" id="ZSH-B6-QlN"/>
+                            <constraint firstItem="0RJ-Zx-RJH" firstAttribute="top" secondItem="zw1-pw-1Hp" secondAttribute="bottom" constant="20" id="cN1-Uf-50D"/>
+                            <constraint firstItem="zw1-pw-1Hp" firstAttribute="top" secondItem="bYZ-e4-Mz5" secondAttribute="bottom" constant="20" id="dqC-u9-POt"/>
+                            <constraint firstItem="4Mg-yD-ELT" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="bYZ-e4-Mz5" secondAttribute="trailing" constant="352" id="fXG-0C-sA9"/>
+                            <constraint firstItem="bYZ-e4-Mz5" firstAttribute="top" secondItem="4Mg-yD-ELT" secondAttribute="top" constant="20" id="jGS-m9-cAC"/>
+                            <constraint firstItem="zw1-pw-1Hp" firstAttribute="leading" secondItem="4Mg-yD-ELT" secondAttribute="leading" constant="20" id="ohv-tU-zyU"/>
+                            <constraint firstItem="4Mg-yD-ELT" firstAttribute="trailing" secondItem="0RJ-Zx-RJH" secondAttribute="trailing" constant="20" id="qWi-tH-t5I"/>
+                            <constraint firstItem="hln-5V-ctg" firstAttribute="leading" secondItem="4Mg-yD-ELT" secondAttribute="leading" constant="20" id="ski-4h-0g1"/>
+                            <constraint firstItem="hln-5V-ctg" firstAttribute="top" secondItem="0RJ-Zx-RJH" secondAttribute="bottom" constant="30" id="xJb-e9-GMC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Question" id="LnY-D8-a54"/>
+                    <connections>
+                        <outlet property="AppendButton" destination="hln-5V-ctg" id="mAv-ut-r7L"/>
+                        <outlet property="correctAnswerdTextField" destination="yDd-lt-Sej" id="U7p-Ji-REt"/>
+                        <outlet property="questionTextView" destination="zw1-pw-1Hp" id="59G-ZO-ZLe"/>
+                        <outlet property="wrongAnswerdOneTextField" destination="XdC-3L-PiN" id="KYN-Ke-6Of"/>
+                        <outlet property="wrongAnswerdThreeTextField" destination="3bB-nX-Wgp" id="v8k-wy-Z1V"/>
+                        <outlet property="wrongAnswerdTwoTextField" destination="PFf-xO-iu3" id="DOU-4G-3cC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hOj-Hu-vYl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1098.5507246376812" y="-528.34821428571422"/>
+        </scene>
+        <!--Settings-->
         <scene sceneID="TZR-K0-MMO">
             <objects>
                 <viewController id="jdN-WA-cfa" customClass="SettingsViewController" customModule="MillionVS" customModuleProvider="target" sceneMemberID="viewController">
@@ -107,7 +231,7 @@
                             <constraint firstItem="hyN-4q-jOH" firstAttribute="centerX" secondItem="yzZ-nQ-eNn" secondAttribute="centerX" id="DGN-xd-ccn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="vNZ-bg-4nn"/>
+                    <navigationItem key="navigationItem" title="Settings" id="vNZ-bg-4nn"/>
                     <connections>
                         <outlet property="difficultySegmentControl" destination="hyN-4q-jOH" id="QXT-nj-JZ4"/>
                     </connections>
@@ -300,8 +424,12 @@
     <resources>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="girl-holding-money" width="426.66665649414062" height="284.33334350585938"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
