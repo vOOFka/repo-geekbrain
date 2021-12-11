@@ -281,13 +281,22 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(100%)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoI-J2-a7x">
+                                                    <rect key="frame" x="134.5" y="9.5" width="56" height="21"/>
+                                                    <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                             <constraints>
                                                 <constraint firstItem="Wbf-Lb-D3a" firstAttribute="centerY" secondItem="viF-lN-QDc" secondAttribute="centerY" id="3Kn-EU-izz"/>
+                                                <constraint firstItem="XoI-J2-a7x" firstAttribute="centerY" secondItem="viF-lN-QDc" secondAttribute="centerY" id="LMo-jI-nef"/>
                                                 <constraint firstItem="dw6-zg-3wO" firstAttribute="leading" secondItem="viF-lN-QDc" secondAttribute="leading" constant="8" id="SvK-cz-DyD"/>
+                                                <constraint firstItem="XoI-J2-a7x" firstAttribute="leading" secondItem="dw6-zg-3wO" secondAttribute="trailing" constant="4" id="Vwe-1C-vKC"/>
                                                 <constraint firstItem="Wbf-Lb-D3a" firstAttribute="leading" secondItem="Ntp-Bo-NBH" secondAttribute="trailing" constant="8" id="hMx-LT-tud"/>
-                                                <constraint firstItem="Ntp-Bo-NBH" firstAttribute="leading" relation="lessThanOrEqual" secondItem="dw6-zg-3wO" secondAttribute="trailing" constant="140" id="hSC-gB-vsa"/>
+                                                <constraint firstItem="Ntp-Bo-NBH" firstAttribute="leading" relation="lessThanOrEqual" secondItem="XoI-J2-a7x" secondAttribute="trailing" constant="140" id="hSC-gB-vsa"/>
                                                 <constraint firstItem="dw6-zg-3wO" firstAttribute="centerY" secondItem="viF-lN-QDc" secondAttribute="centerY" id="pN3-kD-0zt"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wbf-Lb-D3a" secondAttribute="trailing" constant="8" id="xVO-Ji-q0a"/>
                                                 <constraint firstItem="Ntp-Bo-NBH" firstAttribute="centerY" secondItem="viF-lN-QDc" secondAttribute="centerY" id="xtj-0i-1rf"/>
@@ -365,6 +374,7 @@
                     <connections>
                         <outlet property="answersControl" destination="pZn-i8-pvL" id="X3c-IP-fBe"/>
                         <outlet property="numberOfQuestionLabel" destination="dw6-zg-3wO" id="Mrq-KK-qbj"/>
+                        <outlet property="persentCorrectAnswerdLabel" destination="XoI-J2-a7x" id="uSF-x3-nIr"/>
                         <outlet property="questionLabel" destination="JBZ-CL-TC6" id="0Ts-Lp-iya"/>
                         <outlet property="scoreLabel" destination="Wbf-Lb-D3a" id="9av-ZR-6GT"/>
                     </connections>

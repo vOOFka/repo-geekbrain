@@ -32,7 +32,18 @@ class Game {
 }
 
 class GameSession: Codable {
-    var correctAnswerds = 0
+    var correctAnswerds: Int
     var questionCount = 0
     var scores = 0
+    var correctAnswerdsObs = Observable<Int>(0)
+    
+    init() {
+        self.correctAnswerds = correctAnswerdsObs.value
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case correctAnswerds
+        case questionCount
+        case scores
+    }
 }

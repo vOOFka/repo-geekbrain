@@ -25,6 +25,7 @@
 		F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC22C2756A6E000ACE855 /* Question+Answer.swift */; };
 		F45CC2302756B93900ACE855 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC22F2756B93800ACE855 /* Reusable.swift */; };
 		F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2372756C16F00ACE855 /* MainViewController.swift */; };
+		F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ACC2764A69C00FF9245 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		F45CC22C2756A6E000ACE855 /* Question+Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+Answer.swift"; sourceTree = "<group>"; };
 		F45CC22F2756B93800ACE855 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F45CC2372756C16F00ACE855 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F4E28ACC2764A69C00FF9245 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F45CC22F2756B93800ACE855 /* Reusable.swift */,
+				F4E28ACC2764A69C00FF9245 /* Observable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */,
+				F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */,
 				F45CC21D2756A1D300ACE855 /* GameTableViewController.swift in Sources */,
 				F45CAB46275D5465000D32A9 /* TopScoresCell.swift in Sources */,
 				F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */,

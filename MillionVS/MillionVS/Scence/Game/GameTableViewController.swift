@@ -17,6 +17,7 @@ class GameTableViewController: UITableViewController {
     @IBOutlet weak private var questionLabel: UILabel!
     @IBOutlet weak private var numberOfQuestionLabel: UILabel!
     @IBOutlet weak private var scoreLabel: UILabel!
+    @IBOutlet weak private var persentCorrectAnswerdLabel: UILabel!
     
     //MARK: - Vars
     private var questions = Question.getQuestions()
@@ -33,6 +34,13 @@ class GameTableViewController: UITableViewController {
         letsPlay(some: questions[i])
         //watch press LettersControl
         answersControl.addTarget(self, action: #selector(answerWasChange(_:)), for: .valueChanged)
+        //Add observer for watch correct answerds
+        gameSession.correctAnswerdsObs.addObserver(self, options: [.new, .initial], closure: {
+            [weak self] (correctAnsw, _)  in
+            guard let self = self else { return }
+            let persent = self.calculatePercent(value: Double(correctAnsw), fromValue: Double(self.questions.count))
+            self.persentCorrectAnswerdLabel.text = "(\(persent)%)"
+        })
     }
     
     @objc private func answerWasChange(_ control: AnswersControl) {
@@ -63,11 +71,17 @@ class GameTableViewController: UITableViewController {
     private func letsPlay(some question: Question) {
         questionLabel.text = question.question
         numberOfQuestionLabel.text = "Question: \(i + 1) of \(questions.count)"
+        gameSession.correctAnswerdsObs.value = i
         scoreLabel.text = "\(gameSession.scores)"
         
         let answers = question.answers.map({ $0.answer })
         //Update custom UIControl
         answersControl.setupControl(array: answers)
+    }
+    
+    fileprivate func calculatePercent(value: Double, fromValue: Double) -> Double {
+        let val = value * 100
+        return val / fromValue
     }
 }
 
