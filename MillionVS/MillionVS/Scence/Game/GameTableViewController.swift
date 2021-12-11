@@ -39,7 +39,8 @@ class GameTableViewController: UITableViewController {
             [weak self] (correctAnsw, _)  in
             guard let self = self else { return }
             let persent = self.calculatePercent(value: Double(correctAnsw), fromValue: Double(self.questions.count))
-            self.persentCorrectAnswerdLabel.text = "(\(persent)%)"
+            let persentText = String(format: "%.2f", persent)
+            self.persentCorrectAnswerdLabel.text = "(\(persentText)%)"
         })
     }
     

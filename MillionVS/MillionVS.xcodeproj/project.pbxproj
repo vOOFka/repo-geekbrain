@@ -26,6 +26,7 @@
 		F45CC2302756B93900ACE855 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC22F2756B93800ACE855 /* Reusable.swift */; };
 		F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2372756C16F00ACE855 /* MainViewController.swift */; };
 		F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ACC2764A69C00FF9245 /* Observable.swift */; };
+		F4E28ACF2764D53A00FF9245 /* QuestionsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ACE2764D53A00FF9245 /* QuestionsCaretaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		F45CC22F2756B93800ACE855 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F45CC2372756C16F00ACE855 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F4E28ACC2764A69C00FF9245 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		F4E28ACE2764D53A00FF9245 /* QuestionsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCaretaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				F45CC22C2756A6E000ACE855 /* Question+Answer.swift */,
 				F45CAB3F275D2E8E000D32A9 /* Game+GameSession.swift */,
 				F45CAB48275D6D0C000D32A9 /* GameSessionCaretaker.swift */,
+				F4E28ACE2764D53A00FF9245 /* QuestionsCaretaker.swift */,
 				F45CAB4D275FE10C000D32A9 /* DifficultyStrategy.swift */,
 			);
 			path = Models;
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4E28ACF2764D53A00FF9245 /* QuestionsCaretaker.swift in Sources */,
 				F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */,
 				F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */,
 				F45CC21D2756A1D300ACE855 /* GameTableViewController.swift in Sources */,

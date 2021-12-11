@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Question {
-    let question: String
-    let answers: [Answer]
+struct Question: Codable {
+    var question: String
+    var answers: [Answer]
     
     static func getQuestions() -> [Question] {
         let simpleQuestions = [
@@ -64,15 +64,16 @@ struct Question {
                                Answer(answer: "Вырвать с корнями дерево", type: .wrong),
                                Answer(answer: "Разрушить здание", type: .wrong)].shuffled())
         ]
-        return simpleQuestions
+        let userQuestions = QuestionsCaretaker().retrieveQuestions()
+        return simpleQuestions + userQuestions
     }
 }
 
-struct Answer {
+struct Answer: Codable {
     let answer: String
     let type: TypeAnswer
     
-    enum TypeAnswer {
+    enum TypeAnswer: Codable {
         case wrong
         case correct
     }
