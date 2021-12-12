@@ -30,6 +30,12 @@ class News: Decodable {
     var id: Int = 0
     var sourceId: Int = 0
     var date: Int = 0
+    var dateFormatted: String? {
+        get {
+            let date = Date.init(timeIntervalSince1970: TimeInterval(date))
+            return date.getFormattedDate(format: "MM-dd-yyyy HH:mm")
+        }
+    }
     var text: String = ""
     var attachments: [Attachments]?
     var countCellItems: Int = 1
@@ -37,9 +43,21 @@ class News: Decodable {
     var likes: Int = 0
     var reposts: Int = 0
     var views: Int = 0
-    
+    var photosURLs: [String]? {
+        get {
+            let size = sizeType.max
+            let urls = attachments?.compactMap { $0.photo?.sizes.first(where: { $0.type == size })?.urlPhoto }
+            return urls
+        }
+    }
+    var ratios: [CGFloat]? {
+        get {
+            let size = sizeType.max
+            let ratios = attachments?.compactMap { $0.photo?.sizes.first(where: { $0.type == size })?.ratio }
+            return ratios
+        }
+    }
     var sizes: NewsCellSizes? {
-        //  let showAllText = newsWithFullText.contains { (newsId) -> Bool in return newsId == id }
         return NewsCellSizeCalculator().sizes(newsText: text, newsImage: nil, showAllText: false)
     }
     
@@ -107,5 +125,13 @@ class Attachments: Decodable {
             self.description = try? linkContainer.decode(String.self, forKey: .description)
             self.photo = try? linkContainer.decode(Photo.self, forKey: .photo)
         }
+    }
+}
+
+extension Date {
+   func getFormattedDate(format: String) -> String {
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = format
+        return dateformat.string(from: self)
     }
 }

@@ -9,8 +9,9 @@ import UIKit
 
 class NewsImgGalleryTableViewCell: UITableViewCell {
 
-    var photos: [Attachments]?
-    @IBOutlet var collectionView: UICollectionView!
+    private var photosURLs = [String]()
+    private var photosRatios = [CGFloat]()
+    @IBOutlet private var collectionView: UICollectionView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,28 +25,29 @@ class NewsImgGalleryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func configure (with photos: [Attachments]) {
-        self.photos = photos
+    public func configuration(for photosURLs: [String], with photosRatios: [CGFloat]) {
+        self.photosURLs = photosURLs
+        self.photosRatios = photosRatios
         collectionView.reloadData()
     }
-    
 }
 
 extension NewsImgGalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos?.count ?? 0
+        photosURLs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(NewsImgCollectionViewCell.self, for: indexPath)
-        if photos != nil {
-            cell.configure(with: photos![indexPath.row])
-        }
+        cell.configuration(for: photosURLs[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300, height: 300)
+        //let width = CGFloat(300)
+        let width = collectionView.frame.width
+        let height = photosRatios[indexPath.row] * width
+        return CGSize(width: width, height: height)
     }
     
 }

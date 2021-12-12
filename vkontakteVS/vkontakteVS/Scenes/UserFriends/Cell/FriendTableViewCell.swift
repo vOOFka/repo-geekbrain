@@ -65,7 +65,7 @@ class FriendTableViewCell: UITableViewCell {
 //            friend.cityName = currentFriend.cityName
 //            friend.urlAvatar = currentFriend.urlAvatar
 //            friend.imageAvatar = image.jpegData(compressionQuality: 80.0)
-//            let saveToDB = try Properties.realmService.update(friend.self) //update(friend)
+//            let saveToDB = try realmService.update(friend.self) //update(friend)
 //            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
             //Второй метод
             let realm = try Realm()
@@ -76,13 +76,13 @@ class FriendTableViewCell: UITableViewCell {
             }
             //Третий метод
 //            let friend = currentFriend
-//            let existItem = try Properties.realmService.get(RealmFriend.self, primaryKey: currentFriend.id)
+//            let existItem = try realmService.get(RealmFriend.self, primaryKey: currentFriend.id)
 //            if (existItem != nil) && (existItem?.imageAvatar) != nil && friend.imageAvatar == existItem?.imageAvatar {
 //                friend.imageAvatar = existItem!.imageAvatar
 //            } else {
 //                friend.imageAvatar = image.jpegData(compressionQuality: 80.0)                
 //            }
-//            _ = try Properties.realmService.update(friend)
+//            _ = try realmService.update(friend)
         } catch (let error) {
             print(error)
         }

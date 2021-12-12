@@ -17,7 +17,6 @@ protocol NetworkService {
     func getFriends(completion: @escaping (Friends?) -> Void)
     func getPhotosAll(friendId: Int, completion: @escaping (Photos?) -> Void)
     //Helpers
-    //func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void)
     func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T?
     func getFriendsRequest() -> DataRequest
     //Future, Promise conception
@@ -32,7 +31,6 @@ class NetworkServiceImplimentation: NetworkService {
         static let userId = UserSession.shared.userId
         static let accessToken = UserSession.shared.token
         static let versionAPI = "5.131"
-        //static let realmService: RealmService = RealmServiceImplimentation()
         
         static let session: Session = {
             let config = URLSessionConfiguration.default
@@ -41,17 +39,23 @@ class NetworkServiceImplimentation: NetworkService {
         }()
     }
     func decodingData<T: Decodable> (type: T.Type, from data: Data?) -> T? {
-        guard let data = data,
-              let decoded = try? JSONDecoder().decode(type.self, from: data) else { return nil }
-        return decoded
+        guard let data = data else { return nil }
+        do {
+            let decoded = try JSONDecoder().decode(type.self, from: data)
+            return decoded
+        }
+        catch {
+            print(error)
+            return nil
+        }
     }
     
     func getNewsfeed(completion: @escaping (NewsFeed?) -> Void) {
         let path = "newsfeed.get"
         let parameters: Parameters = ["access_token" : Constans.accessToken,
                                       "v" : Constans.versionAPI,
-                                      "filters" : "post, photo",
-                                      "count": "50"]
+                                      "filters" : "post",
+                                      "count": "20"]
         Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
             switch response.result {
             case .failure(let error):
@@ -181,17 +185,4 @@ class NetworkServiceImplimentation: NetworkService {
             }
         }
     }
-    
-//    func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void) {
-//        AF.request(imageURL, method: .get).response { (response) in
-//            if response.error == nil {
-//                print(response.result)
-//                if let data = response.data {
-//                    completion(UIImage(data: data))
-//                } else {
-//                    completion(UIImage(named: "NoImage"))
-//                }
-//            }
-//        }
-//    }
 }

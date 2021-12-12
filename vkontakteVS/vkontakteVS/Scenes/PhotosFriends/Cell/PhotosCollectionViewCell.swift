@@ -14,20 +14,19 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak private var photoImageView: UIImageView!
     @IBOutlet weak private var likesControl: LikesControl!
     //MARK: - Properties
-    private struct Properties {
-        static let realmService: RealmService = RealmServiceImplimentation()
-        static var currentPhoto = RealmPhoto()
-        //Choice size download photo
-        static let size = sizeTypeRealmEnum.mid
-    }
+    private let realmService: RealmService = RealmServiceImplimentation()
+    private var currentPhoto = RealmPhoto()
+    //Choice size download photo
+    private let size = sizeTypeRealmEnum.mid
+
     //MARK: - Functions
-    func configuration(currentPhoto: RealmPhoto, delegate: AnyObject) {
-        Properties.currentPhoto = currentPhoto
-        likesControl.setupLikesUI(currentPhoto: Properties.currentPhoto)
+    public func configuration(currentPhoto: RealmPhoto, delegate: AnyObject) {
+        self.currentPhoto = currentPhoto
+        likesControl.setupLikesUI(currentPhoto: currentPhoto)
         guard let delegate = delegate as? LikesControlDelegate else { return }
         likesControl.delegate = delegate
-        guard (currentPhoto.sizes.first(where: { $0.type == Properties.size })?.image) != nil else {
-            guard let url = currentPhoto.sizes.first(where: { $0.type == Properties.size })?.urlPhoto else { return }
+        guard (currentPhoto.sizes.first(where: { $0.type == size })?.image) != nil else {
+            guard let url = currentPhoto.sizes.first(where: { $0.type == size })?.urlPhoto else { return }
             print("Загрузка из сети")
             _ = UIImageView().kf.setImage(with: URL(string: url), completionHandler: { [weak self] result in
                 switch result {
@@ -42,8 +41,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         }
         print("Загрузка из БД")
         do {
-            let imgFromRealm = try Properties.realmService.get(RealmPhoto.self, primaryKey: currentPhoto.id)
-            let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == Properties.size })
+            let imgFromRealm = try realmService.get(RealmPhoto.self, primaryKey: currentPhoto.id)
+            let imgSizeFromRealm = imgFromRealm?.sizes.first(where: { $0.type == size })
             guard let imageData = imgSizeFromRealm?.image else { return }
             photoImageView.image = UIImage(data: imageData)
         } catch (let error) {
@@ -55,7 +54,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         do {            
             let realm = try Realm()
             guard let allItems = realm.objects(RealmPhoto.self).first(where: { $0.id == currentPhoto.id }),
-                  let item =  allItems.sizes.first(where: { $0.type == Properties.size }),
+                  let item =  allItems.sizes.first(where: { $0.type == size }),
                   let image = image.jpegData(compressionQuality: 80.0) else { return }
             try realm.write {
                 item.setValue(image, forKey: "image")

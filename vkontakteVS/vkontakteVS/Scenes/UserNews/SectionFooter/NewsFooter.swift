@@ -8,10 +8,22 @@
 import UIKit
 
 class NewsFooter: UITableViewHeaderFooterView {
-    @IBOutlet weak var likesLabel: UILabel!
-    @IBOutlet weak var commentsLabel: UILabel!
-    @IBOutlet weak var repostLabel: UILabel!
-    @IBOutlet weak var viewsLabel: UILabel!
+    @IBOutlet weak private var likesLabel: UILabel!
+    @IBOutlet weak private var commentsLabel: UILabel!
+    @IBOutlet weak private var repostLabel: UILabel!
+    @IBOutlet weak private var viewsLabel: UILabel!
+    @IBOutlet weak private var footerView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        footerView.backgroundColor = .white
+        footerView.layer.cornerRadius = 10
+        footerView.clipsToBounds = true
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     public func configure(with currentNews: News) {
         commentsLabel.text = formatPoints(from: currentNews.comments)
@@ -20,8 +32,7 @@ class NewsFooter: UITableViewHeaderFooterView {
         viewsLabel.text = formatPoints(from: currentNews.views)
     }
     
-    func formatPoints(from: Int) -> String {
-
+    private func formatPoints(from: Int) -> String {
         let number = Double(from)
         let thousand = number / 1000
         let million = number / 1000000
@@ -37,5 +48,4 @@ class NewsFooter: UITableViewHeaderFooterView {
             return "\(Int(number))"
         }
     }
-
 }
