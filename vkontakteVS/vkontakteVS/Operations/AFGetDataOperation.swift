@@ -14,6 +14,7 @@ class AFGetDataOperation: AsyncOperation {
 
     init(request: DataRequest) {
         self.request  = request
+        print(request)
     }
 
     override func main() {
@@ -23,6 +24,7 @@ class AFGetDataOperation: AsyncOperation {
                 if let data = response.data {
                     self?.data = data
                     self?.state = .finished
+                    print(data)
                 } else {
                     self?.data = nil
                     self?.state = .executing

@@ -25,6 +25,16 @@ class NewsImgGalleryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        let sections = collectionView.numberOfSections
+        if sections >= 0 {
+            let items = collectionView.numberOfItems(inSection: 0)
+            if items > 0 {
+                collectionView.scrollToItem(at:IndexPath(item: 0, section: 0), at: .left, animated: false)
+            }
+        }
+    }
+    
     public func configuration(for photosURLs: [String], with photosRatios: [CGFloat]) {
         self.photosURLs = photosURLs
         self.photosRatios = photosRatios
