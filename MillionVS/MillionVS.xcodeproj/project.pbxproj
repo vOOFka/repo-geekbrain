@@ -27,6 +27,10 @@
 		F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45CC2372756C16F00ACE855 /* MainViewController.swift */; };
 		F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ACC2764A69C00FF9245 /* Observable.swift */; };
 		F4E28ACF2764D53A00FF9245 /* QuestionsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ACE2764D53A00FF9245 /* QuestionsCaretaker.swift */; };
+		F4E28AD32766244A00FF9245 /* AddManyQuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28AD22766244A00FF9245 /* AddManyQuestionsViewController.swift */; };
+		F4E28AD52766248000FF9245 /* AddManyQuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28AD42766248000FF9245 /* AddManyQuestionsCell.swift */; };
+		F4E28ADC276674D800FF9245 /* QuestionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ADB276674D800FF9245 /* QuestionBuilder.swift */; };
+		F4E28ADE2766904600FF9245 /* QuestionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E28ADD2766904600FF9245 /* QuestionsBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +56,10 @@
 		F45CC2372756C16F00ACE855 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F4E28ACC2764A69C00FF9245 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F4E28ACE2764D53A00FF9245 /* QuestionsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCaretaker.swift; sourceTree = "<group>"; };
+		F4E28AD22766244A00FF9245 /* AddManyQuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManyQuestionsViewController.swift; sourceTree = "<group>"; };
+		F4E28AD42766248000FF9245 /* AddManyQuestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManyQuestionsCell.swift; sourceTree = "<group>"; };
+		F4E28ADB276674D800FF9245 /* QuestionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBuilder.swift; sourceTree = "<group>"; };
+		F4E28ADD2766904600FF9245 /* QuestionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,7 @@
 		F45CAB4F276002C5000D32A9 /* Paterns */ = {
 			isa = PBXGroup;
 			children = (
+				F4E28ADA276674B000FF9245 /* Bulder */,
 			);
 			path = Paterns;
 			sourceTree = "<group>";
@@ -102,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				F45CAB5127600CAE000D32A9 /* AddQuestionViewController.swift */,
+				F4E28AD22766244A00FF9245 /* AddManyQuestionsViewController.swift */,
+				F4E28AD42766248000FF9245 /* AddManyQuestionsCell.swift */,
 			);
 			path = AddQuestion;
 			sourceTree = "<group>";
@@ -189,6 +200,15 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		F4E28ADA276674B000FF9245 /* Bulder */ = {
+			isa = PBXGroup;
+			children = (
+				F4E28ADB276674D800FF9245 /* QuestionBuilder.swift */,
+				F4E28ADD2766904600FF9245 /* QuestionsBuilder.swift */,
+			);
+			path = Bulder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,16 +284,20 @@
 				F4E28ACF2764D53A00FF9245 /* QuestionsCaretaker.swift in Sources */,
 				F45CC2382756C16F00ACE855 /* MainViewController.swift in Sources */,
 				F4E28ACD2764A69C00FF9245 /* Observable.swift in Sources */,
+				F4E28ADE2766904600FF9245 /* QuestionsBuilder.swift in Sources */,
 				F45CC21D2756A1D300ACE855 /* GameTableViewController.swift in Sources */,
 				F45CAB46275D5465000D32A9 /* TopScoresCell.swift in Sources */,
 				F45CC22D2756A6E000ACE855 /* Question+Answer.swift in Sources */,
 				F45CAB4E275FE10D000D32A9 /* DifficultyStrategy.swift in Sources */,
+				F4E28AD32766244A00FF9245 /* AddManyQuestionsViewController.swift in Sources */,
 				F453FD41275AB19400E65833 /* AnswersControl.swift in Sources */,
 				F45CAB49275D6D0C000D32A9 /* GameSessionCaretaker.swift in Sources */,
 				F45CAB43275D4CDE000D32A9 /* TopScoresTableViewController.swift in Sources */,
 				F45CC2192756A1D300ACE855 /* AppDelegate.swift in Sources */,
+				F4E28AD52766248000FF9245 /* AddManyQuestionsCell.swift in Sources */,
 				F45CC21B2756A1D300ACE855 /* SceneDelegate.swift in Sources */,
 				F45CC2302756B93900ACE855 /* Reusable.swift in Sources */,
+				F4E28ADC276674D800FF9245 /* QuestionBuilder.swift in Sources */,
 				F45CAB40275D2E8E000D32A9 /* Game+GameSession.swift in Sources */,
 				F45CAB5227600CAE000D32A9 /* AddQuestionViewController.swift in Sources */,
 				F45CAB4C275FDFE4000D32A9 /* SettingsViewController.swift in Sources */,

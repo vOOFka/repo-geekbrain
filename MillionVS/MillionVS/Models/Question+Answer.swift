@@ -71,7 +71,7 @@ struct Question: Codable {
 
 struct Answer: Codable {
     let answer: String
-    let type: TypeAnswer
+    var type: TypeAnswer
     
     enum TypeAnswer: Codable {
         case wrong
