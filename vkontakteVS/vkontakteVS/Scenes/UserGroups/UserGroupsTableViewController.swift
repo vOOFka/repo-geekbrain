@@ -51,6 +51,7 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -154,7 +155,6 @@ extension UserGroupsTableViewController {
                 result.reject(InternalErrors.ErrorReadFromRealmDB)
             }}
     }
-
     //Наблюдение за изменениями
     fileprivate func watchingForChanges() {
         notificationToken = userGroups?.observe({ [weak self] change in
