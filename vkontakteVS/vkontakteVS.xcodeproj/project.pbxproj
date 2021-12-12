@@ -46,6 +46,9 @@
 		F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DAE26B6D32A00822B6A /* LikeButton.swift */; };
 		F4A4D65526AE12A1001BE376 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photos.swift */; };
 		F4A70A872733E50500D01D3F /* PullFriendsFromRealmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */; };
+		F4A70A8A27417CDD00D01D3F /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4A70A8927417CDD00D01D3F /* PromiseKit */; };
+		F4A70A8C27418BC400D01D3F /* ServerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A8B27418BC400D01D3F /* ServerErrors.swift */; };
+		F4A70A8E27419AE800D01D3F /* InternalErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A8D27419AE800D01D3F /* InternalErrors.swift */; };
 		F4AA579F26BB395F00C5D3D4 /* SliderLetterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */; };
 		F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */; };
 		F4AC82472704FDC60057500E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AC82462704FDC60057500E /* GoogleService-Info.plist */; };
@@ -148,6 +151,8 @@
 		F46D1DAE26B6D32A00822B6A /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		F4A4D65426AE12A1001BE376 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullFriendsFromRealmOperation.swift; sourceTree = "<group>"; };
+		F4A70A8B27418BC400D01D3F /* ServerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrors.swift; sourceTree = "<group>"; };
+		F4A70A8D27419AE800D01D3F /* InternalErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalErrors.swift; sourceTree = "<group>"; };
 		F4AA579E26BB395F00C5D3D4 /* SliderLetterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderLetterControl.swift; sourceTree = "<group>"; };
 		F4AA57AB26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellSizeCalculator.swift; sourceTree = "<group>"; };
 		F4AC82462704FDC60057500E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -199,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE1B2826EFB0B600B78717 /* RealmSwift in Frameworks */,
+				F4A70A8A27417CDD00D01D3F /* PromiseKit in Frameworks */,
 				F4DE1B2626EFB0B600B78717 /* Realm in Frameworks */,
 				8498843826E8EA10006E57DE /* Kingfisher in Frameworks */,
 				F44E004626DC35D500BD976C /* Alamofire in Frameworks */,
@@ -290,6 +296,8 @@
 				F44E001926D42D6000BD976C /* Reusable.swift */,
 				F44C164A26FF2C23001CDF06 /* UIViewController+Ext.swift */,
 				F44C164C26FF33E4001CDF06 /* UITableView+Ext.swift */,
+				F4A70A8B27418BC400D01D3F /* ServerErrors.swift */,
+				F4A70A8D27419AE800D01D3F /* InternalErrors.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -588,6 +596,7 @@
 				8498843726E8EA10006E57DE /* Kingfisher */,
 				F4DE1B2526EFB0B600B78717 /* Realm */,
 				F4DE1B2726EFB0B600B78717 /* RealmSwift */,
+				F4A70A8927417CDD00D01D3F /* PromiseKit */,
 			);
 			productName = vkontakteVS;
 			productReference = F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */;
@@ -667,6 +676,7 @@
 				F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8498843626E8EA10006E57DE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F4DE1B2426EFB0B600B78717 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				F4A70A8827417CDD00D01D3F /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = F4B0C85226A5DBBB00B1853C /* Products */;
 			projectDirPath = "";
@@ -826,6 +836,7 @@
 				F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */,
 				84FB717F26EB460B0003ED68 /* NewsImageCell.swift in Sources */,
 				F408AFCE26B76E51004DBF67 /* FriendsCategory.swift in Sources */,
+				F4A70A8C27418BC400D01D3F /* ServerErrors.swift in Sources */,
 				84A0613326BC1B8B00BC0937 /* UserNewsViewController.swift in Sources */,
 				84CE42EC26B3F16500D80DE2 /* LikesControl.swift in Sources */,
 				F4A4D65526AE12A1001BE376 /* Photos.swift in Sources */,
@@ -878,6 +889,7 @@
 				F4DE1B2D26EFB25E00B78717 /* RealmFriend.swift in Sources */,
 				84A0613A26BD181000BC0937 /* NewsFeed.swift in Sources */,
 				F4DDA0EB26A890A7002DEAE8 /* UserGroupsTableViewController.swift in Sources */,
+				F4A70A8E27419AE800D01D3F /* InternalErrors.swift in Sources */,
 				847AEF1126CE997D00746CB6 /* CustomPush+PopAnimators.swift in Sources */,
 				F44E001A26D42D6000BD976C /* Reusable.swift in Sources */,
 			);
@@ -1236,6 +1248,14 @@
 				minimumVersion = 5.4.3;
 			};
 		};
+		F4A70A8827417CDD00D01D3F /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit.git";
+			requirement = {
+				branch = v6;
+				kind = branch;
+			};
+		};
 		F4DE1B2426EFB0B600B78717 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa.git";
@@ -1256,6 +1276,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F4A70A8927417CDD00D01D3F /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4A70A8827417CDD00D01D3F /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 		F4DE1B2526EFB0B600B78717 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,30 +7,29 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class UserGroupsTableViewController: UITableViewController {
    
     //MARK: - Outlets
     @IBOutlet private weak var groupsTableView: UITableView! {
         didSet {
-            Properties.heightHeader = groupsTableView.frame.height * 0.2
+            heightHeader = groupsTableView.frame.height * 0.2
         }
     }
     @IBOutlet private weak var groupsHeaderView: UIView!
     @IBOutlet private weak var bottom: NSLayoutConstraint!
     //MARK: - Properties
-    private struct Properties {
-        static let networkService = NetworkServiceImplimentation()
-        static let realmService: RealmService = RealmServiceImplimentation()
-        static var userGroups: Results<RealmGroup>!
-        //static var filteredUserGroups = [RealmGroup()]
-        //   static var userGroups = [Group]()
-        //   static var filteredUserGroups = [Group]()
-        static var heightHeader: CGFloat = 0.0
-        static let searchInNavigationBar = UISearchController(searchResultsController: nil)
-        static var notificationToken: NotificationToken?
-        static var sectionsForUpdate = [0]
-    }
+    let networkService = NetworkServiceImplimentation()
+    let realmService: RealmService = RealmServiceImplimentation()
+    var userGroups: Results<RealmGroup>!
+    //var filteredUserGroups = [RealmGroup()]
+    //var filteredUserGroups = [Group]()
+    var heightHeader: CGFloat = 0.0
+    let searchInNavigationBar = UISearchController(searchResultsController: nil)
+    var notificationToken: NotificationToken?
+    var sectionsForUpdate = [0]
+
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,22 +41,23 @@ class UserGroupsTableViewController: UITableViewController {
         groupsTableView.separatorStyle = .none
         groupsTableView.allowsSelection = false
         
-        tableView.contentInset = UIEdgeInsets(top: Properties.heightHeader, left: 0, bottom: 0, right: 0)
-        tableView.contentOffset = CGPoint(x: 0, y: -Properties.heightHeader)
+        tableView.contentInset = UIEdgeInsets(top: heightHeader, left: 0, bottom: 0, right: 0)
+        tableView.contentOffset = CGPoint(x: 0, y: -heightHeader)
         calculateHeightHeader()
         
         //Show groups from VK API
-        updateGroupsFromVKAPI()
+        //updateGroupsFromVKAPI()
+        promiseUpdateGroupsFromVKAPI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //Pull data groups from RealmDB
-        pullFromRealm()
+        //pullFromRealm()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Properties.notificationToken?.invalidate()
+        notificationToken?.invalidate()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -81,11 +81,11 @@ class UserGroupsTableViewController: UITableViewController {
     }
     //MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Properties.userGroups?.count ?? 0
+        return userGroups?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let currentCellGroup = Properties.userGroups[indexPath.row]
+        let currentCellGroup = userGroups[indexPath.row]
         cell.configuration(currentGroup: currentCellGroup)
         return cell
     }
@@ -93,11 +93,11 @@ class UserGroupsTableViewController: UITableViewController {
         switch editingStyle {
         case .delete:
             //Properties.userGroups.remove(at: indexPath.row)
-            Properties.sectionsForUpdate.append(indexPath.section)
-            let currentItem = Properties.userGroups[indexPath.row]
+            sectionsForUpdate.append(indexPath.section)
+            let currentItem = userGroups[indexPath.row]
             do {
-                guard let itemFromDB = try Properties.realmService.get(RealmGroup.self, primaryKey: currentItem.id) else { return }
-                try Properties.realmService.delete(itemFromDB)
+                guard let itemFromDB = try realmService.get(RealmGroup.self, primaryKey: currentItem.id) else { return }
+                try realmService.delete(itemFromDB)
             } catch (let error) {
                 showError(error)
             }
@@ -111,15 +111,61 @@ class UserGroupsTableViewController: UITableViewController {
 //MARK: - Functions
 extension UserGroupsTableViewController {
     //Загрузка данных из VK
-    fileprivate func updateGroupsFromVKAPI() {
-        Properties.networkService.getGroups(completion: { [weak self] groupsItems in
+    fileprivate func promiseUpdateGroupsFromVKAPI() {
+        networkService.getGroups()
+            .then(on: DispatchQueue.global(qos: .default), flags: nil, networkService.getParsingGroups(_:))
+            .done { [weak self] groups in
+                guard let self = self else { throw InternalErrors.ErrorSaveToRealmDB}
+                _ = self.promisePushToRealm(groupsItems: groups)
+            }
+            .done { [weak self] _ in
+                guard let self = self else { throw InternalErrors.ErrorReadFromRealmDB}
+                _ = self.promisePullFromRealm()
+            }
+            .catch { error in
+                print(error.localizedDescription)
+            }
+    }
+    //Загрузка данных в БД Realm --- Promise
+    fileprivate func promisePushToRealm(groupsItems: Groups) -> Promise<Bool> {
+        return Promise<Bool> { isPush in
+            //Преобразование в Realm модель
+            let groupsItemsRealm = groupsItems.items.map({ RealmGroup($0) })
+            //Загрузка
+            do {
+                let existItems = try realmService.get(RealmGroup.self)
+                for item in groupsItemsRealm {
+                    guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
+                    item.imageAvatar = existImg
+                }
+                _ = try realmService.update(groupsItemsRealm)
+                isPush.fulfill(true)
+            } catch (let error) {
+                showError(error)
+                isPush.reject(InternalErrors.ErrorSaveToRealmDB)
+            }
+        }
+    }
+    //Получение данных из БД  --- Promise
+    fileprivate func promisePullFromRealm() -> Promise<Bool> {
+        return Promise<Bool> { result in
+            do {
+                userGroups = try realmService.get(RealmGroup.self)
+                result.fulfill(true)
+                groupsTableView.reloadData()
+            } catch (let error) {
+                showError(error)
+                result.reject(InternalErrors.ErrorReadFromRealmDB)
+            }}
+    }
+/*    fileprivate func updateGroupsFromVKAPI() {
+        networkService.getGroups(completion: { [weak self] groupsItems in
             guard let self = self else { return }
             self.pushToRealm(groupsItems: groupsItems)
             //Pull data groups from RealmDB
             self.pullFromRealm()
         })
     }
-    
     //Загрузка данных в БД Realm
     fileprivate func pushToRealm(groupsItems: Groups?) {
         guard let groupsItems = groupsItems?.items else { return }
@@ -127,38 +173,37 @@ extension UserGroupsTableViewController {
         let groupsItemsRealm = groupsItems.map({ RealmGroup($0) })
         //Загрузка
         do {
-            let existItems = try Properties.realmService.get(RealmGroup.self)
+            let existItems = try realmService.get(RealmGroup.self)
             for item in groupsItemsRealm {
                 guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
                 item.imageAvatar = existImg
             }
-            _ = try Properties.realmService.update(groupsItemsRealm)
+            _ = try realmService.update(groupsItemsRealm)
         } catch (let error) {
             showError(error)
         }
     }
-    
     //Получение данных из БД
     fileprivate func pullFromRealm() {
         do {
-            Properties.userGroups = try Properties.realmService.get(RealmGroup.self)
+            userGroups = try realmService.get(RealmGroup.self)
         } catch (let error) {
             showError(error)
         }
         groupsTableView.reloadData()
-    }
+    }*/
     //Наблюдение за изменениями
     fileprivate func watchingForChanges() {
-        Properties.notificationToken = Properties.userGroups?.observe({ [weak self] change in
+        notificationToken = userGroups?.observe({ [weak self] change in
             guard let self = self else { return }
             switch change {
             case .error(let error):
                 self.showError(error)
             case .initial: break
             case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: Properties.sectionsForUpdate)
+                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: self.sectionsForUpdate)
                 //Return to default
-                Properties.sectionsForUpdate = [0]
+                self.sectionsForUpdate = [0]
             }
         })
     }
@@ -167,10 +212,10 @@ extension UserGroupsTableViewController {
 extension UserGroupsTableViewController {
     //for Paralax Effect
     fileprivate func calculateHeightHeader() {
-        var headerRect = CGRect(x: 0, y: -Properties.heightHeader, width: tableView.bounds.width, height: Properties.heightHeader)
+        var headerRect = CGRect(x: 0, y: -heightHeader, width: tableView.bounds.width, height: heightHeader)
         let bottom = groupsHeaderView.constraints.filter{ $0.identifier == "bottom"}.first
         let offsetY = tableView.contentOffset.y
-        if tableView.contentOffset.y < -Properties.heightHeader {
+        if tableView.contentOffset.y < -heightHeader {
             headerRect.origin.y = offsetY
             headerRect.size.height = -offsetY
         }
@@ -182,10 +227,10 @@ extension UserGroupsTableViewController {
 extension UserGroupsTableViewController: UISearchControllerDelegate, UISearchBarDelegate { 
     fileprivate func showHideSearchBar() {
         if navigationItem.searchController == nil {
-            navigationItem.searchController = Properties.searchInNavigationBar
-            Properties.searchInNavigationBar.delegate = self
-            Properties.searchInNavigationBar.searchBar.delegate = self
-            Properties.searchInNavigationBar.searchBar.sizeToFit()
+            navigationItem.searchController = searchInNavigationBar
+            searchInNavigationBar.delegate = self
+            searchInNavigationBar.searchBar.delegate = self
+            searchInNavigationBar.searchBar.sizeToFit()
             navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             navigationItem.searchController = nil

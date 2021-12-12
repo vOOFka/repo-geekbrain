@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import RealmSwift
+import PromiseKit
 
 protocol NetworkService {
     func getNewsfeed(completion: @escaping (NewsFeed?) -> Void)
@@ -19,6 +20,9 @@ protocol NetworkService {
     //func getImageFromWeb(imageURL: String, completion: @escaping (UIImage?) -> Void)
     func decodingData<T:Decodable> (type: T.Type, from data: Data?) -> T?
     func getFriendsRequest() -> DataRequest
+    //Future, Promise conception
+    func getGroups() -> Promise<Data>
+    func getParsingGroups(_ data: Data) -> Promise<Groups>
 }
 
 class NetworkServiceImplimentation: NetworkService {
@@ -77,6 +81,40 @@ class NetworkServiceImplimentation: NetworkService {
                 completion(nil)
             case .success(let data):
                 completion(self.decodingData(type: Groups.self, from: data))
+            }
+        }
+    }
+    
+    func getGroups() -> Promise<Data> {
+        let path = "groups.get"
+        let parameters: Parameters = ["user_id" : Constans.userId,
+                                      "access_token" : Constans.accessToken,
+                                      "v" : Constans.versionAPI,
+                                      "extended" : "1"]
+        return Promise<Data> { resolver in
+            Constans.session.request(Constans.host + path, method: .get, parameters: parameters).response { response in
+                switch response.result {
+                case .success(let data):
+                    guard let data = data else {
+                        resolver.reject(ServerErrors.DataIsNil)
+                        return
+                    }
+                    resolver.fulfill(data)
+                case .failure(let error):
+                    resolver.reject(error)
+                }
+            }
+            .resume()
+        }
+    }
+    
+    func getParsingGroups(_ data: Data) -> Promise<Groups> {
+        return Promise<Groups> { resolver in
+            do {
+                let decoded = try JSONDecoder().decode(Groups.self, from: data)
+                resolver.fulfill(decoded)
+            } catch {
+                resolver.reject(ServerErrors.ParsedError)
             }
         }
     }
