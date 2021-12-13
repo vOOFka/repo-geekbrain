@@ -84,7 +84,7 @@ extension FriendsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(FriendsSectionTableViewHeader.self, viewForHeaderInSection: section)
-        header.contentView.backgroundColor = #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)
+        header.contentView.backgroundColor = UIColor.myLightBlue
         header.contentView.alpha = 0.7
         header.letterLabel.text = sectionNames[section]
         return header

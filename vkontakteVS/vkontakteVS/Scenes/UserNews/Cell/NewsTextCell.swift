@@ -21,7 +21,7 @@ protocol NewsTextCellSizes {
 class NewsTextCell: UITableViewCell {
     private var newsTextLabel: UILabel = {
         let lable = UILabel()
-        lable.font = UIFont.systemFont(ofSize: 17)
+        lable.font = UIFont.myAppFont17
         return lable
     }()
     let moreTextButton = UIButton()
@@ -55,9 +55,9 @@ class NewsTextCell: UITableViewCell {
     fileprivate func configMoreTextButton() {
         moreTextButton.isUserInteractionEnabled = true
         moreTextButton.setTitle("Показать больше...", for: .normal)
-        moreTextButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
-        moreTextButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), for: .highlighted)
-        moreTextButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        moreTextButton.setTitleColor(UIColor.myLightBlue, for: .normal)
+        moreTextButton.setTitleColor(UIColor.myViolet, for: .highlighted)
+        moreTextButton.titleLabel?.font = UIFont.myAppFont17
         moreTextButton.addTarget(self, action: #selector(tapMoreTextButton), for: .touchUpInside)
         moreTextButton.backgroundColor = .white
     }

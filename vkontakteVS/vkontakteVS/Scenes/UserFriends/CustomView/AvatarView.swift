@@ -17,7 +17,7 @@ class AvatarView: UIView {
         }
     }
     
-    @IBInspectable var shadowColor: UIColor = .black
+    @IBInspectable var shadowColor: UIColor = .myBlack
     @IBInspectable var shadowOpacity: Float = 0.8
     
     override func layoutSubviews() {

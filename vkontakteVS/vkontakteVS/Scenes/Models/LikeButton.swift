@@ -13,7 +13,7 @@ class LikeButton: UIButton {
             setNeedsDisplay()
         }
     }
-    private var color = UIColor.white
+    private var color = UIColor.myWhite
     private let path = Like.shape
     
     override func draw(_ rect: CGRect) {
@@ -23,11 +23,11 @@ class LikeButton: UIButton {
         path.apply(CGAffineTransform(scaleX: scale.width, y: scale.height))
         shapeLayer.lineWidth = 2
         shapeLayer.fillColor = color.cgColor
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = UIColor.myRed.cgColor
         if likeState == true {
-            color = UIColor.red
+            color = UIColor.myRed
         } else {
-            color = UIColor.white
+            color = UIColor.myWhite
         }        
         shapeLayer.path = path.cgPath
         layer.addSublayer(shapeLayer)

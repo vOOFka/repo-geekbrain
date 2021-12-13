@@ -16,7 +16,7 @@ struct CellParam: NewsTextCellSizes {
 struct Constrains {
     static let cellViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     static let newsTextLabel = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-    static let newsTextLabelFont = UIFont.systemFont(ofSize: 17)
+    static let newsTextLabelFont = UIFont.myAppFont17
     static let minimumNewsTextLabelLines: CGFloat = 3
 }
 

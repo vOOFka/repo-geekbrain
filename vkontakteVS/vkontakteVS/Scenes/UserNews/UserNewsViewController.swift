@@ -30,7 +30,7 @@ class UserNewsViewController: UIViewController {
         registerCells()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8, blue: 1, alpha: 1)
+        view.backgroundColor = UIColor.myLightBlue
         tableView.prefetchDataSource = self
         //Show News from VK API
         updateNewsFromVKAPI()
@@ -58,8 +58,8 @@ class UserNewsViewController: UIViewController {
     }
     fileprivate func setupRefreshControl() {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14),
-            .foregroundColor: UIColor.white]
+            .font: UIFont.myAppFont14,
+            .foregroundColor: UIColor.myWhite]
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Обновление", attributes: attributes)
         tableView.refreshControl?.tintColor = .white
