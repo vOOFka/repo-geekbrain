@@ -61,6 +61,8 @@
 		F4B0C87726A5DBBE00B1853C /* vkontakteVSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C87626A5DBBE00B1853C /* vkontakteVSUITests.swift */; };
 		F4BF0D212766B16100F7498F /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4BF0D202766B16100F7498F /* PromiseKit */; };
 		F4BF0D232767AE3600F7498F /* UIFont+UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D222767AE3600F7498F /* UIFont+UIColor+Ext.swift */; };
+		F4BF0D252767CDD800F7498F /* NetworkServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D242767CDD800F7498F /* NetworkServiceAdapter.swift */; };
+		F4BF0D282767D38E00F7498F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D272767D38E00F7498F /* FriendViewModel.swift */; };
 		F4DDA0E126A86436002DEAE8 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0E026A86436002DEAE8 /* FriendsViewController.swift */; };
 		F4DDA0E626A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */; };
 		F4DDA0EB26A890A7002DEAE8 /* UserGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DDA0EA26A890A7002DEAE8 /* UserGroupsTableViewController.swift */; };
@@ -172,6 +174,8 @@
 		F4B0C87626A5DBBE00B1853C /* vkontakteVSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vkontakteVSUITests.swift; sourceTree = "<group>"; };
 		F4B0C87826A5DBBE00B1853C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4BF0D222767AE3600F7498F /* UIFont+UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UIColor+Ext.swift"; sourceTree = "<group>"; };
+		F4BF0D242767CDD800F7498F /* NetworkServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceAdapter.swift; sourceTree = "<group>"; };
+		F4BF0D272767D38E00F7498F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		F4DDA0E026A86436002DEAE8 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		F4DDA0E526A871DC002DEAE8 /* FriendPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		F4DDA0EA26A890A7002DEAE8 /* UserGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsTableViewController.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				F44E001F26D6BA1E00BD976C /* UserSession.swift */,
+				F4BF0D242767CDD800F7498F /* NetworkServiceAdapter.swift */,
 			);
 			path = Patterns;
 			sourceTree = "<group>";
@@ -440,9 +445,18 @@
 			path = vkontakteVSUITests;
 			sourceTree = "<group>";
 		};
+		F4BF0D262767D36F00F7498F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F4BF0D272767D38E00F7498F /* FriendViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		F4DDA0F226AAC8D3002DEAE8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F4BF0D262767D36F00F7498F /* ViewModels */,
 				F4F5B10526AAE06900BD17EF /* Groups.swift */,
 				F408AFCD26B76E51004DBF67 /* FriendsCategory.swift */,
 				F4F5B10A26AAE3D200BD17EF /* Friends.swift */,
@@ -837,6 +851,7 @@
 			files = (
 				840A643426BBBA6C00C9E03F /* GroupSearchBar.swift in Sources */,
 				F4AA57AC26BE7D3400C5D3D4 /* NewsCellSizeCalculator.swift in Sources */,
+				F4BF0D282767D38E00F7498F /* FriendViewModel.swift in Sources */,
 				F4BF0D232767AE3600F7498F /* UIFont+UIColor+Ext.swift in Sources */,
 				84FB717F26EB460B0003ED68 /* NewsImageCell.swift in Sources */,
 				F408AFCE26B76E51004DBF67 /* FriendsCategory.swift in Sources */,
@@ -851,6 +866,7 @@
 				F4B0C85926A5DBBB00B1853C /* LoginFormViewController.swift in Sources */,
 				F4E637B1270666A200BAE804 /* GroupFirebase.swift in Sources */,
 				F4B0C85526A5DBBB00B1853C /* AppDelegate.swift in Sources */,
+				F4BF0D252767CDD800F7498F /* NetworkServiceAdapter.swift in Sources */,
 				843BC42C26C3A82D00303CE7 /* TransparancyCircleView.swift in Sources */,
 				F4EE7FD02732F3BD00EE9745 /* PushFriendsToRealmOperation.swift in Sources */,
 				F4DE1B5326F1086D00B78717 /* RealmGroup.swift in Sources */,

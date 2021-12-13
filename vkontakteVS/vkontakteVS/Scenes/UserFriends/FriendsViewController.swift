@@ -52,7 +52,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         //register Header of cell
         tableView.register(FriendsSectionTableViewHeader.self)
         //watch press LettersControl
-        lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
+        //lettersControl.addTarget(self, action: #selector(letterWasChange(_:)), for: .valueChanged)
         //for custom animation transition
         self.navigationController?.delegate = self
         //Get friends from VK API
@@ -141,51 +141,51 @@ extension FriendsViewController {
 //            self.pullFromRealm()
 //        })
     }
-    //Загрузка данных в БД Realm
-    fileprivate func pushToRealm(friendsItems: Friends?) {
-        guard let friendsItems = friendsItems?.items else { return }
-        //Преобразование в Realm модель
-        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
-        //Загрузка
-        do {
-            let existItems = try realmService.get(RealmFriend.self)
-            for item in friendsItemsRealm {
-                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
-                item.imageAvatar = existImg
-            }
-            //let saveToDB = try realmService.save(friendsItemsRealm)
-            let saveToDB = try realmService.update(friendsItemsRealm)
-            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
-        } catch (let error) {
-            showError(error)
-        }
-    }
-    //Получение данных из БД
-    fileprivate func pullFromRealm() {
-        do {
-            friendsList = try realmService.get(RealmFriend.self)
-            //Получение категорий
-            let friendsCategory = friendsList.sorted(by: ["category", "fullName"])
-            sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
-        } catch (let error) {
-            showError(error)
-        }
-        tableView.reloadData()
-        //Update custom UIControl
-        //        let friendsLetters = lettersFriends(array: friendsItems)
-        //        lettersControl.setupControl(array: friendsLetters)
-    }
+//    //Загрузка данных в БД Realm
+//    fileprivate func pushToRealm(friendsItems: Friends?) {
+//        guard let friendsItems = friendsItems?.items else { return }
+//        //Преобразование в Realm модель
+//        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+//        //Загрузка
+//        do {
+//            let existItems = try realmService.get(RealmFriend.self)
+//            for item in friendsItemsRealm {
+//                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
+//                item.imageAvatar = existImg
+//            }
+//            //let saveToDB = try realmService.save(friendsItemsRealm)
+//            let saveToDB = try realmService.update(friendsItemsRealm)
+//            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+//        } catch (let error) {
+//            showError(error)
+//        }
+//    }
+//    //Получение данных из БД
+//    fileprivate func pullFromRealm() {
+//        do {
+//            friendsList = try realmService.get(RealmFriend.self)
+//            //Получение категорий
+//            let friendsCategory = friendsList.sorted(by: ["category", "fullName"])
+//            sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
+//        } catch (let error) {
+//            showError(error)
+//        }
+//        tableView.reloadData()
+//        //Update custom UIControl
+//        //        let friendsLetters = lettersFriends(array: friendsItems)
+//        //        lettersControl.setupControl(array: friendsLetters)
+//    }
     //    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
     //        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
     //        var array = friendsNameArray.map({ String($0.first!) })
     //        array = Array(Set(array))
     //        return array.sorted()
     //    }
-    @objc private func letterWasChange(_ control: LettersControl) {
-        let letter = control.selectedLetter
-        let indexPath = IndexPath(item: 0, section: letter.0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
+//    @objc private func letterWasChange(_ control: LettersControl) {
+//        let letter = control.selectedLetter
+//        let indexPath = IndexPath(item: 0, section: letter.0)
+//        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+//    }
     //Наблюдение за изменениями
     fileprivate func watchingForChanges() {
         notificationToken = friendsList?.observe({ [weak self] change in
