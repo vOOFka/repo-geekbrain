@@ -44,6 +44,7 @@
 		F46CCDCE26C93A220062E6DA /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46CCDCD26C93A220062E6DA /* Cloud.swift */; };
 		F46D1DAA26B6B38300822B6A /* LikeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DA926B6B38300822B6A /* LikeShape.swift */; };
 		F46D1DAF26B6D32A00822B6A /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D1DAE26B6D32A00822B6A /* LikeButton.swift */; };
+		F480276E2769455D00D5D984 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F480276D2769455D00D5D984 /* PromiseKit */; };
 		F4A4D65526AE12A1001BE376 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4D65426AE12A1001BE376 /* Photos.swift */; };
 		F4A70A872733E50500D01D3F /* PullFriendsFromRealmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A862733E50500D01D3F /* PullFriendsFromRealmOperation.swift */; };
 		F4A70A8C27418BC400D01D3F /* ServerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A70A8B27418BC400D01D3F /* ServerErrors.swift */; };
@@ -59,7 +60,6 @@
 		F4B0C86126A5DBBE00B1853C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B0C85F26A5DBBE00B1853C /* LaunchScreen.storyboard */; };
 		F4B0C86C26A5DBBE00B1853C /* vkontakteVSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C86B26A5DBBE00B1853C /* vkontakteVSTests.swift */; };
 		F4B0C87726A5DBBE00B1853C /* vkontakteVSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0C87626A5DBBE00B1853C /* vkontakteVSUITests.swift */; };
-		F4BF0D212766B16100F7498F /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4BF0D202766B16100F7498F /* PromiseKit */; };
 		F4BF0D232767AE3600F7498F /* UIFont+UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D222767AE3600F7498F /* UIFont+UIColor+Ext.swift */; };
 		F4BF0D252767CDD800F7498F /* NetworkServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D242767CDD800F7498F /* NetworkServiceAdapter.swift */; };
 		F4BF0D282767D38E00F7498F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF0D272767D38E00F7498F /* FriendViewModel.swift */; };
@@ -210,7 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE1B2826EFB0B600B78717 /* RealmSwift in Frameworks */,
-				F4BF0D212766B16100F7498F /* PromiseKit in Frameworks */,
+				F480276E2769455D00D5D984 /* PromiseKit in Frameworks */,
 				F4DE1B2626EFB0B600B78717 /* Realm in Frameworks */,
 				8498843826E8EA10006E57DE /* Kingfisher in Frameworks */,
 				F44E004626DC35D500BD976C /* Alamofire in Frameworks */,
@@ -613,7 +613,7 @@
 				8498843726E8EA10006E57DE /* Kingfisher */,
 				F4DE1B2526EFB0B600B78717 /* Realm */,
 				F4DE1B2726EFB0B600B78717 /* RealmSwift */,
-				F4BF0D202766B16100F7498F /* PromiseKit */,
+				F480276D2769455D00D5D984 /* PromiseKit */,
 			);
 			productName = vkontakteVS;
 			productReference = F4B0C85126A5DBBB00B1853C /* vkontakteVS.app */;
@@ -693,7 +693,7 @@
 				F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8498843626E8EA10006E57DE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F4DE1B2426EFB0B600B78717 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
-				F4BF0D1F2766B16100F7498F /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				F480276C2769455D00D5D984 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = F4B0C85226A5DBBB00B1853C /* Products */;
 			projectDirPath = "";
@@ -1268,7 +1268,7 @@
 				minimumVersion = 5.4.3;
 			};
 		};
-		F4BF0D1F2766B16100F7498F /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+		F480276C2769455D00D5D984 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit.git";
 			requirement = {
@@ -1297,9 +1297,9 @@
 			package = F44E004426DC35D500BD976C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		F4BF0D202766B16100F7498F /* PromiseKit */ = {
+		F480276D2769455D00D5D984 /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F4BF0D1F2766B16100F7498F /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			package = F480276C2769455D00D5D984 /* XCRemoteSwiftPackageReference "PromiseKit" */;
 			productName = PromiseKit;
 		};
 		F4DE1B2526EFB0B600B78717 /* Realm */ = {

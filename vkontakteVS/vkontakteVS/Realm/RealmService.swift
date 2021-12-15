@@ -16,6 +16,7 @@ protocol RealmService {
     func objectExists<T: Object> (_ type: T.Type, id: Int) throws -> Bool
     func update<T: Object, KeyType> (_ item: T, primaryKey: KeyType) throws -> Realm
     func delete<T: Object> (_ item: T) throws
+    func pushToRealm(friendsItems: Friends?) 
 }
 
 class RealmServiceImplimentation: RealmService {
@@ -66,6 +67,23 @@ class RealmServiceImplimentation: RealmService {
         let realm = try Realm()
         try realm.write {
             realm.delete(item)
+        }
+    }
+    func pushToRealm(friendsItems: Friends?) {
+        guard let friendsItems = friendsItems?.items else { return }
+        //Преобразование в Realm модель
+        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
+        //Загрузка
+        do {
+            let existItems = try get(RealmFriend.self)
+            for item in friendsItemsRealm {
+                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
+                item.imageAvatar = existImg
+            }
+            let saveToDB = try update(friendsItemsRealm)
+            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
+        } catch (let error) {
+            print(error)
         }
     }
 }

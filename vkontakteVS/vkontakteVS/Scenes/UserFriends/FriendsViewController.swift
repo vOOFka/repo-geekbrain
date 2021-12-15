@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import FirebaseDatabase
 
 class FriendsViewController: UIViewController, UITableViewDelegate {
@@ -20,29 +19,20 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         updateFriendsFromVKAPI()
     }
     //MARK: - Properties
-    let networkService = NetworkServiceImplimentation()
-    let realmService: RealmService = RealmServiceImplimentation()
-    var friendsList: Results<RealmFriend>!
+    private let networkService = NetworkServiceAdapter()
+    var friendsList: [FriendViewModel] = []
+    private var friendsCategory = [FriendsCategory]()
     var sectionNames = [String]()
-    var notificationToken: NotificationToken?
-    var sectionsForUpdate = [0]
-    let ref = Database.database().reference(withPath: "users")
-    
-    private let operationQueue: OperationQueue = {
-        let operationQueue = OperationQueue()
-        operationQueue.name = "com.AsyncOperation.FriendsViewController"
-        operationQueue.qualityOfService = .utility
-        return operationQueue
-    }()
+    private var sectionsForUpdate = [0]
+    private let ref = Database.database().reference(withPath: "users")
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendPhotoSegue" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let category = friendsList.filter("category == %@", sectionNames[indexPath.section])
-            let friendClick = category[indexPath.row].id
+            let friendClick = friendsCategory[indexPath.section].friends[indexPath.row]
             let currentFriendPhotosVC = segue.destination as! FriendPhotosCollectionViewController
-            currentFriendPhotosVC.currentFriend = friendClick
+            currentFriendPhotosVC.currentFriend = friendClick.id
         }
     }
     
@@ -57,8 +47,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
         self.navigationController?.delegate = self
         //Get friends from VK API
         updateFriendsFromVKAPI()
-        //Наблюдение за изменениями
-        watchingForChanges()
         //Передаем данные в Firebase
         pullDataToFirebase()
     }
@@ -66,38 +54,34 @@ class FriendsViewController: UIViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // navigationController?.setNavigationBarHidden(true, animated: animated)
-        //Pull data friends from RealmDB
-        //pullFromRealm()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       // navigationController?.setNavigationBarHidden(false, animated: animated)
-        notificationToken?.invalidate()
     }
 }
 
 extension FriendsViewController: UITableViewDataSource {    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionNames.count
+        return friendsCategory.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(FriendsSectionTableViewHeader.self, viewForHeaderInSection: section)
         header.contentView.backgroundColor = UIColor.myLightBlue
         header.contentView.alpha = 0.7
-        header.letterLabel.text = sectionNames[section]
+        header.letterLabel.text = friendsCategory[section].category
         return header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsList.filter("category == %@", sectionNames[section]).count
+        return friendsCategory[section].friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(FriendTableViewCell.self, for: indexPath)
-        let category = friendsList.filter("category == %@", sectionNames[indexPath.section])
-        let currentCellFriend = category[indexPath.row]
+        let category = friendsCategory[indexPath.section]
+        let currentCellFriend = category.friends[indexPath.item]
         cell.configuration(currentFriend: currentCellFriend)
         return cell
     }
@@ -114,93 +98,37 @@ extension FriendsViewController {
     }
     //Загрузка данных из VK
     fileprivate func updateFriendsFromVKAPI() {
-        let request = networkService.getFriendsRequest()
-        let getData = AFGetDataOperation(request: request)
-        let parseData = DataParsingOperation<Friends>()
-        let pushToRealm = PushFriendsToRealmOperation<Friends>()
-        let pullFromRealm = PullFriendsFromRealmOperation(friends: self)
-        let completionOperation = BlockOperation {
-            self.tableView.reloadData()
-        }
-
-        parseData.addDependency(getData)
-        pushToRealm.addDependency(parseData)
-        pullFromRealm.addDependency(pushToRealm)
-        completionOperation.addDependency(pullFromRealm)
-
-        operationQueue.addOperation(getData)
-        operationQueue.addOperation(parseData)
-        operationQueue.addOperation(pushToRealm)
-        OperationQueue.main.addOperation(pullFromRealm)
-        OperationQueue.main.addOperation(completionOperation)
-        
-//        networkService.getFriends(completion: { [weak self] friendsItems in
-//            guard let self = self else { return }
-//            self.pushToRealm(friendsItems: friendsItems)
-//            //Pull data friends from RealmDB
-//            self.pullFromRealm()
-//        })
+        networkService.getFriends(completion: { [weak self] friends in
+            self?.friendsList.removeAll()
+            self?.friendsCategory.removeAll()
+            
+            self?.friendsList = friends
+            self?.getCategory(friends)
+            self?.tableView.reloadData()
+        })
     }
-//    //Загрузка данных в БД Realm
-//    fileprivate func pushToRealm(friendsItems: Friends?) {
-//        guard let friendsItems = friendsItems?.items else { return }
-//        //Преобразование в Realm модель
-//        let friendsItemsRealm = friendsItems.map({ RealmFriend($0) })
-//        //Загрузка
-//        do {
-//            let existItems = try realmService.get(RealmFriend.self)
-//            for item in friendsItemsRealm {
-//                guard let existImg = existItems.first(where: { $0.id == item.id })?.imageAvatar else { break }
-//                item.imageAvatar = existImg
-//            }
-//            //let saveToDB = try realmService.save(friendsItemsRealm)
-//            let saveToDB = try realmService.update(friendsItemsRealm)
-//            print(saveToDB.configuration.fileURL?.absoluteString ?? "No avaliable file DB")
-//        } catch (let error) {
-//            showError(error)
-//        }
-//    }
-//    //Получение данных из БД
-//    fileprivate func pullFromRealm() {
-//        do {
-//            friendsList = try realmService.get(RealmFriend.self)
-//            //Получение категорий
-//            let friendsCategory = friendsList.sorted(by: ["category", "fullName"])
-//            sectionNames = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()
-//        } catch (let error) {
-//            showError(error)
-//        }
-//        tableView.reloadData()
-//        //Update custom UIControl
-//        //        let friendsLetters = lettersFriends(array: friendsItems)
-//        //        lettersControl.setupControl(array: friendsLetters)
-//    }
+    
+    fileprivate func getCategory(_ friendsItems: [FriendViewModel]) {
+        //Получение категорий через словарь
+        let friendsCategoryDictionary = Dictionary(grouping: friendsItems) { $0.category }
+        for (_, value) in friendsCategoryDictionary.enumerated() {
+            let category = FriendsCategory(category: value.key, array: value.value)
+            friendsCategory.append(category)
+        }
+        friendsCategory.sort(by: { $0.category < $1.category })
+    }
+
     //    fileprivate func lettersFriends(array friends: [Friend]) -> [String] {
     //        let friendsNameArray = friends.map({ $0.firstName + $0.lastName })
     //        var array = friendsNameArray.map({ String($0.first!) })
     //        array = Array(Set(array))
     //        return array.sorted()
     //    }
-//    @objc private func letterWasChange(_ control: LettersControl) {
-//        let letter = control.selectedLetter
-//        let indexPath = IndexPath(item: 0, section: letter.0)
-//        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-//    }
-    //Наблюдение за изменениями
-    fileprivate func watchingForChanges() {
-        notificationToken = friendsList?.observe({ [weak self] change in
-            guard let self = self else { return }
-            switch change {
-            case .error(let error):
-                self.showError(error)
-            case .initial: break
-            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self.tableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: self.sectionsForUpdate)
-                //Return to default
-                self.sectionsForUpdate = [0]
-            }
-        })
-    }
+    //    @objc private func letterWasChange(_ control: LettersControl) {
+    //        let letter = control.selectedLetter
+    //        let indexPath = IndexPath(item: 0, section: letter.0)
+    //        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    //    }
 }
 
 extension FriendsViewController: UINavigationControllerDelegate {

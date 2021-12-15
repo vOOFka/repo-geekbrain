@@ -24,6 +24,8 @@ protocol NetworkService {
     func getParsingGroups(_ data: Data) -> Promise<Groups>
     //
     func getNewsfeedRequest(_ timeInterval1970: String?, nextFrom: String) -> DataRequest
+    //
+    func loadFriends()
 }
 
 class NetworkServiceImplimentation: NetworkService {
@@ -201,4 +203,11 @@ class NetworkServiceImplimentation: NetworkService {
             }
         }
     }
+    
+    func loadFriends() {
+        getFriends(completion: { [weak self] friendsItems in
+            guard self != nil else { return }
+            RealmServiceImplimentation().pushToRealm(friendsItems: friendsItems)
+        })}
 }
+

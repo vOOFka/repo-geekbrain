@@ -11,7 +11,7 @@ import UIKit
 final class NetworkServiceAdapter {
     
     private let networkService = NetworkServiceImplimentation()
-    private var realmNotificationTokens: [String: NotificationToken] = [:]
+    private var realmNotificationTokens: NotificationToken?
     
     func getFriends(completion: @escaping ([FriendViewModel]) -> Void) {
         guard
@@ -33,8 +33,8 @@ final class NetworkServiceAdapter {
                 break
             }
         }
-        //self.realmNotificationTokens[city] = token
-        //weatherService.loadWeatherData(city: city)
+        self.realmNotificationTokens = token
+        networkService.loadFriends()
     }
     
     private func friendViewModel(from rlmFriend: RealmFriend) -> FriendViewModel {
