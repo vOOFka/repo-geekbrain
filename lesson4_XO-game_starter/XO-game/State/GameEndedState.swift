@@ -35,7 +35,7 @@ public class GameEndedState: GameState {
 	private func winnerName(from winner: Player) -> String {
 		switch winner {
 		case .first: return "1st player"
-		case .second: return "2nd player"
+        case .second, .cpu: return "" //winner.gameModeCpu ? "CPU" : "2nd player"
 		}
 	}
 }
