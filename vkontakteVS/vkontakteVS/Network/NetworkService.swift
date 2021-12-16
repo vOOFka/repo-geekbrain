@@ -26,6 +26,7 @@ protocol NetworkService {
     func getNewsfeedRequest(_ timeInterval1970: String?, nextFrom: String) -> DataRequest
     //
     func loadFriends()
+    func getImageFromWeb(imageURL: String, completion: @escaping (Data) -> Void)
 }
 
 class NetworkServiceImplimentation: NetworkService {
@@ -209,5 +210,16 @@ class NetworkServiceImplimentation: NetworkService {
             guard self != nil else { return }
             RealmServiceImplimentation().pushToRealm(friendsItems: friendsItems)
         })}
+    
+    func getImageFromWeb(imageURL: String, completion: @escaping (Data) -> Void) {
+        Alamofire.AF.request(imageURL, method: .get).response { (response) in
+            if response.error == nil {
+                print(response.result)
+                if let data = response.data {
+                    completion(data)
+                }
+            }
+        }
+    }
 }
 

@@ -20,20 +20,21 @@ class UserGroupsTableViewController: UITableViewController {
     @IBOutlet private weak var groupsHeaderView: UIView!
     @IBOutlet private weak var bottom: NSLayoutConstraint!
     //MARK: - Properties
-    let networkService = NetworkServiceImplimentation()
-    let realmService: RealmService = RealmServiceImplimentation()
-    var userGroups: Results<RealmGroup>!
+    private let networkService = NetworkServiceImplimentation()
+    private let realmService: RealmService = RealmServiceImplimentation()
+    private var userGroups: [Group] = []
     //var filteredUserGroups = [RealmGroup()]
     //var filteredUserGroups = [Group]()
-    var heightHeader: CGFloat = 0.0
-    let searchInNavigationBar = UISearchController(searchResultsController: nil)
-    var notificationToken: NotificationToken?
-    var sectionsForUpdate = [0]
+    private var heightHeader: CGFloat = 0.0
+    private let searchInNavigationBar = UISearchController(searchResultsController: nil)
+    private var notificationToken: NotificationToken?
+    private var sectionsForUpdate = [0]
+    private let viewModelFactory = GroupsViewModelFactory()
+    private var viewModels: [GroupsViewModel] = []
 
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        watchingForChanges()
         tableView.tableHeaderView = nil
         tableView.addSubview(groupsHeaderView)
         groupsHeaderView.clipsToBounds = true
@@ -79,30 +80,29 @@ class UserGroupsTableViewController: UITableViewController {
     }
     //MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userGroups?.count ?? 0
+        return viewModels.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        let currentCellGroup = userGroups[indexPath.row]
-        cell.configuration(currentGroup: currentCellGroup)
+        cell.configuration(currentGroup: viewModels[indexPath.row])
         return cell
     }
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            sectionsForUpdate.append(indexPath.section)
-            let currentItem = userGroups[indexPath.row]
-            do {
-                guard let itemFromDB = try realmService.get(RealmGroup.self, primaryKey: currentItem.id) else { return }
-                try realmService.delete(itemFromDB)
-            } catch (let error) {
-                showError(error)
-            }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        default:
-            return
-        }
-    }
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        switch editingStyle {
+//        case .delete:
+//            sectionsForUpdate.append(indexPath.section)
+//            let currentItem = userGroups[indexPath.row]
+//            do {
+//                guard let itemFromDB = try realmService.get(RealmGroup.self, primaryKey: currentItem.id) else { return }
+//                try realmService.delete(itemFromDB)
+//            } catch (let error) {
+//                showError(error)
+//            }
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//        default:
+//            return
+//        }
+//    }
 }
 
 //MARK: - Functions
@@ -114,10 +114,9 @@ extension UserGroupsTableViewController {
             .done { [weak self] groups in
                 guard let self = self else { throw InternalErrors.ErrorSaveToRealmDB}
                 _ = self.promisePushToRealm(groupsItems: groups)
-            }
-            .done { [weak self] _ in
-                guard let self = self else { throw InternalErrors.ErrorReadFromRealmDB}
-                _ = self.promisePullFromRealm()
+                self.userGroups = groups.items
+                self.viewModels = self.viewModelFactory.cunstructViewModels(from: groups.items)
+                self.groupsTableView.reloadData()
             }
             .catch { error in
                 print(error.localizedDescription)
@@ -142,33 +141,6 @@ extension UserGroupsTableViewController {
                 isPush.reject(InternalErrors.ErrorSaveToRealmDB)
             }
         }
-    }
-    //Получение данных из БД  --- Promise
-    fileprivate func promisePullFromRealm() -> Promise<Bool> {
-        return Promise<Bool> { result in
-            do {
-                userGroups = try realmService.get(RealmGroup.self)
-                result.fulfill(true)
-                groupsTableView.reloadData()
-            } catch (let error) {
-                showError(error)
-                result.reject(InternalErrors.ErrorReadFromRealmDB)
-            }}
-    }
-    //Наблюдение за изменениями
-    fileprivate func watchingForChanges() {
-        notificationToken = userGroups?.observe({ [weak self] change in
-            guard let self = self else { return }
-            switch change {
-            case .error(let error):
-                self.showError(error)
-            case .initial: break
-            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self.groupsTableView.updateTableView(deletions: deletions, insertions: insertions, modifications: modifications, sections: self.sectionsForUpdate)
-                //Return to default
-                self.sectionsForUpdate = [0]
-            }
-        })
     }
 }
 
