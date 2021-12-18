@@ -25,6 +25,7 @@ class GameViewController: UIViewController {
     }
     private lazy var referee = Referee(gameboard: self.gameboard)
     var gameMode: GameMode = .withHuman
+    var movesPlayers: [Player:[GameboardPosition]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,20 +40,29 @@ class GameViewController: UIViewController {
     }
     
     private func goToFirstState() {
+        gameModeSegmentControl.isEnabled = true
         let player = Player.first
-        currentState = PlayerInputState(player: player,
-                                        markViewPrototype: player.markViewPrototype,
-                                        gameViewController: self,
-                                        gameboard: gameboard,
-                                        gameboardView: gameboardView)
+        if gameMode == .fiveInput {
+            movesPlayers = [:]
+            currentState = PlayerFiveInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
+        } else {
+            currentState = PlayerInputState(player: player,
+                                            markViewPrototype: player.markViewPrototype,
+                                            gameViewController: self,
+                                            gameboard: gameboard,
+                                            gameboardView: gameboardView)
+        }
     }
     
     private func goToNextState() {
-        if let winner = self.referee.determineWinner() {
-            currentState = GameEndedState(winner: winner, gameViewController: self)
-            return
+        if gameMode != .fiveInput || movesPlayers.count == 2 {
+            gameModeSegmentControl.isEnabled = false
+            if let winner = self.referee.determineWinner() {
+                currentState = GameEndedState(winner: winner, gameViewController: self)
+                return
+            }
         }
-        
+        // Simple and CPU game
         if let playerInputState = currentState as? PlayerInputState {
             let player = playerInputState.player.next
             currentState = PlayerInputState(player: player,
@@ -70,6 +80,22 @@ class GameViewController: UIViewController {
                 }
             }
         }
+        //Five input game
+        if let fiveInputState = currentState as? PlayerFiveInputState {
+            gameboard.clear()
+            gameboardView.clear()
+            let player = fiveInputState.player.next
+            movesPlayers[fiveInputState.player] = fiveInputState.movesArray
+            if movesPlayers.count == 2 {
+                gameboard.clear()
+                gameboardView.clear()
+                currentState = ShowPlayersInputsState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
+                currentState.begin()
+                goToNextState()
+            } else {
+                currentState = PlayerFiveInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)}
+        }
+        
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
@@ -80,11 +106,14 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func changeSegmentControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            gameMode = .withHuman
-        } else {
-            gameMode = .withCPU
+        switch sender.selectedSegmentIndex {
+        case 0: gameMode = .withHuman
+        case 1: gameMode = .withCPU
+        case 2: gameMode = .fiveInput
+        default:
+            break
         }
+        goToFirstState()
     }
 }
 

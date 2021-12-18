@@ -11,4 +11,5 @@ import Foundation
 enum GameMode {
     case withHuman
     case withCPU
+    case fiveInput
 }
