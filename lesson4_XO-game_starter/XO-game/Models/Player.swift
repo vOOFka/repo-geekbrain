@@ -8,27 +8,21 @@
 
 import Foundation
 
-public enum Player: CaseIterable, Equatable {
-    public static var allCases: [Player] {
-        return [.first(gameMode: nil), .second, .cpu]
-    }    
-    case first(gameMode: String?)
+public enum Player: CaseIterable {
+    case first
     case second
-    case cpu
     
     var next: Player {
         switch self {
-        case .first(let gameMode) where gameMode == "CPU": return .cpu
         case .first: return .second
-        case .second, .cpu: return .first(gameMode: nil)
+        case .second: return .first
         }
     }
 
 	var markViewPrototype: MarkView {
 		switch self {
-        case .second, .cpu: return OView()
-        case .first(gameMode: .some(_)), .first(gameMode: .none):
-            return XView()
+        case .second: return OView()
+        case .first: return XView()
         }
 	}
 }

@@ -61,6 +61,13 @@ public class GameboardView: UIView {
         markView.removeFromSuperview()
     }
     
+    public func cpuMakeMove() {
+        let touchLocation = CGPoint(x: Double.random(in: 50..<bounds.size.width), y: Double.random(in: 50..<bounds.size.height))
+        let position = GameboardPosition(column: determineColumn(for: touchLocation),
+                                         row: determineRow(for: touchLocation))
+        onSelectPosition?(position)
+    }
+    
     // MARK: - UIView
     
     public override func draw(_ rect: CGRect) {

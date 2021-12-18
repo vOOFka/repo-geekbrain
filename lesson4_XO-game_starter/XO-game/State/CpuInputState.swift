@@ -1,21 +1,21 @@
 //
-//  PlayerInputState.swift
+//  CpuInputState.swift
 //  XO-game
 //
-//  Created by Stanislav Belykh on 09.12.2021.
+//  Created by Home on 18.12.2021.
 //  Copyright © 2021 plasmon. All rights reserved.
 //
 
-public class PlayerInputState: GameState {
+public class CpuInputState: GameState {
     
     public private(set) var isCompleted = false
-    
+
     public let player: Player
     private(set) weak var gameViewController: GameViewController?
     private(set) weak var gameboard: Gameboard?
     private(set) weak var gameboardView: GameboardView?
     let markViewPrototype: MarkView
-    
+
     init(player: Player, markViewPrototype: MarkView, gameViewController: GameViewController, gameboard: Gameboard, gameboardView: GameboardView) {
         self.player = player
         self.markViewPrototype = markViewPrototype
@@ -23,7 +23,7 @@ public class PlayerInputState: GameState {
         self.gameboard = gameboard
         self.gameboardView = gameboardView
     }
-    
+
     public func begin() {
         switch self.player {
         case .first:
@@ -32,20 +32,17 @@ public class PlayerInputState: GameState {
         case .second:
             self.gameViewController?.firstPlayerTurnLabel.isHidden = true
             self.gameViewController?.secondPlayerTurnLabel.isHidden = false
-            self.gameViewController?.secondPlayerTurnLabel.text = "2nd player"
-            if gameViewController?.gameMode == .withCPU {
-                self.gameViewController?.secondPlayerTurnLabel.text = "CPU"
-            }
+            self.gameViewController?.secondPlayerTurnLabel.text = "CPU"
         }
         self.gameViewController?.winnerLabel.isHidden = true
     }
-    
+
     public func addMark(at position: GameboardPosition) {
         guard
             let gameboardView = self.gameboardView,
             gameboardView.canPlaceMarkView(at: position)
         else { return }
-        
+
         let markView: MarkView
         switch self.player {
         case .first:
@@ -53,9 +50,8 @@ public class PlayerInputState: GameState {
         case .second:
             markView = OView()
         }
-        
+
         Log(.playerInput(player: player, position: position))
-        
         self.gameboard?.setPlayer(self.player, at: position)
         self.gameboardView?.placeMarkView(markView, at: position) //(self.markViewPrototype.copy(), at: position)
         self.isCompleted = true

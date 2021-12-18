@@ -24,6 +24,7 @@ class GameViewController: UIViewController {
         }
     }
     private lazy var referee = Referee(gameboard: self.gameboard)
+    var gameMode: GameMode = .withHuman
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,34 +39,36 @@ class GameViewController: UIViewController {
     }
     
     private func goToFirstState() {
-        var player = Player.first(gameMode: nil)
-        if gameModeSegmentControl.selectedSegmentIndex == 1 {
-            player = Player.first(gameMode: "CPU")
-        }
-        self.currentState = PlayerInputState(player: player,
-                                             markViewPrototype: player.markViewPrototype,
-                                             gameViewController: self,
-                                             gameboard: gameboard,
-                                             gameboardView: gameboardView)
+        let player = Player.first
+        currentState = PlayerInputState(player: player,
+                                        markViewPrototype: player.markViewPrototype,
+                                        gameViewController: self,
+                                        gameboard: gameboard,
+                                        gameboardView: gameboardView)
     }
     
     private func goToNextState() {
-        
         if let winner = self.referee.determineWinner() {
-            self.currentState = GameEndedState(winner: winner, gameViewController: self)
+            currentState = GameEndedState(winner: winner, gameViewController: self)
             return
         }
         
         if let playerInputState = currentState as? PlayerInputState {
-            var player = playerInputState.player.next
-            if (gameModeSegmentControl.selectedSegmentIndex == 1) && (player == Player.first(gameMode: nil)) {
-                player = Player.first(gameMode: "CPU")
+            let player = playerInputState.player.next
+            currentState = PlayerInputState(player: player,
+                                            markViewPrototype: player.markViewPrototype,
+                                            gameViewController: self,
+                                            gameboard: gameboard,
+                                            gameboardView: gameboardView)
+            if let nextInputState = currentState as? PlayerInputState {
+                if (nextInputState.player == .second) && (gameMode == .withCPU) {
+                    while currentState.isCompleted == false {
+                        let pos = GameboardPosition(column: Int.random(in: 0...2), row: Int.random(in: 0...2))
+                        self.currentState.addMark(at: pos)
+                    }
+                    goToNextState()
+                }
             }
-            self.currentState = PlayerInputState(player: player,
-                                                 markViewPrototype: player.markViewPrototype,
-                                                 gameViewController: self,
-                                                 gameboard: gameboard,
-                                                 gameboardView: gameboardView)
         }
     }
     
@@ -75,8 +78,13 @@ class GameViewController: UIViewController {
         goToFirstState()
         Log(.restartGame)
     }
+    
     @IBAction func changeSegmentControl(_ sender: UISegmentedControl) {
-        goToFirstState()
+        if sender.selectedSegmentIndex == 0 {
+            gameMode = .withHuman
+        } else {
+            gameMode = .withCPU
+        }
     }
 }
 
