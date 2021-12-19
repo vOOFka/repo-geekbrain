@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F48E0C43276F5B38002BF67B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C42276F5B38002BF67B /* AppDelegate.swift */; };
 		F48E0C45276F5B38002BF67B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C44276F5B38002BF67B /* SceneDelegate.swift */; };
-		F48E0C47276F5B38002BF67B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C46276F5B38002BF67B /* ViewController.swift */; };
+		F48E0C47276F5B38002BF67B /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C46276F5B38002BF67B /* TasksViewController.swift */; };
 		F48E0C4A276F5B38002BF67B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F48E0C48276F5B38002BF67B /* Main.storyboard */; };
 		F48E0C4C276F5B3B002BF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F48E0C4B276F5B3B002BF67B /* Assets.xcassets */; };
 		F48E0C4F276F5B3B002BF67B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F48E0C4D276F5B3B002BF67B /* LaunchScreen.storyboard */; };
@@ -17,13 +17,15 @@
 		F48E0C5A276F5E57002BF67B /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48E0C58276F5E57002BF67B /* TaskCell.xib */; };
 		F48E0C5E276F6201002BF67B /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C5D276F6201002BF67B /* Reusable.swift */; };
 		F48E0C61276F6BD4002BF67B /* CompositeTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C60276F6BD4002BF67B /* CompositeTask.swift */; };
+		F4D4B726276FC4830037ACAB /* ChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4B725276FC4830037ACAB /* ChildVC.swift */; };
+		F4D4B729276FD4650037ACAB /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4B728276FD4650037ACAB /* TaskList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F48E0C3F276F5B38002BF67B /* TaskListVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskListVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48E0C42276F5B38002BF67B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F48E0C44276F5B38002BF67B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F48E0C46276F5B38002BF67B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F48E0C46276F5B38002BF67B /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		F48E0C49276F5B38002BF67B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F48E0C4B276F5B3B002BF67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F48E0C4E276F5B3B002BF67B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		F48E0C58276F5E57002BF67B /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
 		F48E0C5D276F6201002BF67B /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F48E0C60276F6BD4002BF67B /* CompositeTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTask.swift; sourceTree = "<group>"; };
+		F4D4B725276FC4830037ACAB /* ChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildVC.swift; sourceTree = "<group>"; };
+		F4D4B728276FD4650037ACAB /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 		F48E0C41276F5B38002BF67B /* TaskListVS */ = {
 			isa = PBXGroup;
 			children = (
+				F4D4B727276FD43B0037ACAB /* Singleton */,
 				F48E0C5C276F61E4002BF67B /* Helpers */,
 				F48E0C5F276F6B26002BF67B /* Composite */,
 				F48E0C56276F5C8B002BF67B /* UI */,
@@ -81,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				F48E0C5B276F5E60002BF67B /* Main */,
+				F4D4B724276FC4560037ACAB /* Child */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -88,7 +94,7 @@
 		F48E0C5B276F5E60002BF67B /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				F48E0C46276F5B38002BF67B /* ViewController.swift */,
+				F48E0C46276F5B38002BF67B /* TasksViewController.swift */,
 				F48E0C57276F5E57002BF67B /* TaskCell.swift */,
 				F48E0C58276F5E57002BF67B /* TaskCell.xib */,
 			);
@@ -109,6 +115,22 @@
 				F48E0C60276F6BD4002BF67B /* CompositeTask.swift */,
 			);
 			path = Composite;
+			sourceTree = "<group>";
+		};
+		F4D4B724276FC4560037ACAB /* Child */ = {
+			isa = PBXGroup;
+			children = (
+				F4D4B725276FC4830037ACAB /* ChildVC.swift */,
+			);
+			path = Child;
+			sourceTree = "<group>";
+		};
+		F4D4B727276FD43B0037ACAB /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				F4D4B728276FD4650037ACAB /* TaskList.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,8 +205,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D4B729276FD4650037ACAB /* TaskList.swift in Sources */,
 				F48E0C59276F5E57002BF67B /* TaskCell.swift in Sources */,
-				F48E0C47276F5B38002BF67B /* ViewController.swift in Sources */,
+				F48E0C47276F5B38002BF67B /* TasksViewController.swift in Sources */,
+				F4D4B726276FC4830037ACAB /* ChildVC.swift in Sources */,
 				F48E0C43276F5B38002BF67B /* AppDelegate.swift in Sources */,
 				F48E0C45276F5B38002BF67B /* SceneDelegate.swift in Sources */,
 				F48E0C61276F6BD4002BF67B /* CompositeTask.swift in Sources */,

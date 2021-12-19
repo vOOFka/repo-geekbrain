@@ -18,8 +18,9 @@ class TaskCell: UITableViewCell {
         // Initialization code
     }
     
-    func configuration () {
-        
+    func configuration (task: TaskProtocol) {
+        self.nameLabel.text = "\(task.name)"
+        self.subtasksLabel.text = "Count of subtasks: \(task.subtasks.count)"
     }   
     
 }
