@@ -42,15 +42,14 @@ class GameViewController: UIViewController {
     private func goToFirstState() {
         gameModeSegmentControl.isEnabled = true
         let player = Player.first
-        if gameMode == .fiveInput {
+        switch gameMode {
+        case .withHuman, .withCPU:
+            currentState = PlayerInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
+        case .fiveInput:
             movesPlayers = [:]
             currentState = PlayerFiveInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
-        } else {
-            currentState = PlayerInputState(player: player,
-                                            markViewPrototype: player.markViewPrototype,
-                                            gameViewController: self,
-                                            gameboard: gameboard,
-                                            gameboardView: gameboardView)
+        case .withCommands:
+            currentState = PlayerInputStateWithCommands(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
         }
     }
     
@@ -97,7 +96,11 @@ class GameViewController: UIViewController {
             } else {
                 currentState = PlayerFiveInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)}
         }
-        
+        //Player inputs state with Commands
+        if let playerInputStateWithCommands = currentState as? PlayerInputStateWithCommands {
+            let player = playerInputStateWithCommands.player.next
+            currentState = PlayerInputStateWithCommands(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
+        }
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
@@ -112,6 +115,7 @@ class GameViewController: UIViewController {
         case 0: gameMode = .withHuman
         case 1: gameMode = .withCPU
         case 2: gameMode = .fiveInput
+        case 3: gameMode = .withCommands
         default:
             break
         }

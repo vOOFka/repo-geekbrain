@@ -19,6 +19,10 @@
 		F4242FC2276DECBD00EF3864 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4242FC1276DECBD00EF3864 /* GameMode.swift */; };
 		F4242FC4276E5E6A00EF3864 /* PlayerFiveInputState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4242FC3276E5E6900EF3864 /* PlayerFiveInputState.swift */; };
 		F4242FC6276E6EB800EF3864 /* ShowPlayersInputsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4242FC5276E6EB800EF3864 /* ShowPlayersInputsState.swift */; };
+		F48E0C0F276F3A4C002BF67B /* MoveInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C0E276F3A4C002BF67B /* MoveInvoker.swift */; };
+		F48E0C11276F3C40002BF67B /* MoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C10276F3C40002BF67B /* MoveCommand.swift */; };
+		F48E0C13276F3C81002BF67B /* MoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C12276F3C81002BF67B /* MoveAction.swift */; };
+		F48E0C15276F471A002BF67B /* PlayerInputStateWithCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E0C14276F471A002BF67B /* PlayerInputStateWithCommands.swift */; };
 		F874E4712224621100364CAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F874E4702224621100364CAE /* AppDelegate.swift */; };
 		F874E4732224621100364CAE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F874E4722224621100364CAE /* GameViewController.swift */; };
 		F874E4762224621100364CAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F874E4742224621100364CAE /* Main.storyboard */; };
@@ -48,6 +52,10 @@
 		F4242FC1276DECBD00EF3864 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		F4242FC3276E5E6900EF3864 /* PlayerFiveInputState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFiveInputState.swift; sourceTree = "<group>"; };
 		F4242FC5276E6EB800EF3864 /* ShowPlayersInputsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlayersInputsState.swift; sourceTree = "<group>"; };
+		F48E0C0E276F3A4C002BF67B /* MoveInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInvoker.swift; sourceTree = "<group>"; };
+		F48E0C10276F3C40002BF67B /* MoveCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCommand.swift; sourceTree = "<group>"; };
+		F48E0C12276F3C81002BF67B /* MoveAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveAction.swift; sourceTree = "<group>"; };
+		F48E0C14276F471A002BF67B /* PlayerInputStateWithCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputStateWithCommands.swift; sourceTree = "<group>"; };
 		F874E46D2224621100364CAE /* XO-game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XO-game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F874E4702224621100364CAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F874E4722224621100364CAE /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 				A296D6DD2762755D00C78948 /* GameEndedState.swift */,
 				F4242FC3276E5E6900EF3864 /* PlayerFiveInputState.swift */,
 				F4242FC5276E6EB800EF3864 /* ShowPlayersInputsState.swift */,
+				F48E0C14276F471A002BF67B /* PlayerInputStateWithCommands.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -104,6 +113,9 @@
 				A296D6EA2762817A00C78948 /* Command.swift */,
 				A296D6ED276281B400C78948 /* Resiver.swift */,
 				A296D6F0276281FA00C78948 /* LoggerInvoker.swift */,
+				F48E0C12276F3C81002BF67B /* MoveAction.swift */,
+				F48E0C10276F3C40002BF67B /* MoveCommand.swift */,
+				F48E0C0E276F3A4C002BF67B /* MoveInvoker.swift */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -248,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F874E4732224621100364CAE /* GameViewController.swift in Sources */,
+				F48E0C0F276F3A4C002BF67B /* MoveInvoker.swift in Sources */,
 				A296D6E227627B1400C78948 /* Copying.swift in Sources */,
 				F4242FC6276E6EB800EF3864 /* ShowPlayersInputsState.swift in Sources */,
 				A296D6DB2762731E00C78948 /* PlayerInputState.swift in Sources */,
@@ -259,6 +272,8 @@
 				A296D6F1276281FA00C78948 /* LoggerInvoker.swift in Sources */,
 				F874E4F12225DFF700364CAE /* Referee.swift in Sources */,
 				F874E4F52225E2CD00364CAE /* Gameboard.swift in Sources */,
+				F48E0C11276F3C40002BF67B /* MoveCommand.swift in Sources */,
+				F48E0C15276F471A002BF67B /* PlayerInputStateWithCommands.swift in Sources */,
 				A296D6DE2762755D00C78948 /* GameEndedState.swift in Sources */,
 				A296D6E72762814C00C78948 /* Logaction.swift in Sources */,
 				F874E4712224621100364CAE /* AppDelegate.swift in Sources */,
@@ -269,6 +284,7 @@
 				F4242FC2276DECBD00EF3864 /* GameMode.swift in Sources */,
 				F874E4DB2225C1AC00364CAE /* GameboardView.swift in Sources */,
 				F874E4EF2225DE4500364CAE /* Player.swift in Sources */,
+				F48E0C13276F3C81002BF67B /* MoveAction.swift in Sources */,
 				A296D6D327626E5F00C78948 /* Builder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

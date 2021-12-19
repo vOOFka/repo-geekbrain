@@ -12,4 +12,5 @@ enum GameMode {
     case withHuman
     case withCPU
     case fiveInput
+    case withCommands
 }

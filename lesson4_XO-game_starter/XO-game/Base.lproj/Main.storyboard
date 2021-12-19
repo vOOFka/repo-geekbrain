@@ -46,12 +46,13 @@
                                             <constraint firstAttribute="width" secondItem="FpC-lq-59T" secondAttribute="height" id="j79-XI-cai"/>
                                         </constraints>
                                     </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XHj-s4-Grj">
-                                        <rect key="frame" x="8" y="446" width="359" height="32"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XHj-s4-Grj">
+                                        <rect key="frame" x="15.5" y="446" width="344" height="32"/>
                                         <segments>
-                                            <segment title="Second player"/>
+                                            <segment title="Player"/>
                                             <segment title="CPU"/>
                                             <segment title="Five Input Game"/>
+                                            <segment title="With commands"/>
                                         </segments>
                                         <connections>
                                             <action selector="changeSegmentControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="YuF-42-0EH"/>
