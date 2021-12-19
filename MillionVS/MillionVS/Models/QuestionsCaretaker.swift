@@ -1,34 +1,34 @@
 //
-//  GameSessionCaretaker.swift
+//  QuestionsCaretaker.swift
 //  MillionVS
 //
-//  Created by Home on 06.12.2021.
+//  Created by Home on 11.12.2021.
 //
 
 import UIKit
 
-final class GameSessionCaretaker {
+final class QuestionsCaretaker {
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    private let key = "gameSessions"
+    private let key = "questions"
     
-    func save(gameSessions: [GameSession]) {
+    func save(questions: [Question]) {
         do {
-            let data = try self.encoder.encode(gameSessions)
+            let data = try self.encoder.encode(questions)
             UserDefaults.standard.set(data, forKey: key)
         } catch {
             print(error)
         }
     }
     
-    func retrieveSessions() -> [GameSession] {
+    func retrieveQuestions() -> [Question] {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return []
         }
         do {
-            return try self.decoder.decode([GameSession].self, from: data)
+            return try self.decoder.decode([Question].self, from: data)
         } catch {
             print(error)
             return []

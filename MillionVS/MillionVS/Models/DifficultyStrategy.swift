@@ -7,8 +7,8 @@
 
 import UIKit
 
-enum Difficulty {
-    case easy, medium
+enum Difficulty: Int {
+    case easy = 0, medium = 1
 }
 
 protocol ShowQuestionsStrategy {

@@ -11,20 +11,19 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var difficultySegmentControl: UISegmentedControl!
     
-    private var game = Game.shared.selectedDifficulty
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        difficultySegmentControl.selectedSegmentIndex = Game.shared.selectedDifficulty.rawValue
     }
     
     @IBAction func didSelectedDifficulty(_ sender: UISegmentedControl) {
         switch self.difficultySegmentControl.selectedSegmentIndex {
         case 0:
-            game = .easy
+            Game.shared.selectedDifficulty = .easy
         case 1:
-            game = .medium
+            Game.shared.selectedDifficulty = .medium
         default:
-            game = .easy
+            Game.shared.selectedDifficulty = .easy
         }        
     }
 }
