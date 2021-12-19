@@ -57,6 +57,12 @@ class GameViewController: UIViewController {
     private func goToNextState() {
         if gameMode != .fiveInput || movesPlayers.count == 2 {
             gameModeSegmentControl.isEnabled = false
+            if movesPlayers.count == 2 {
+                gameboard.clear()
+                gameboardView.clear()
+                currentState = ShowPlayersInputsState(player: Player.first, markViewPrototype: Player.first.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
+                currentState.begin()
+            }
             if let winner = self.referee.determineWinner() {
                 currentState = GameEndedState(winner: winner, gameViewController: self)
                 return
@@ -87,10 +93,6 @@ class GameViewController: UIViewController {
             let player = fiveInputState.player.next
             movesPlayers[fiveInputState.player] = fiveInputState.movesArray
             if movesPlayers.count == 2 {
-                gameboard.clear()
-                gameboardView.clear()
-                currentState = ShowPlayersInputsState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)
-                currentState.begin()
                 goToNextState()
             } else {
                 currentState = PlayerFiveInputState(player: player, markViewPrototype: player.markViewPrototype, gameViewController: self, gameboard: gameboard, gameboardView: gameboardView)}

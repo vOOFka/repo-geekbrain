@@ -29,25 +29,22 @@ class ShowPlayersInputsState: GameState {
     
     public func begin() {
         movesPlayers = gameViewController?.movesPlayers ?? [:]
-      //  guard firstPlayerMoves = movesPlayers[.first], else { return }
-      //  let allMoves = movesPlayers[.first]!.count + movesPlayers[.second]!.count
-      //  var who: Player = .first ;
         var i = 0; var j = 0
         for _ in (0...9) {
             switch player {
             case .first:
                 let position = movesPlayers[player]![i]
-                player = player.next; i += 1
                 self.gameViewController?.firstPlayerTurnLabel.isHidden = false
                 self.gameViewController?.secondPlayerTurnLabel.isHidden = true
                 addMark(at: position)
+                player = player.next; i += 1
             case .second:
                 let position = movesPlayers[player]![j]
-                player = player.next; j += 1
                 self.gameViewController?.firstPlayerTurnLabel.isHidden = true
                 self.gameViewController?.secondPlayerTurnLabel.isHidden = false
                 self.gameViewController?.secondPlayerTurnLabel.text = "2nd player"
                 addMark(at: position)
+                player = player.next; j += 1
             }
         }
         self.gameViewController?.winnerLabel.isHidden = true
@@ -60,7 +57,7 @@ class ShowPlayersInputsState: GameState {
             let gameboardView = self.gameboardView
         else { return }
         
-        if gameboardView.canPlaceMarkView(at: position) {
+        if !gameboardView.canPlaceMarkView(at: position) {
             gameboardView.removeMarkView(at: position)
             gameboard?.removePlayer(at: position)
         }
@@ -73,10 +70,10 @@ class ShowPlayersInputsState: GameState {
             markView = OView()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+       // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             Log(.playerInput(player: self.player, position: position))
             self.gameboard?.setPlayer(self.player, at: position)
             self.gameboardView?.placeMarkView(markView, at: position)
-        }
+      //  }
     }
 }
