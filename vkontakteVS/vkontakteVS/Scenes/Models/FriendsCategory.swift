@@ -9,9 +9,9 @@ import UIKit
 
 class FriendsCategory {
     let category: String
-    var friends: [Friend]
+    var friends: [FriendViewModel]
     
-    init(category: String ,array friends: [Friend]) {
+    init(category: String ,array friends: [FriendViewModel]) {
         self.category = category
         self.friends = friends
     }

@@ -29,8 +29,8 @@ class Cloud: UIView {
         cloudePath.apply(CGAffineTransform(scaleX: scale.width, y: scale.height))
         cloudLayer.path = cloudePath.cgPath
         cloudLayer.lineWidth = 0.0
-        cloudLayer.fillColor = UIColor.white.cgColor
-        cloudLayer.strokeColor =  #colorLiteral(red: 0.262745098, green: 0.3529411765, blue: 0.3921568627, alpha: 1)
+        cloudLayer.fillColor = UIColor.myWhite.cgColor
+        cloudLayer.strokeColor = UIColor.myCloudStrokeColor.cgColor
         cloudLayer.lineCap = .round
         //cloudLayer.strokeStart = 0.5
         //cloudLayer.strokeEnd = 1

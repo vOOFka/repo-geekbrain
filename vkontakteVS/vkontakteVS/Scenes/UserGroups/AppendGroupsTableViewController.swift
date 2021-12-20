@@ -15,10 +15,12 @@ class AppendGroupsTableViewController: UITableViewController {
     //MARK: - Properties
     private let networkService = NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
-    private var foundAppendGroups = [RealmGroup()]
+    private var foundAppendGroups: [Group] = []
     private var searching = false
     private let searchView = GroupSearchBar()
     private let ref = Database.database().reference(withPath: "users")
+    private let viewModelFactory = GroupsViewModelFactory()
+    private var viewModels: [GroupsViewModel] = []
 
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -31,28 +33,29 @@ class AppendGroupsTableViewController: UITableViewController {
         networkService.searchGroups(search: searchText, completion: { [weak self] groupsItems in
             guard let self = self,
                   let foundAppendGroups = groupsItems?.items else { return }
-            //Преобразование в Realm модель
-            self.foundAppendGroups = foundAppendGroups.map({ RealmGroup($0) })
+            self.viewModels = self.viewModelFactory.cunstructViewModels(from: foundAppendGroups)
+//            //Преобразование в Realm модель
+//            self.foundAppendGroups = foundAppendGroups.map({ RealmGroup($0) })
             self.appendGroupsTableView.reloadData()
         })
     }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
-            return foundAppendGroups.count
+            return viewModels.count
         } else {
             return 0
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(GroupTableViewCell.self, for: indexPath)
-        cell.configuration(currentGroup: foundAppendGroups[indexPath.row])
+        cell.configuration(currentGroup: viewModels[indexPath.row])
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectGroup = foundAppendGroups[indexPath.row]
-        pushToRealm(selectGroup: selectGroup)
+        let selectGroup = viewModels[indexPath.row]
+        //pushToRealm(selectGroup: viewModels)
         //Загрузка данных в Firebase
         let selectGroupFirebase = GroupFirebase(id: selectGroup.id, name: selectGroup.name)
         let databaseRef = ref.child(String(UserSession.shared.userId)).child("groups").child(String(selectGroupFirebase.id))

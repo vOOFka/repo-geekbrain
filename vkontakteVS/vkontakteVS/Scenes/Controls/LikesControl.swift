@@ -42,7 +42,7 @@ class LikesControl: UIControl {
         likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor, multiplier: 1/1).isActive = true
         
         likesLabel.text = String(currentPhoto.likes!)
-        likesLabel.textColor = UIColor.black
+        likesLabel.textColor = UIColor.myBlack
         likesLabel.textAlignment = .center
 
         stackView = UIStackView(arrangedSubviews: [likesLabel, likeButton])

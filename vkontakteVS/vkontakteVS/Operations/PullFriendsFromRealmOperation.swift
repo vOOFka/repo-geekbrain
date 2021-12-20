@@ -28,7 +28,7 @@ class PullFriendsFromRealmOperation: Operation {
             //Получение категорий
             let friendsCategory = dataFromRealm.sorted(by: ["category", "fullName"])
             let outputFriendsCategory = Set(friendsCategory.value(forKeyPath: "category") as! [String]).sorted()            
-            vc.friendsList = dataFromRealm
+            //vc.friendsList = dataFromRealm
             vc.sectionNames = outputFriendsCategory
         } catch (let error) {
             print(error)
