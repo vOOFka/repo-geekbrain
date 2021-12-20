@@ -11,46 +11,46 @@ class TasksViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
-    var currentTask: TaskProtocol?
-    var tasksArray = TaskList.shared.taskList {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
+    var currentTask: TaskProtocol = TaskList.shared.rootTask
+    var rootTasksArray: [TaskProtocol] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.register(TaskCell.self)
+        currentTask.subtasks = MockResponseToGetTasks()
     }
+    
     @IBAction func tapAddButton(_ sender: Any) {
         showAdd()
+    }
+    @IBAction func tapBackButton(_ sender: Any) {
+        if !rootTasksArray.isEmpty {
+            currentTask = rootTasksArray.removeLast()
+            tableView.reloadData()
+            showBackButton()
+        }
     }
 }
 
 extension TasksViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectTask = tasksArray[indexPath.row]
-        let childVC = ChildVC()
-        childVC.currentTask = selectTask
-        //childVC.tasksArray = selectTask.subtasks
-        childVC.addButton = addButton
-        
-        TaskList.shared.taskList = tasksArray
-        
-        childVC.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(childVC, animated: true)
+        let selectTask = currentTask.subtasks[indexPath.row]
+        rootTasksArray.append(currentTask)
+        currentTask = selectTask
+        showBackButton()
+        tableView.reloadData()
     }
 }
 
 extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tasksArray.count
+        currentTask.subtasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(TaskCell.self, for: indexPath)
-        cell.configuration(task: tasksArray[indexPath.row])
+        cell.configuration(task: currentTask.subtasks[indexPath.row])
         return cell
     }
     
@@ -61,6 +61,11 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension TasksViewController {
+    fileprivate func showBackButton() {
+        let hasRootTasks = !rootTasksArray.isEmpty ? true : false
+        navigationItem.leftBarButtonItems?.first?.isEnabled = hasRootTasks
+    }
+    
     fileprivate func showAdd() {
         let alertController = UIAlertController(title: "Add New task", message: "", preferredStyle: .alert)
         
@@ -69,8 +74,8 @@ extension TasksViewController {
         }
         let addAction = UIAlertAction(title: "Add", style: .default, handler: { alert -> Void in
             guard let text = alertController.textFields?.first?.text else { return }
-            let newTask = Task(name: text)
-            self.tasksArray.append(newTask)
+            let newTask = Task(name: text)            
+            self.currentTask.subtasks.append(newTask)
             self.tableView.reloadData()
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {

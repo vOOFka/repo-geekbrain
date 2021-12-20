@@ -12,4 +12,5 @@ class TaskList {
     
     static let shared = TaskList()
     var taskList: [TaskProtocol] = MockResponseToGetTasks()
+    var rootTask = Task(name: "Root task")
 }

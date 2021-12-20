@@ -46,6 +46,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qMX-4Z-Vo2">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" systemItem="reply" id="lZM-cV-rvi">
+                            <connections>
+                                <action selector="tapBackButton:" destination="BYZ-38-t0r" id="wUD-If-2po"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="U7h-d8-09K">
                             <connections>
                                 <action selector="tapAddButton:" destination="BYZ-38-t0r" id="NRi-mG-JcQ"/>

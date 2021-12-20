@@ -10,18 +10,12 @@ import Foundation
 protocol TaskProtocol {
     var name: String { get set }
     var subtasks: [TaskProtocol] { get set }
-    func open()
     func add(_ task: TaskProtocol)
 }
 
 class Task: TaskProtocol {
     var name: String
     var subtasks: [TaskProtocol] = []
-    var isRootTask = false
-    
-    func open() {
-        print("some task")
-    }
     
     func add(_ task: TaskProtocol) {
         subtasks.append(task)
@@ -40,7 +34,6 @@ func MockResponseToGetTasks() -> [TaskProtocol] {
     var tasks = [TaskProtocol]()
     mockTasks.forEach({
         let task = Task(name: $0)
-        task.isRootTask = true
         tasks.append(task)
     })
     var subTasks = [TaskProtocol]()
