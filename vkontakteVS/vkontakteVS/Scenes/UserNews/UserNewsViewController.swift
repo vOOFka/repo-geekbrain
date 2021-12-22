@@ -14,7 +14,7 @@ class UserNewsViewController: UIViewController {
     private var userNews = NewsFeed()
     private var currentNews = News()
     private var newsWithFullText = [Int]()
-    private let networkService = NetworkServiceImplimentation()
+    private let networkService = NetworkServiceProxy(networkService: NetworkServiceImplimentation()) //NetworkServiceImplimentation()
     private let operationQueue: OperationQueue = {
     let operationQueue = OperationQueue()
         operationQueue.name = "com.AsyncOperation.UserNewsViewController"
@@ -73,7 +73,7 @@ class UserNewsViewController: UIViewController {
             return
         }
         let stringDate = String(date + 1) //добавляем сeкунду чтобы не грузилась уже существующая новость
-        let request = networkService.getNewsfeedRequest(stringDate)
+        let request = networkService.getNewsfeedRequest(stringDate, nextFrom: "")
         let getData = AFGetDataOperation(request: request)
         let parseData = DataParsingOperation<NewsFeed>()
         let completionOperation = BlockOperation {

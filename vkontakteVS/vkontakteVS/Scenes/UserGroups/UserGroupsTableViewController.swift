@@ -20,7 +20,7 @@ class UserGroupsTableViewController: UITableViewController {
     @IBOutlet private weak var groupsHeaderView: UIView!
     @IBOutlet private weak var bottom: NSLayoutConstraint!
     //MARK: - Properties
-    private let networkService = NetworkServiceImplimentation()
+    private let networkService = NetworkServiceProxy(networkService: NetworkServiceImplimentation()) //NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
     private var userGroups: [Group] = []
     //var filteredUserGroups = [RealmGroup()]
