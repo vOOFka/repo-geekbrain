@@ -17,7 +17,7 @@ class FriendPhotosCollectionViewController: UICollectionViewController {
         updatePhotosFromVKAPI()
     }
     //MARK: Properties
-    private let networkService = NetworkServiceImplimentation()
+    private let networkService = NetworkServiceProxy(networkService: NetworkServiceImplimentation()) //NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
     private var photosList: Results<RealmPhoto>!
     private let showFriendPhotoFullScreenVC = "FriendPhotoFullScreen"

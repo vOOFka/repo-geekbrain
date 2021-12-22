@@ -13,7 +13,7 @@ class AppendGroupsTableViewController: UITableViewController {
     //MARK: - Outlets
     @IBOutlet private var appendGroupsTableView: UITableView!
     //MARK: - Properties
-    private let networkService = NetworkServiceImplimentation()
+    private let networkService = NetworkServiceProxy(networkService: NetworkServiceImplimentation()) //NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
     private var foundAppendGroups: [Group] = []
     private var searching = false

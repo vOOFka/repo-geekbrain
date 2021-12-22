@@ -15,7 +15,7 @@ class FriendPhotoFullScreen: UIViewController {
     @IBOutlet weak private var nextPhotoImageView: UIImageView!
     @IBOutlet weak private var photoFullScreenScrollView: UIScrollView!
     //MARK: Properties
-    private let networkService = NetworkServiceImplimentation()
+    private let networkService = NetworkServiceProxy(networkService: NetworkServiceImplimentation()) //NetworkServiceImplimentation()
     private let realmService: RealmService = RealmServiceImplimentation()
     //Choice size download photo
     private let size = sizeTypeRealmEnum.max
