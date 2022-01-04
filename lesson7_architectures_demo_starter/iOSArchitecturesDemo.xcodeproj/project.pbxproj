@@ -26,6 +26,9 @@
 		E0E1D39F203AE7400011E01A /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D39E203AE7400011E01A /* ImageDownloader.swift */; };
 		E0E1D3D1203C48D70011E01A /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D3D0203C48D70011E01A /* AppDetailViewController.swift */; };
 		E0E1D3D4203C4AA50011E01A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D3D3203C4AA50011E01A /* UIColor+Extensions.swift */; };
+		F40A14CA2784A03C003E930F /* ScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14C92784A03C003E930F /* ScreenshotsCell.swift */; };
+		F40A14CC2784A05B003E930F /* ScreenshotsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14CB2784A05A003E930F /* ScreenshotsController.swift */; };
+		F40A14CE2784BAF2003E930F /* ScreenshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14CD2784BAF2003E930F /* ScreenshotsView.swift */; };
 		F4E8D74627807AFB008F478D /* WhatsNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8D74527807AFB008F478D /* WhatsNewViewController.swift */; };
 		F4E8D74827807B51008F478D /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8D74727807B51008F478D /* WhatsNewView.swift */; };
 		F4E8D74A278097B7008F478D /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8D749278097B7008F478D /* String+Ext.swift */; };
@@ -60,6 +63,9 @@
 		E0E1D39E203AE7400011E01A /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		E0E1D3D0203C48D70011E01A /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		E0E1D3D3203C4AA50011E01A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		F40A14C92784A03C003E930F /* ScreenshotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCell.swift; sourceTree = "<group>"; };
+		F40A14CB2784A05A003E930F /* ScreenshotsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsController.swift; sourceTree = "<group>"; };
+		F40A14CD2784BAF2003E930F /* ScreenshotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsView.swift; sourceTree = "<group>"; };
 		F4E8D74527807AFB008F478D /* WhatsNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewController.swift; sourceTree = "<group>"; };
 		F4E8D74727807B51008F478D /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
 		F4E8D749278097B7008F478D /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 		E0E1D2A72034A3780011E01A /* AppDetail */ = {
 			isa = PBXGroup;
 			children = (
+				F40A14C427849E18003E930F /* ScreenshotsModule */,
 				F4E8D74227807A1B008F478D /* WhatsNewModule */,
 				A22A2B62277A311E00D5D853 /* HeaderModule */,
 				F8114FC222A3E74E00102830 /* View */,
@@ -242,6 +249,32 @@
 				F4E8D749278097B7008F478D /* String+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F40A14C427849E18003E930F /* ScreenshotsModule */ = {
+			isa = PBXGroup;
+			children = (
+				F40A14C527849E52003E930F /* Controller */,
+				F40A14C627849E5F003E930F /* View */,
+			);
+			path = ScreenshotsModule;
+			sourceTree = "<group>";
+		};
+		F40A14C527849E52003E930F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F40A14CB2784A05A003E930F /* ScreenshotsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F40A14C627849E5F003E930F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F40A14CD2784BAF2003E930F /* ScreenshotsView.swift */,
+				F40A14C92784A03C003E930F /* ScreenshotsCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F4E8D74227807A1B008F478D /* WhatsNewModule */ = {
@@ -476,6 +509,8 @@
 				F4E8D74827807B51008F478D /* WhatsNewView.swift in Sources */,
 				A22A2B61277A1E6A00D5D853 /* AppDetailHeaderViewController.swift in Sources */,
 				E0E1D3D4203C4AA50011E01A /* UIColor+Extensions.swift in Sources */,
+				F40A14CE2784BAF2003E930F /* ScreenshotsView.swift in Sources */,
+				F40A14CA2784A03C003E930F /* ScreenshotsCell.swift in Sources */,
 				A22A2B5F277A1E0200D5D853 /* AppDetailHeaderView.swift in Sources */,
 				E0E1D3D1203C48D70011E01A /* AppDetailViewController.swift in Sources */,
 				E0E1D358203ADC590011E01A /* NetworkManager.swift in Sources */,
@@ -488,6 +523,7 @@
 				E0E1D2932034A3350011E01A /* AppDelegate.swift in Sources */,
 				E0E1D384203AE3620011E01A /* AppStartManager.swift in Sources */,
 				F8114FC122A3E5EE00102830 /* AppCellModel.swift in Sources */,
+				F40A14CC2784A05B003E930F /* ScreenshotsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

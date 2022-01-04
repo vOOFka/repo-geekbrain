@@ -15,6 +15,7 @@ final class AppDetailViewController: UIViewController {
 
 	lazy var headerViewController = AppDetailHeaderViewController(app: self.app)
     lazy var whatsNewViewController = WhatsNewViewController(app: self.app)
+    lazy var screenshotsViewController = ScreenshotsController(app: self.app)
     
     private var appDetailView: AppDetailView {
         return self.view as! AppDetailView
@@ -49,6 +50,7 @@ final class AppDetailViewController: UIViewController {
 		self.navigationItem.largeTitleDisplayMode = .never
 		self.addHeaderViewController()
         self.addWhatsNewViewController()
+        self.addScreenScreenshotsVC()        
 		//self.addDescriptionViewController()
         
 	}
@@ -81,6 +83,19 @@ final class AppDetailViewController: UIViewController {
             self.whatsNewViewController.view.topAnchor.constraint(equalTo: self.headerViewController.view.bottomAnchor),
             self.whatsNewViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.whatsNewViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+        ])
+    }
+    
+    private func addScreenScreenshotsVC() {
+        self.addChild(self.screenshotsViewController)
+        self.view.addSubview(self.screenshotsViewController.view)
+        self.screenshotsViewController.didMove(toParent: self)
+
+        self.screenshotsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.screenshotsViewController.view.topAnchor.constraint(equalTo: self.whatsNewViewController.view.bottomAnchor),
+            self.screenshotsViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.screenshotsViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
     }
 
