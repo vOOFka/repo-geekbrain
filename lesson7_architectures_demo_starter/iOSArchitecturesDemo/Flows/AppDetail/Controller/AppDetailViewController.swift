@@ -14,6 +14,8 @@ final class AppDetailViewController: UIViewController {
 	private let imageDownloader = ImageDownloader()
 
 	lazy var headerViewController = AppDetailHeaderViewController(app: self.app)
+    lazy var whatsNewViewController = WhatsNewViewController(app: self.app)
+    lazy var screenshotsViewController = ScreenshotsController(app: self.app)
     
     private var appDetailView: AppDetailView {
         return self.view as! AppDetailView
@@ -47,7 +49,10 @@ final class AppDetailViewController: UIViewController {
 		self.navigationController?.navigationBar.tintColor = UIColor.white;
 		self.navigationItem.largeTitleDisplayMode = .never
 		self.addHeaderViewController()
-		self.addDescriptionViewController()
+        self.addWhatsNewViewController()
+        self.addScreenScreenshotsVC()        
+		//self.addDescriptionViewController()
+        
 	}
     
     private func configureNavigationController() {
@@ -67,6 +72,32 @@ final class AppDetailViewController: UIViewController {
 			self.headerViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
 		])
 	}
+    
+    private func addWhatsNewViewController() {
+        self.addChild(self.whatsNewViewController)
+        self.view.addSubview(self.whatsNewViewController.view)
+        self.whatsNewViewController.didMove(toParent: self)
+
+        self.whatsNewViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.whatsNewViewController.view.topAnchor.constraint(equalTo: self.headerViewController.view.bottomAnchor),
+            self.whatsNewViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.whatsNewViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+        ])
+    }
+    
+    private func addScreenScreenshotsVC() {
+        self.addChild(self.screenshotsViewController)
+        self.view.addSubview(self.screenshotsViewController.view)
+        self.screenshotsViewController.didMove(toParent: self)
+
+        self.screenshotsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.screenshotsViewController.view.topAnchor.constraint(equalTo: self.whatsNewViewController.view.bottomAnchor),
+            self.screenshotsViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.screenshotsViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+        ])
+    }
 
 	private func addDescriptionViewController() {
 		// TODO: ДЗ, сделать другие сабмодули

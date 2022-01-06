@@ -16,7 +16,6 @@ final class SearchPresenter {
 	private func requestApps(with query: String) {
 		self.searchService.getApps(forQuery: query) { [weak self] result in
 			guard let self = self else { return }
-			self.viewInput?.throbber(show: false)
 			result
 				.withValue { apps in
 					guard !apps.isEmpty else {
@@ -49,7 +48,6 @@ final class SearchPresenter {
 extension SearchPresenter: SearchViewOutput {
 
 	func viewDidSearch(with query: String) {
-		self.viewInput?.throbber(show: true)
 		self.requestApps(with: query)
 	}
 
