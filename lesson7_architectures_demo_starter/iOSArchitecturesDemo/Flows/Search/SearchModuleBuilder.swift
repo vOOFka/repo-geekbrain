@@ -18,9 +18,12 @@ final class SearchModuleBuilder {
 	}
     
     func buildMusicVC() -> UIViewController {
-        let presenter = SearchMusicPresenter()
+        let router = SearchMusicRouter()
+        let interactor = SearchMusicInteractor()
+        let presenter = SearchMusicPresenter(interactor: interactor, router: router)
         let viewController = SearchMusicViewController(presenter: presenter)
         presenter.viewInput = viewController
+        router.viewController = viewController
         return viewController
     }
 }

@@ -33,6 +33,8 @@
 		F4059B462787323200D4D01D /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4059B452787323200D4D01D /* WebImageView.swift */; };
 		F4059B492787399F00D4D01D /* MusicDedailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4059B482787399F00D4D01D /* MusicDedailViewController.swift */; };
 		F4059B4B27873A7F00D4D01D /* MusicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4059B4A27873A7F00D4D01D /* MusicDetailView.swift */; };
+		F4059B53278747EF00D4D01D /* SearchMusicRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4059B52278747EF00D4D01D /* SearchMusicRouter.swift */; };
+		F4059B552787496200D4D01D /* SearchMusicInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4059B542787496200D4D01D /* SearchMusicInteractor.swift */; };
 		F40A14CA2784A03C003E930F /* ScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14C92784A03C003E930F /* ScreenshotsCell.swift */; };
 		F40A14CC2784A05B003E930F /* ScreenshotsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14CB2784A05A003E930F /* ScreenshotsController.swift */; };
 		F40A14CE2784BAF2003E930F /* ScreenshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40A14CD2784BAF2003E930F /* ScreenshotsView.swift */; };
@@ -77,6 +79,8 @@
 		F4059B452787323200D4D01D /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		F4059B482787399F00D4D01D /* MusicDedailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDedailViewController.swift; sourceTree = "<group>"; };
 		F4059B4A27873A7F00D4D01D /* MusicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailView.swift; sourceTree = "<group>"; };
+		F4059B52278747EF00D4D01D /* SearchMusicRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRouter.swift; sourceTree = "<group>"; };
+		F4059B542787496200D4D01D /* SearchMusicInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicInteractor.swift; sourceTree = "<group>"; };
 		F40A14C92784A03C003E930F /* ScreenshotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCell.swift; sourceTree = "<group>"; };
 		F40A14CB2784A05A003E930F /* ScreenshotsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsController.swift; sourceTree = "<group>"; };
 		F40A14CD2784BAF2003E930F /* ScreenshotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsView.swift; sourceTree = "<group>"; };
@@ -186,9 +190,10 @@
 		E0E1D2A62034A36C0011E01A /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				A22A2B67277A40A200D5D853 /* SearchModuleBuilder.swift */,
 				F8A97B3622498F0C00FB2C0E /* View */,
 				F8114FBF22A3E5D500102830 /* Controller */,
-				A22A2B67277A40A200D5D853 /* SearchModuleBuilder.swift */,
+				F4059B4C2787457900D4D01D /* SearchMusic */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -283,6 +288,59 @@
 			path = MusicDetail;
 			sourceTree = "<group>";
 		};
+		F4059B4C2787457900D4D01D /* SearchMusic */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B4F2787462800D4D01D /* Presenter */,
+				F4059B512787468A00D4D01D /* Router */,
+				F4059B502787467D00D4D01D /* Interactor */,
+				F4059B4D2787459500D4D01D /* View */,
+				F4059B4E278745A100D4D01D /* Controller */,
+			);
+			path = SearchMusic;
+			sourceTree = "<group>";
+		};
+		F4059B4D2787459500D4D01D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B42278716ED00D4D01D /* MusicCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F4059B4E278745A100D4D01D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B3E278713C600D4D01D /* SearchMusicViewController.swift */,
+				F4059B402787159100D4D01D /* MusicCellModel.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F4059B4F2787462800D4D01D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B3C2787128900D4D01D /* SearchMusicPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		F4059B502787467D00D4D01D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B542787496200D4D01D /* SearchMusicInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		F4059B512787468A00D4D01D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				F4059B52278747EF00D4D01D /* SearchMusicRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		F40A14C427849E18003E930F /* ScreenshotsModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,11 +396,8 @@
 			isa = PBXGroup;
 			children = (
 				E0E1D2942034A3350011E01A /* SearchViewController.swift */,
-				F4059B3E278713C600D4D01D /* SearchMusicViewController.swift */,
 				A22A2B65277A3BAE00D5D853 /* SearchPresenter.swift */,
-				F4059B3C2787128900D4D01D /* SearchMusicPresenter.swift */,
 				F8114FC022A3E5EE00102830 /* AppCellModel.swift */,
-				F4059B402787159100D4D01D /* MusicCellModel.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -416,7 +471,6 @@
 			children = (
 				F8114FBD22A3DBF400102830 /* SearchView.swift */,
 				F8A97B342249898E00FB2C0E /* AppCell.swift */,
-				F4059B42278716ED00D4D01D /* MusicCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +591,7 @@
 				A22A2B68277A40A200D5D853 /* SearchModuleBuilder.swift in Sources */,
 				E0E1D399203AE62E0011E01A /* ITunesApp.swift in Sources */,
 				F8A97B352249898E00FB2C0E /* AppCell.swift in Sources */,
+				F4059B53278747EF00D4D01D /* SearchMusicRouter.swift in Sources */,
 				A22A2B66277A3BAE00D5D853 /* SearchPresenter.swift in Sources */,
 				F8114FC522A3E77500102830 /* AppDetailView.swift in Sources */,
 				E0E1D387203AE45F0011E01A /* WebRequest.swift in Sources */,
@@ -549,6 +604,7 @@
 				A22A2B61277A1E6A00D5D853 /* AppDetailHeaderViewController.swift in Sources */,
 				E0E1D3D4203C4AA50011E01A /* UIColor+Extensions.swift in Sources */,
 				F40A14CE2784BAF2003E930F /* ScreenshotsView.swift in Sources */,
+				F4059B552787496200D4D01D /* SearchMusicInteractor.swift in Sources */,
 				F40A14CA2784A03C003E930F /* ScreenshotsCell.swift in Sources */,
 				F4059B43278716ED00D4D01D /* MusicCell.swift in Sources */,
 				A22A2B5F277A1E0200D5D853 /* AppDetailHeaderView.swift in Sources */,
