@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN7-vZ-5R0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN7-vZ-5R0">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -689,7 +690,9 @@
                             <constraint firstItem="S5a-iJ-y96" firstAttribute="top" secondItem="eMG-vW-I9n" secondAttribute="top" id="npl-fZ-5q3"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="Yyy-v5-hO0"/>
+                    <tabBarItem key="tabBarItem" title="Новости" landscapeImage="AlamofireLogo.png" id="Yyy-v5-hO0">
+                        <imageReference key="image" image="applelogo" catalog="system" symbolScale="small"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="tableView" destination="S5a-iJ-y96" id="J4N-dz-9YR"/>
                     </connections>
@@ -700,10 +703,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AlamofireLogo.png" width="850" height="250"/>
+        <image name="applelogo" catalog="system" width="103" height="128"/>
         <image name="arrow.clockwise.icloud" catalog="system" width="128" height="88"/>
         <image name="logo_vk" width="512" height="512"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>

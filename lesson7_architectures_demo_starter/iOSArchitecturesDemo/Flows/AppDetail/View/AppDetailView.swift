@@ -13,7 +13,6 @@ final class AppDetailView: UIView {
     // MARK: - Subviews
     
     let imageView = UIImageView()
-    let throbber = UIActivityIndicatorView(style: .gray)
     
     // MARK: - Init
     
@@ -32,7 +31,6 @@ final class AppDetailView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         //self.addImageView()
-        //self.addImageViewThrobber()
         self.setupConstraints()
     }
     
@@ -44,20 +42,12 @@ final class AppDetailView: UIView {
 //        self.addSubview(self.imageView)
 //    }
     
-//    private func addImageViewThrobber() {
-//        self.throbber.translatesAutoresizingMaskIntoConstraints = false
-//        self.imageView.addSubview(self.throbber)
-//    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
 //            self.imageView.widthAnchor.constraint(equalToConstant: 100.0),
 //            self.imageView.heightAnchor.constraint(equalToConstant: 100.0),
 //            self.imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            self.imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//
-//            self.throbber.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            self.throbber.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//            self.imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
             ])
     }
 }

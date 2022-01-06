@@ -10,8 +10,8 @@ import UIKit
 
 class ScreenshotsCell: UICollectionViewCell {
     
-    private(set) lazy var screenshotImageView: UIImageView = {
-        let image = UIImageView()
+    private(set) lazy var screenshotImageView: WebImageView = {
+        let image = WebImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
         return image
@@ -31,9 +31,8 @@ class ScreenshotsCell: UICollectionViewCell {
 
     // MARK: - UI
     
-    func configuration(with image: UIImage?) {
-        guard let image = image else { return }
-        screenshotImageView.image = image
+    func configuration(with url: String?) {
+        screenshotImageView.setImage(url: url)
     }
 
     private func setupLayout() {

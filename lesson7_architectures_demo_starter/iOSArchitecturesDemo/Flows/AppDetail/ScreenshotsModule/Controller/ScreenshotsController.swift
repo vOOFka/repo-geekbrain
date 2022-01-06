@@ -18,7 +18,6 @@ final class ScreenshotsController: UIViewController {
     }
     
     private let app: ITunesApp
-    private let imageDownloader = ImageDownloader()
 
     // MARK: - Init
     override func loadView() {
@@ -51,7 +50,6 @@ extension ScreenshotsController: UICollectionViewDelegate, UICollectionViewDataS
         return 1
     }
 
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return app.screenshotUrls.count
     }
@@ -62,19 +60,7 @@ extension ScreenshotsController: UICollectionViewDelegate, UICollectionViewDataS
         else {
             return UICollectionViewCell()
         }
-        downloadImage(url: app.screenshotUrls[indexPath.row], completion: { img in
-            cell.configuration(with: img)
-        })
+        cell.configuration(with: app.screenshotUrls[indexPath.row])
         return cell
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//           return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-//        }
-    
-    private func downloadImage(url: String, completion: @escaping (UIImage?) -> Void)  {
-        self.imageDownloader.getImage(fromUrl: url) { (image, _) in
-            completion(image)
-        }
     }
 }

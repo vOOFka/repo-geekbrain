@@ -15,8 +15,6 @@ protocol SearchViewInput: AnyObject {
 	func showNoResults()
 
 	func hideNoResults()
-
-	func throbber(show: Bool)
 }
 
 protocol SearchViewOutput: AnyObject {
@@ -75,7 +73,6 @@ final class SearchViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.throbber(show: false)
     }
 }
 
@@ -135,9 +132,5 @@ extension SearchViewController: SearchViewInput {
 
 	func hideNoResults() {
 		self.searchView.emptyResultView.isHidden = true
-	}
-
-	func throbber(show: Bool) {
-		UIApplication.shared.isNetworkActivityIndicatorVisible = show
 	}
 }
