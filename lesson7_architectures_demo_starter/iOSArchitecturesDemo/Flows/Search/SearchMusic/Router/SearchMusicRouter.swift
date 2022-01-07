@@ -18,12 +18,14 @@ final class SearchMusicRouter: SearchMusicRouterInput {
     weak var viewController: UIViewController?
 
     func openSongDetails(with song: ITunesSong) {
-        let musicDetaillViewController = MusicDedailViewController(song: song)
+        let musicDetailViewModel = MusicDetailViewModel(song: song, playSongsService: FakePlaySongsService())
+        let musicDetaillViewController = MusicDetailViewController(viewModel: musicDetailViewModel)
         self.viewController?.navigationController?.pushViewController(musicDetaillViewController, animated: true)
     }
 
     func openSongInITunes(_ song: ITunesSong) {
-        let musicDetaillViewController = MusicDedailViewController(song: song)
+        let musicDetailViewModel = MusicDetailViewModel(song: song, playSongsService: FakePlaySongsService())
+        let musicDetaillViewController = MusicDetailViewController(viewModel: musicDetailViewModel)
         self.viewController?.navigationController?.pushViewController(musicDetaillViewController, animated: true)
         
 //        guard let urlString = app.appUrl, let url = URL(string: urlString) else {
