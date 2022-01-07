@@ -9,12 +9,18 @@
 import UIKit
 
 final class SearchMusicPresenter {
-
-    private let searchService = ITunesSearchService()
     weak var viewInput: (UIViewController & SearchMusicViewInput)?
+    
+    let interactor: SearchMusicInteractorInput
+    let router: SearchMusicRouterInput
+    
+    init(interactor: SearchMusicInteractorInput, router: SearchMusicRouterInput) {
+        self.interactor = interactor
+        self.router = router
+    }
 
     private func requestSongs(with query: String) {
-        self.searchService.getSongs(forQuery: query) { [weak self] result in
+        self.interactor.requestSongs(with: query) { [weak self] result in
             guard let self = self else { return }
             result
                 .withValue { songs in
@@ -26,28 +32,16 @@ final class SearchMusicPresenter {
                     self.viewInput?.searchMusicResults = songs
                 }
                 .withError {
-                    self.showError(error: $0)
+                    self.router.showError(error: $0)
                 }
         }
-    }
-
-    private func openSongDetails(with song: ITunesSong) {
-        let musicDetaillViewController = MusicDedailViewController(song: song)
-        self.viewInput?.navigationController?.pushViewController(musicDetaillViewController, animated: true)
-    }
-
-    private func showError(error: Error) {
-        let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-        let actionOk = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(actionOk)
-        self.viewInput?.present(alert, animated: true, completion: nil)
     }
 }
 
 // MARK: - SearchViewOutput
 extension SearchMusicPresenter: SearchMusicViewOutput {
     func viewDidSelectSong(_ song: ITunesSong) {
-        self.openSongDetails(with: song)
+        self.router.openSongDetails(with: song)
     }
 
     func viewDidSearch(with query: String) {
