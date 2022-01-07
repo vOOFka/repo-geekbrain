@@ -15,8 +15,20 @@ protocol SearchMusicInteractorInput {
 
 final class SearchMusicInteractor: SearchMusicInteractorInput {
     private let searchService = ITunesSearchService()
-
+    private var cacheSongs = Dictionary<String, Result<[ITunesSong]>>()
+    
     func requestSongs(with query: String, completion: @escaping (Result<[ITunesSong]>) -> Void) {
-        self.searchService.getSongs(forQuery: query, completion: completion)
+        let cacheData = cacheSongs.contains(where: { $0.key == query })
+        if cacheData {
+            completion(cacheSongs[query]!)
+        } else {
+            self.searchService.getSongs(forQuery: query, completion: { songs in
+                completion(songs)
+                self.cacheSongs[query] = songs
+            })
+        }
+        if cacheSongs.count >= 100 {
+            cacheSongs.removeAll()
+        }
     }
 }
